@@ -3,7 +3,7 @@ import os
 import pygount
 
 
-class PythonModule:
+class Module:
 
     def __init__(self, path: str, package: Optional[str] = None):
         self.path = path

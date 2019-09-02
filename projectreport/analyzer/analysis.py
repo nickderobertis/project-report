@@ -1,7 +1,7 @@
 import pygount
 
 
-class PackageAnalysis:
+class FolderAnalysis:
 
     def __init__(self):
         self.lines = {key: 0 for key in [
@@ -21,7 +21,7 @@ class PackageAnalysis:
                 value = 0
             self.lines[attr] += value
 
-    def add_subpackage_analysis(self, analysis: 'PackageAnalysis'):
+    def add_subfolder_analysis(self, analysis: 'FolderAnalysis'):
         for attr in self.lines:
             value = analysis.lines[attr]
             if value is None:
