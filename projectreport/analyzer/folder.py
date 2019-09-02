@@ -1,25 +1,29 @@
-from typing import Optional, List, Sequence
+from typing import Optional, List, Sequence, TYPE_CHECKING
+if TYPE_CHECKING:
+    from projectreport.analyzer.project import Project
 import os
 
 from cached_property import cached_property
 from projectreport.analyzer.analysis import FolderAnalysis
 from projectreport.analyzer.module import Module
+from projectreport.analyzer.analyzable import Analyzable
 
 
-class Folder:
+class Folder(Analyzable):
 
-    def __init__(self, path: str, root_path: Optional[str] = None, excluded_types: Optional[Sequence[str]] = None,
+    def __init__(self, path: str, project: Optional['Project'] = None, excluded_types: Optional[Sequence[str]] = None,
                  included_types: Optional[Sequence[str]] = None):
-        self.path = os.path.abspath(path)
+        from projectreport.analyzer.project import Project
+        path = os.path.abspath(path)
         self.name = os.path.basename(path)
-        if root_path is None:
-            root_path = self.name
-        self.root_path = root_path
         self.options = dict(
             excluded_types=excluded_types,
             included_types=included_types
         )
+        if project is None:
+            project = Project(self.path, **self.options)
         self._validate()
+        super().__init__(path, project=project)
 
     @cached_property
     def file_paths(self) -> List[str]:
@@ -47,11 +51,11 @@ class Folder:
 
     @cached_property
     def modules(self) -> List['Module']:
-        return [Module(file_path, self.path) for file_path in self.file_paths]
+        return [Module(file_path, self.name, project=self.project) for file_path in self.file_paths]
 
     @cached_property
     def folders(self) -> List['Folder']:
-        return [self.__class__(folder, root_path=self.root_path, **self.options) for folder in self.folder_paths]
+        return [Folder(folder, project=self.project, **self.options) for folder in self.folder_paths]
 
     @cached_property
     def source_analysis(self) -> 'FolderAnalysis':
@@ -59,7 +63,7 @@ class Folder:
         for folder in self.folders:
             analysis.add_subfolder_analysis(folder.source_analysis)
         for module in self.modules:
-            analysis.add_module_analysis(module.source_analysis)
+            analysis.add_module_analysis(module.analysis)
         return analysis
 
     def _validate(self):
