@@ -12,6 +12,10 @@ sphinx-autodoc-typehints = "*"
 sphinxcontrib-fulltoc = "*"
 sphinx-paramlinks = "*"
 twine = "*"
+pygount = "*"
+cached_property = "*"
+jupyterlab = "*"
+gitpython = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
