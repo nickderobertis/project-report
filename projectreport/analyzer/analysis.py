@@ -59,31 +59,6 @@ class GitAnalysis:
         commits = [commit for commit in self.ref.project.repo.iter_commits(paths=self.ref.path)]
         return commits
 
-    # @cached_property
-    # def first_commit(self) -> Optional[git.Commit]:
-    #     """
-    #     For some reason, errors are coming in trying to access properties of the first commits.
-    #     This gets the first working commit.
-    #     :return:
-    #     """
-    #     if not self.has_repo:
-    #         return None
-    #     commits = deepcopy(self.commits)
-    #     commits.reverse()
-    #     for commit in commits:
-    #         try:
-    #             commit.summary
-    #         except ValueError as e:
-    #             if 'SHA could not be resolved' in e:
-    #                 # For some reason this commit doesn't work, try the next one
-    #                 continue
-    #             else:
-    #                 raise e
-    #         # This is a valid commit, return it
-    #         return commit
-
-
-
     @cached_property
     def num_commits(self) -> Optional[int]:
         if not self.has_repo:
