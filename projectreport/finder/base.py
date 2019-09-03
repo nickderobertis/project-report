@@ -37,6 +37,10 @@ class Finder:
 
         return self.project_paths
 
+    def find_all(self, paths: Sequence[str], ignore_paths: Optional[Sequence[str]] = DEFAULT_IGNORE_PATHS):
+        [self.find(path, ignore_paths=ignore_paths) for path in paths]
+        return self.project_paths
+
     def is_valid(self, path: str):
         _, folders, files = next(os.walk(path))
         if self.required_folders:
