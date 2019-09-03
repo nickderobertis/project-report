@@ -16,6 +16,7 @@ pygount = "*"
 cached_property = "*"
 jupyterlab = "*"
 gitpython = "*"
+pyexlatex = "*"
 
 [requires]
 python_version = "3.7"

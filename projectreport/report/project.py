@@ -25,6 +25,15 @@ class ProjectReport:
         return yaml.dump(self.data, indent=2)
 
     @cached_property
+    def doc(self):
+        from projectreport.report.latex import project_latex_document
+        return project_latex_document(self.data)
+
+    @cached_property
+    def latex(self):
+        return str(self.doc)
+
+    @cached_property
     def data(self) -> Dict[str, Union[str, int, dict]]:
         data = {}
         data.update(self.project.data)
