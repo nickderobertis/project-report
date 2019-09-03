@@ -11,5 +11,5 @@ def all_possible_paths(paths: Sequence[str], base_path: Optional[str] = None) ->
             full_path = os.path.join(base_path, path)
         else:
             full_path = path
-        all_paths.extend(glob.glob(full_path, recursive=True))
+        all_paths.extend(glob.glob(full_path, recursive=False))
     return all_paths

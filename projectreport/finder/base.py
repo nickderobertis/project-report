@@ -19,9 +19,12 @@ class Finder:
     def find(self, path: str, ignore_paths: Optional[Sequence[str]] = DEFAULT_IGNORE_PATHS):
         if ignore_paths:
             all_ignore_paths = all_possible_paths(ignore_paths, path)
-            if path in all_ignore_paths:
-                # Ignored, do nothing and return
-                return self.project_paths
+        else:
+            all_ignore_paths = []
+
+        if path in all_ignore_paths:
+            # Ignored, do nothing and return
+            return self.project_paths
 
         _, folders, files = next(os.walk(path))
 
@@ -33,7 +36,9 @@ class Finder:
 
         for folder in folders:
             folder_path = os.path.join(path, folder)
-            self.find(folder_path)
+            if folder_path in all_ignore_paths:
+                continue
+            self.find(folder_path, ignore_paths=ignore_paths)
 
         return self.project_paths
 
