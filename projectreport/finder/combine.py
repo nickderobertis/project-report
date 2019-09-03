@@ -1,0 +1,23 @@
+from typing import Sequence
+import os
+from projectreport.finder.base import Finder
+
+
+class CombinedFinder(Finder):
+
+    def __init__(self, finders: Sequence[Finder], recursive: bool = True):
+        self.finders = finders
+        super().__init__(recursive=recursive)
+        self.required_folders = any([finder.required_folders for finder in self.finders])
+        self.required_files = any([finder.required_files for finder in self.finders])
+        self.file_extensions = []
+        for finder in self.finders:
+            if finder.file_extensions:
+                self.file_extensions.extend(finder.file_extensions)
+
+    def is_valid(self, path: str):
+        is_valid = False
+        for finder in self.finders:
+            if finder.is_valid(path):
+                is_valid = True
+        return is_valid
