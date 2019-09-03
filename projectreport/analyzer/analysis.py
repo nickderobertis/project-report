@@ -10,7 +10,23 @@ from cached_property import cached_property
 import git
 
 
-class FolderAnalysis:
+class Analysis:
+    loc = None
+
+    def __init__(self, analyzable: 'Analyzable'):
+        self.git_analysis = GitAnalysis(analyzable)
+
+    @cached_property
+    def data(self):
+        return dict(
+            num_commits=self.git_analysis.num_commits,
+            created=self.git_analysis.created,
+            updated=self.git_analysis.updated,
+            lines=self.loc
+        )
+
+
+class FolderAnalysis(Analysis):
 
     def __init__(self, folder: 'Folder'):
         self.lines = {key: 0 for key in [
@@ -19,7 +35,7 @@ class FolderAnalysis:
             'empty',
             'string'
         ]}
-        self.git_analysis = GitAnalysis(folder)
+        super().__init__(folder)
 
     def __repr__(self):
         return f'<PackageAnalysis(lines={self.lines})>'
@@ -38,13 +54,18 @@ class FolderAnalysis:
                 value = 0
             self.lines[attr] += value
 
+    @property
+    def loc(self) -> int:
+        return self.lines['code']
 
-class ModuleAnalysis:
+
+class ModuleAnalysis(Analysis):
 
     def __init__(self, module: 'Module'):
         self.module = module
         self.source_analysis = pygount.source_analysis(self.module.path, self.module.package)
-        self.git_analysis = GitAnalysis(self.module)
+        self.loc = self.source_analysis.code
+        super().__init__(module)
 
 
 class GitAnalysis:
@@ -67,10 +88,14 @@ class GitAnalysis:
 
     @cached_property
     def created(self) -> Optional[datetime]:
+        if not self.commits:
+            return None
         return self.commits[-1].committed_datetime
 
     @cached_property
     def updated(self) -> Optional[datetime]:
+        if not self.commits:
+            return None
         return self.commits[0].committed_datetime
 
     @cached_property
