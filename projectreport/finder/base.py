@@ -1,6 +1,9 @@
 from typing import Optional, Sequence
 import os
 
+from projectreport.tools.expand_glob import all_possible_paths
+from projectreport.config import DEFAULT_IGNORE_PATHS
+
 
 class Finder:
 
@@ -13,7 +16,13 @@ class Finder:
         self.file_extensions = file_extensions
         self.project_paths = []
 
-    def find(self, path: str):
+    def find(self, path: str, ignore_paths: Optional[Sequence[str]] = DEFAULT_IGNORE_PATHS):
+        if ignore_paths:
+            all_ignore_paths = all_possible_paths(ignore_paths, path)
+            if path in all_ignore_paths:
+                # Ignored, do nothing and return
+                return self.project_paths
+
         _, folders, files = next(os.walk(path))
 
         if self.is_valid(path):

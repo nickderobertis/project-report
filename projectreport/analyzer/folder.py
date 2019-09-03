@@ -9,18 +9,22 @@ from projectreport.analyzer.analysis import FolderAnalysis
 from projectreport.analyzer.module import Module
 from projectreport.analyzer.analyzable import Analyzable
 from projectreport.analyzer.parsers.index import PARSER_DOC_FILES
+from projectreport.tools.expand_glob import all_possible_paths
+from projectreport.config import DEFAULT_IGNORE_PATHS
 
 
 class Folder(Analyzable):
 
     def __init__(self, path: str, project: Optional['Project'] = None, excluded_types: Optional[Sequence[str]] = None,
-                 included_types: Optional[Sequence[str]] = None):
+                 included_types: Optional[Sequence[str]] = None,
+                 ignore_paths: Optional[Sequence[str]] = DEFAULT_IGNORE_PATHS):
         from projectreport.analyzer.project import Project
         path = os.path.abspath(path)
         self.name = os.path.basename(path)
         self.options = dict(
             excluded_types=excluded_types,
-            included_types=included_types
+            included_types=included_types,
+            ignore_paths=ignore_paths
         )
         if project is None:
             project = Project(self.path, **self.options)
@@ -35,7 +39,14 @@ class Folder(Analyzable):
     @cached_property
     def file_paths(self) -> List[str]:
         included_files = []
+        if self.options['ignore_paths']:
+            all_ignore_paths = all_possible_paths(self.options['ignore_paths'], self.path)
+
         for file in self.file_names:
+            if self.options['ignore_paths']:
+                file_path = os.path.join(self.path, file)
+                if file_path in all_ignore_paths:
+                    continue  # this file excluded, skip it
             extension = os.path.splitext(file)[1].strip('.')
             if self.options['included_types']:
                 if extension in self.options['included_types']:
@@ -52,8 +63,19 @@ class Folder(Analyzable):
     @cached_property
     def folder_paths(self) -> List[str]:
         folders = [file for file in next(os.walk(self.path))[1]]
-        abs_folders = [os.path.join(self.path, folder) for folder in folders]
-        return abs_folders
+
+        if self.options['ignore_paths']:
+            all_ignore_paths = all_possible_paths(self.options['ignore_paths'], self.path)
+
+        out_folders = []
+        for folder in folders:
+            abs_folder = os.path.join(self.path, folder)
+            if self.options['ignore_paths']:
+                if abs_folder in all_ignore_paths:
+                    continue  # this folder excluded, skip it
+            out_folders.append(abs_folder)
+
+        return out_folders
 
     @cached_property
     def modules(self) -> List['Module']:
