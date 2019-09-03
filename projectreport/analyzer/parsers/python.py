@@ -18,5 +18,4 @@ class PythonParser(Parser):
 
     @cached_property
     def docstring(self):
-        print(f'docstring for {self.path}: {ast.get_docstring(self.parsed)}')
         return ast.get_docstring(self.parsed)

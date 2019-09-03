@@ -26,6 +26,8 @@ class Analyzable:
         data.update(dict(
             docstring=self.docstring,
         ))
+        if hasattr(self, 'name'):
+            data.update(dict(name=self.name))
         return data
 
 
