@@ -3,35 +3,19 @@ if TYPE_CHECKING:
     from projectreport.analyzer.project import Project
     from projectreport.analyzer.folder import Folder
 from cached_property import cached_property
-import yaml
-from projectreport.report.json import to_json
+from projectreport.report.base import BaseReport
 
 
-class ProjectReport:
+class ProjectReport(BaseReport):
 
     def __init__(self, project: 'Project', depth: int = 0):
         self.project = project
         self.depth = depth
 
-    def __str__(self):
-        return self.yaml
-
-    @cached_property
-    def json(self) -> str:
-        return to_json(self.data)
-
-    @cached_property
-    def yaml(self) -> str:
-        return yaml.dump(self.data, indent=2)
-
     @cached_property
     def doc(self):
         from projectreport.report.latex import project_latex_document
         return project_latex_document(self.data)
-
-    @cached_property
-    def latex(self):
-        return str(self.doc)
 
     @cached_property
     def data(self) -> Dict[str, Union[str, int, dict]]:

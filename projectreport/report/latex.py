@@ -1,8 +1,8 @@
+from typing import List
 import pyexlatex as pl
 from pyexlatex.models.section.base import TextAreaMixin
 from pyexlatex.models.item import ItemBase
 from pyexlatex.models.format.breaks import OutputLineBreak
-from pyexlatex.models.format.adjustwidth import AdjustWidth
 
 
 class SubProjectLatex(TextAreaMixin, ItemBase):
@@ -32,15 +32,38 @@ class SubProjectLatex(TextAreaMixin, ItemBase):
         return _build(self.contents)
 
 
-def project_latex(data):
+def project_latex(data: dict):
     contents = []
     contents.append(SubProjectLatex(data))
     if 'subprojects' in data:
         for project in data['subprojects']:
-            contents.append(AdjustWidth(project_latex(data['subprojects'][project])))
+            contents.append(pl.ParagraphIndent(project_latex(data['subprojects'][project])))
+    return contents
+
+
+def multi_project_latex(data: List[dict]):
+    contents = []
+    for data_dict in data:
+        contents.extend([
+            project_latex(data_dict),
+            pl.HLine(),
+            pl.VSpace(0.5),
+        ])
+
+    del contents[-2:]  # remove last horizontal line and vertical spacing
     return contents
 
 
 def project_latex_document(data) -> pl.Document:
     contents = project_latex(data)
-    return pl.Document(contents)
+    return _get_document(contents)
+
+
+def multi_project_latex_document(data: List[dict]) -> pl.Document:
+    contents = multi_project_latex(data)
+    return _get_document(contents)
+
+
+def _get_document(contents) -> pl.Document:
+    doc = pl.Document(contents)
+    return doc
