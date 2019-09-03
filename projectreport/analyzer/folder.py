@@ -1,12 +1,14 @@
 from typing import Optional, List, Sequence, TYPE_CHECKING
 if TYPE_CHECKING:
     from projectreport.analyzer.project import Project
+    from projectreport.analyzer.parsers.base import Parser
 import os
 
 from cached_property import cached_property
 from projectreport.analyzer.analysis import FolderAnalysis
 from projectreport.analyzer.module import Module
 from projectreport.analyzer.analyzable import Analyzable
+from projectreport.analyzer.parsers.index import PARSER_DOC_FILES
 
 
 class Folder(Analyzable):
@@ -26,10 +28,14 @@ class Folder(Analyzable):
         super().__init__(path, project=project)
 
     @cached_property
-    def file_paths(self) -> List[str]:
+    def file_names(self) -> List[str]:
         file_names = [file for file in next(os.walk(self.path))[2]]
+        return file_names
+
+    @cached_property
+    def file_paths(self) -> List[str]:
         included_files = []
-        for file in file_names:
+        for file in self.file_names:
             extension = os.path.splitext(file)[1].strip('.')
             if self.options['included_types']:
                 if extension in self.options['included_types']:
@@ -65,6 +71,14 @@ class Folder(Analyzable):
         for module in self.modules:
             analysis.add_module_analysis(module.analysis)
         return analysis
+
+    @cached_property
+    def parser(self) -> Optional['Parser']:
+        for file, parser in PARSER_DOC_FILES.items():
+            if file in self.file_names:
+                full_path = os.path.join(self.path, file)
+                return PARSER_DOC_FILES[file](full_path)
+        return None
 
     def _validate(self):
         if self.options['included_types'] and self.options['excluded_types']:

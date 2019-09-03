@@ -14,7 +14,7 @@ class ProjectReport:
     @cached_property
     def data(self) -> Dict[str, Union[str, int, dict]]:
         data = {}
-        data.update(self.project.analysis.data)
+        data.update(self.project.data)
         if self.depth == 0:
             return data
 
@@ -28,7 +28,7 @@ class ProjectReport:
 
 
 def gather_data(folder: 'Folder', data: dict, remaining_depth: int = 0):
-    data.update(folder.analysis.data)
+    data.update(folder.data)
     if remaining_depth <= 0:
         return
 
