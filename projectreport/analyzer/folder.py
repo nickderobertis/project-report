@@ -58,10 +58,10 @@ class Folder(Analyzable):
         return [Folder(folder, project=self.project, **self.options) for folder in self.folder_paths]
 
     @cached_property
-    def source_analysis(self) -> 'FolderAnalysis':
-        analysis = FolderAnalysis()
+    def analysis(self) -> 'FolderAnalysis':
+        analysis = FolderAnalysis(self)
         for folder in self.folders:
-            analysis.add_subfolder_analysis(folder.source_analysis)
+            analysis.add_subfolder_analysis(folder.analysis)
         for module in self.modules:
             analysis.add_module_analysis(module.analysis)
         return analysis
