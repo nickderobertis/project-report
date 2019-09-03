@@ -83,7 +83,9 @@ class Folder(Analyzable):
 
     @cached_property
     def folders(self) -> List['Folder']:
-        return [Folder(folder, project=self.project, **self.options) for folder in self.folder_paths]
+        all_folders = [Folder(folder, project=self.project, **self.options) for folder in self.folder_paths]
+        non_empty_folders = [folder for folder in all_folders if not folder.is_empty]
+        return non_empty_folders
 
     @cached_property
     def analysis(self) -> 'FolderAnalysis':
@@ -101,6 +103,11 @@ class Folder(Analyzable):
                 full_path = os.path.join(self.path, file)
                 return PARSER_DOC_FILES[file](full_path)
         return None
+
+    @cached_property
+    def is_empty(self) -> bool:
+        len_contents = len(self.file_paths) + len(self.folders)
+        return len_contents == 0
 
     def _validate(self):
         if self.options['included_types'] and self.options['excluded_types']:
