@@ -69,5 +69,8 @@ def multi_project_latex_document(data: List[dict]) -> pl.Document:
 
 
 def _get_document(contents) -> pl.Document:
-    doc = pl.Document(contents)
+    doc = pl.Document(
+        contents,
+        title='Project Report'
+    )
     return doc
