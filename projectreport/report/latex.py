@@ -13,7 +13,7 @@ class SubProjectLatex(TextAreaMixin, ItemBase):
 
     def get_contents(self, data):
         line_break = OutputLineBreak()
-        green = pl.RGB(42, 138, 11)
+        green = pl.RGB(42, 138, 11, color_name='darkgreen')
         commits_str = 'Commits' if data['num_commits'] and data['num_commits'] > 1 else 'Commit'
         contents = [
             pl.Bold(data['name']) if data['name'] else None,
