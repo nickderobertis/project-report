@@ -13,10 +13,14 @@ class SubProjectLatex(TextAreaMixin, ItemBase):
 
     def get_contents(self, data):
         line_break = OutputLineBreak()
+        green = pl.RGB(42, 138, 11)
+        commits_str = 'Commits' if data['num_commits'] and data['num_commits'] > 1 else 'Commit'
         contents = [
             pl.Bold(data['name']) if data['name'] else None,
-            pl.TextColor(f"{data['lines']} LOC", color='green') if data['lines'] else None,
-            f'created {data["created"]}' if data["created"] else None,
+            pl.TextColor(f"{data['lines']} LOC", color=green) if data['lines'] else None,
+            ['|', pl.TextColor(f"{data['num_commits']} {commits_str}", color='blue')] if data['num_commits'] else None,
+            ['|', f'Created {data["created"].date()}'] if data["created"] else None,
+            ['|', f'Updated {data["updated"].date()}'] if data["updated"] else None,
             line_break,
             data['docstring'],
         ]
