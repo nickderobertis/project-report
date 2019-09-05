@@ -12,6 +12,7 @@ import git
 
 class Analysis:
     loc = None
+    full_loc = None
 
     def __init__(self, analyzable: 'Analyzable'):
         self.git_analysis = GitAnalysis(analyzable)
@@ -22,7 +23,9 @@ class Analysis:
             num_commits=self.git_analysis.num_commits,
             created=self.git_analysis.created,
             updated=self.git_analysis.updated,
-            lines=self.loc
+            lines=self.loc,
+            full_lines=self.full_loc,
+            urls=self.git_analysis.urls
         )
 
 
@@ -58,6 +61,19 @@ class FolderAnalysis(Analysis):
     def loc(self) -> int:
         return self.lines['code']
 
+    @property
+    def full_loc(self) -> int:
+        loc = 0
+        keys = [
+            'code',
+            'documentation',
+            'empty',
+            'string'
+        ]
+        for key in keys:
+            loc += self.lines[key]
+        return loc
+
 
 class ModuleAnalysis(Analysis):
 
@@ -65,6 +81,11 @@ class ModuleAnalysis(Analysis):
         self.module = module
         self.source_analysis = pygount.source_analysis(self.module.path, self.module.package)
         self.loc = self.source_analysis.code
+
+        full_loc = 0
+        for key in ['code', 'documentation', 'empty', 'string']:
+            full_loc += getattr(self.source_analysis, key, 0)
+        self.full_loc = full_loc
         super().__init__(module)
 
 
@@ -102,3 +123,25 @@ class GitAnalysis:
     def has_repo(self) -> bool:
         return self.ref.project is not None and self.ref.project.repo is not None
 
+    @cached_property
+    def has_remote(self) -> bool:
+        try:
+            self.ref.project.repo.remote()
+            return True
+        except ValueError as e:
+            if "Remote named 'origin' didn't exist" in str(e):
+                # Repo does not have remote
+                return False
+            else:
+                raise e
+
+    @cached_property
+    def urls(self) -> Optional[List[str]]:
+        if not self.has_repo or not self.has_remote:
+            return None
+
+        urls = list(self.ref.project.repo.remote().urls)
+
+        # Urls currently have .git on the end, strip
+        urls = [url[:-4] for url in urls]
+        return urls

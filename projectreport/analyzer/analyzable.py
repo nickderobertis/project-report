@@ -2,7 +2,6 @@ from typing import Optional, Dict, Union, TYPE_CHECKING
 if TYPE_CHECKING:
     from projectreport.analyzer.project import Project
 from cached_property import cached_property
-import git
 
 
 class Analyzable:
