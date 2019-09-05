@@ -4,6 +4,10 @@ from projectreport.finder.base import Finder
 
 
 class CombinedFinder(Finder):
+    """
+    Finder which can be passed other specific finders, and will return project paths that match any of the
+    passed finders.
+    """
 
     def __init__(self, finders: Sequence[Finder], recursive: bool = True):
         self.finders = finders

@@ -8,6 +8,9 @@ from projectreport.config import DEFAULT_IGNORE_PATHS
 
 
 class Project(Folder):
+    """
+    Pass a project path to get analysis about the project.
+    """
 
     def __init__(self, path: str, excluded_types: Optional[Sequence[str]] = None,
                  included_types: Optional[Sequence[str]] = None,

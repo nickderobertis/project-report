@@ -7,6 +7,9 @@ from projectreport.report.base import BaseReport
 
 
 class Report(BaseReport):
+    """
+    Pass Projects to create a report of the analysis of the projects.
+    """
 
     def __init__(self, projects: Sequence['Project'], depth: int = 0):
         self.project_reports = [ProjectReport(project, depth=depth) for project in projects]

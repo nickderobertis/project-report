@@ -6,6 +6,9 @@ from projectreport.config import DEFAULT_IGNORE_PATHS
 
 
 class Finder:
+    """
+    Class for finding projects by required folders or files, or looking for certain file extensions.
+    """
 
     def __init__(self, recursive: bool = True,
                  required_folders: Optional[Sequence[str]] = None, required_files: Optional[Sequence[str]] = None,
