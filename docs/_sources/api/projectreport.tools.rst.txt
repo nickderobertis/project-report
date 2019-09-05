@@ -1,0 +1,22 @@
+projectreport.tools package
+===========================
+
+Submodules
+----------
+
+projectreport.tools.expand\_glob module
+---------------------------------------
+
+.. automodule:: projectreport.tools.expand_glob
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: projectreport.tools
+   :members:
+   :undoc-members:
+   :show-inheritance:

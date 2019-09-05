@@ -1,0 +1,54 @@
+projectreport.report package
+============================
+
+Submodules
+----------
+
+projectreport.report.base module
+--------------------------------
+
+.. automodule:: projectreport.report.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.report.json module
+--------------------------------
+
+.. automodule:: projectreport.report.json
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.report.latex module
+---------------------------------
+
+.. automodule:: projectreport.report.latex
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.report.project module
+-----------------------------------
+
+.. automodule:: projectreport.report.project
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.report.report module
+----------------------------------
+
+.. automodule:: projectreport.report.report
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: projectreport.report
+   :members:
+   :undoc-members:
+   :show-inheritance:

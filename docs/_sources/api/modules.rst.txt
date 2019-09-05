@@ -1,7 +1,7 @@
-py_qs_example
+projectreport
 =============
 
 .. toctree::
    :maxdepth: 4
 
-   py_qs_example
+   projectreport

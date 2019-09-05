@@ -1,0 +1,32 @@
+projectreport package
+=====================
+
+Subpackages
+-----------
+
+.. toctree::
+
+   projectreport.analyzer
+   projectreport.finder
+   projectreport.report
+   projectreport.tools
+
+Submodules
+----------
+
+projectreport.config module
+---------------------------
+
+.. automodule:: projectreport.config
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: projectreport
+   :members:
+   :undoc-members:
+   :show-inheritance:
