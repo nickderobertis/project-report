@@ -44,6 +44,7 @@
 <dt id="projectreport.finder.base.Finder">
 <em class="property">class </em><code class="sig-prename descclassname">projectreport.finder.base.</code><code class="sig-name descname">Finder</code><span class="sig-paren">(</span><em class="sig-param">recursive=True</em>, <em class="sig-param">required_folders=None</em>, <em class="sig-param">required_files=None</em>, <em class="sig-param">file_extensions=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/finder/base.html#Finder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.finder.base.Finder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class for finding projects by required folders or files, or looking for certain file extensions.</p>
 <dl class="method">
 <dt id="projectreport.finder.base.Finder.__init__">
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">recursive=True</em>, <em class="sig-param">required_folders=None</em>, <em class="sig-param">required_files=None</em>, <em class="sig-param">file_extensions=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/finder/base.html#Finder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.finder.base.Finder.__init__" title="Permalink to this definition">¶</a></dt>
@@ -74,6 +75,8 @@
 <dt id="projectreport.finder.combine.CombinedFinder">
 <em class="property">class </em><code class="sig-prename descclassname">projectreport.finder.combine.</code><code class="sig-name descname">CombinedFinder</code><span class="sig-paren">(</span><em class="sig-param">finders</em>, <em class="sig-param">recursive=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/finder/combine.html#CombinedFinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.finder.combine.CombinedFinder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#projectreport.finder.base.Finder" title="projectreport.finder.base.Finder"><code class="xref py py-class docutils literal notranslate"><span class="pre">projectreport.finder.base.Finder</span></code></a></p>
+<p>Finder which can be passed other specific finders, and will return project paths that match any of the
+passed finders.</p>
 <dl class="method">
 <dt id="projectreport.finder.combine.CombinedFinder.__init__">
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">finders</em>, <em class="sig-param">recursive=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/finder/combine.html#CombinedFinder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.finder.combine.CombinedFinder.__init__" title="Permalink to this definition">¶</a></dt>
@@ -94,6 +97,7 @@
 <dt id="projectreport.finder.git.GitFinder">
 <em class="property">class </em><code class="sig-prename descclassname">projectreport.finder.git.</code><code class="sig-name descname">GitFinder</code><span class="sig-paren">(</span><em class="sig-param">recursive=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/finder/git.html#GitFinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.finder.git.GitFinder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#projectreport.finder.base.Finder" title="projectreport.finder.base.Finder"><code class="xref py py-class docutils literal notranslate"><span class="pre">projectreport.finder.base.Finder</span></code></a></p>
+<p>Finder which automatically looks for projects with git repositories.</p>
 <dl class="method">
 <dt id="projectreport.finder.git.GitFinder.__init__">
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">recursive=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/finder/git.html#GitFinder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.finder.git.GitFinder.__init__" title="Permalink to this definition">¶</a></dt>
@@ -109,6 +113,7 @@
 <dt id="projectreport.finder.python.PythonPackageFinder">
 <em class="property">class </em><code class="sig-prename descclassname">projectreport.finder.python.</code><code class="sig-name descname">PythonPackageFinder</code><span class="sig-paren">(</span><em class="sig-param">recursive=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/finder/python.html#PythonPackageFinder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.finder.python.PythonPackageFinder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#projectreport.finder.base.Finder" title="projectreport.finder.base.Finder"><code class="xref py py-class docutils literal notranslate"><span class="pre">projectreport.finder.base.Finder</span></code></a></p>
+<p>Finder which automatically looks for projects with Python packages.</p>
 <dl class="method">
 <dt id="projectreport.finder.python.PythonPackageFinder.__init__">
 <code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">recursive=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/finder/python.html#PythonPackageFinder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.finder.python.PythonPackageFinder.__init__" title="Permalink to this definition">¶</a></dt>
