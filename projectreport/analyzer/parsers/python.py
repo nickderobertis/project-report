@@ -17,7 +17,7 @@ class PythonParser(Parser):
 
     @cached_property
     def contents(self) -> str:
-        with open(self.path) as f:
+        with open(self.path, encoding='utf8') as f:
             file_contents = f.read()
         return file_contents
 
