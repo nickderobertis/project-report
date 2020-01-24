@@ -105,10 +105,13 @@ def read_all_files_in_folder_print_lines_around_regex(
             set([Path(path_str) for path_str in expanded_ignore_paths])
         )
         if should_ignore_path(path):
-            # Skip ignored path
+            # Skip ignored folder
             continue
         for file in files:
             full_path = os.path.join(path, file)
+            if should_ignore_path(full_path):
+                # Skip ignored file
+                continue
             lines = read_file_get_lines_around_regex(
                 full_path, str_pattern, num_lines=num_lines, print_lines=False
             )
