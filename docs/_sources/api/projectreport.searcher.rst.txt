@@ -1,0 +1,30 @@
+projectreport.searcher package
+==============================
+
+Submodules
+----------
+
+projectreport.searcher.rotating\_list module
+--------------------------------------------
+
+.. automodule:: projectreport.searcher.rotating_list
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.searcher.search module
+------------------------------------
+
+.. automodule:: projectreport.searcher.search
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: projectreport.searcher
+   :members:
+   :undoc-members:
+   :show-inheritance:

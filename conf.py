@@ -2,28 +2,28 @@
 # Sphinx configuration is in the docsrc folder
 
 # Main package name
-PACKAGE_NAME = 'project-report'
+PACKAGE_NAME = "project-report"
 
 # Package version in the format (major, minor, release)
-PACKAGE_VERSION_TUPLE = (0, 1, 0)
+PACKAGE_VERSION_TUPLE = (0, 2, 0)
 
 # Short description of the package
-PACKAGE_SHORT_DESCRIPTION = 'Find software projects, analyze them, and output a report.'
+PACKAGE_SHORT_DESCRIPTION = "Find software projects, analyze them, and output a report."
 
 # Long description of the package
 PACKAGE_DESCRIPTION = """
 A set of tools for describing software projects. Finds software projects, analyzes them,
-and outputs reports. 
+and outputs reports.
 """
 
 # Author
 PACKAGE_AUTHOR = "Nick DeRobertis"
 
 # Author email
-PACKAGE_AUTHOR_EMAIL = 'whoopnip@gmail.com'
+PACKAGE_AUTHOR_EMAIL = "whoopnip@gmail.com"
 
 # Name of license for package
-PACKAGE_LICENSE = 'MIT'
+PACKAGE_LICENSE = "MIT"
 
 # Classifications for the package, see common settings below
 PACKAGE_CLASSIFIERS = [
@@ -31,15 +31,13 @@ PACKAGE_CLASSIFIERS = [
     #   3 - Alpha
     #   4 - Beta
     #   5 - Production/Stable
-    'Development Status :: 3 - Alpha',
-
+    "Development Status :: 3 - Alpha",
     # Indicate who your project is intended for
-    'Intended Audience :: Developers',
-
+    "Intended Audience :: Developers",
     # Specify the Python versions you support here. In particular, ensure
     # that you indicate whether you support Python 2, Python 3 or both.
-    'Programming Language :: Python :: 3.6',
-    'Programming Language :: Python :: 3.7'
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
 ]
 
 # Add any third party packages you use in requirements here
@@ -48,10 +46,10 @@ PACKAGE_INSTALL_REQUIRES = [
     # e.g.
     # 'package',
     # 'otherpackage>=1,<2'
-    'pygount',
-    'cached_property',
-    'gitpython',
-    'pyexlatex',
+    "pygount",
+    "cached_property",
+    "gitpython",
+    "pyexlatex",
 ]
 
 # Sphinx executes all the import statements as it generates the documentation. To avoid having to install all
@@ -64,6 +62,6 @@ DOCS_OTHER_MOCK_IMPORTS = [
 ]
 
 PACKAGE_URLS = {
-    'Code': 'https://github.com/whoopnip/project-report/',
-    'Documentation': 'https://whoopnip.github.io/project-report/'
+    "Code": "https://github.com/whoopnip/project-report/",
+    "Documentation": "https://whoopnip.github.io/project-report/",
 }

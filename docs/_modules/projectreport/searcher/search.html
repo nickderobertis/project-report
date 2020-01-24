@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>projectreport.searcher.search &#8212; project-report 0.2.0 documentation</title>
+    <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_paramlinks.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+   
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for projectreport.searcher.search</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Dict</span><span class="p">,</span>
+    <span class="n">Generator</span><span class="p">,</span>
+    <span class="n">Iterator</span><span class="p">,</span>
+    <span class="n">List</span><span class="p">,</span>
+    <span class="n">Optional</span><span class="p">,</span>
+    <span class="n">Sequence</span><span class="p">,</span>
+    <span class="n">Tuple</span><span class="p">,</span>
+    <span class="n">Union</span><span class="p">,</span>
+    <span class="n">Set</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">projectreport.searcher.rotating_list</span> <span class="kn">import</span> <span class="n">RotatingList</span>
+<span class="kn">from</span> <span class="nn">projectreport.tools.expand_glob</span> <span class="kn">import</span> <span class="n">all_possible_paths</span>
+
+
+<div class="viewcode-block" id="read_all_files_in_folders_print_lines_around_regex"><a class="viewcode-back" href="../../../api/projectreport.searcher.html#projectreport.searcher.search.read_all_files_in_folders_print_lines_around_regex">[docs]</a><span class="k">def</span> <span class="nf">read_all_files_in_folders_print_lines_around_regex</span><span class="p">(</span>
+    <span class="n">folders</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">str_pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">num_lines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">print_lines</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">ignore_paths</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Searches for regex in each line of every file in multiple folders. When regex is</span>
+<span class="sd">    matched, will return num_lines lines around the file</span>
+
+<span class="sd">    :param folders: Folders to search in</span>
+<span class="sd">    :param str_pattern: Pattern to match in a line</span>
+<span class="sd">    :param num_lines: Number of lines around the matching line to return/print,</span>
+<span class="sd">        defaults to 2</span>
+<span class="sd">    :param recursive: Whether to search folders within passed folder, defaults to False</span>
+<span class="sd">    :param print_lines: Whether to print the results, defaults to False</span>
+<span class="sd">    :param ignore_paths: Relative paths to ignore. Globs are accepted, defaults to None</span>
+<span class="sd">    :return: a dictionary where keys are file paths, and values are lists where each</span>
+<span class="sd">        element is a list containing the lines for one match</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">found_lines</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">folder</span> <span class="ow">in</span> <span class="n">folders</span><span class="p">:</span>
+        <span class="n">found_lines</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="n">read_all_files_in_folder_print_lines_around_regex</span><span class="p">(</span>
+                <span class="n">folder</span><span class="p">,</span>
+                <span class="n">str_pattern</span><span class="p">,</span>
+                <span class="n">num_lines</span><span class="o">=</span><span class="n">num_lines</span><span class="p">,</span>
+                <span class="n">recursive</span><span class="o">=</span><span class="n">recursive</span><span class="p">,</span>
+                <span class="n">print_lines</span><span class="o">=</span><span class="n">print_lines</span><span class="p">,</span>
+                <span class="n">ignore_paths</span><span class="o">=</span><span class="n">ignore_paths</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">found_lines</span></div>
+
+
+<div class="viewcode-block" id="read_all_files_in_folder_print_lines_around_regex"><a class="viewcode-back" href="../../../api/projectreport.searcher.html#projectreport.searcher.search.read_all_files_in_folder_print_lines_around_regex">[docs]</a><span class="k">def</span> <span class="nf">read_all_files_in_folder_print_lines_around_regex</span><span class="p">(</span>
+    <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">str_pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">num_lines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">recursive</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">print_lines</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">ignore_paths</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Searches for regex in each line of every file in a folder. When regex is matched,</span>
+<span class="sd">    will return num_lines lines around the file</span>
+
+<span class="sd">    :param file_path: Path of file to search in</span>
+<span class="sd">    :param str_pattern: Pattern to match in a line</span>
+<span class="sd">    :param num_lines: Number of lines around the matching line to return/print,</span>
+<span class="sd">        defaults to 2</span>
+<span class="sd">    :param recursive: Whether to search folders within passed folder, defaults to False</span>
+<span class="sd">    :param print_lines: Whether to print the results, defaults to False</span>
+<span class="sd">    :param ignore_paths: Relative paths to ignore. Globs are accepted, defaults to None</span>
+<span class="sd">    :return: a dictionary where keys are file paths, and values are lists where each</span>
+<span class="sd">        element is a list containing the lines for one match</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">iterator</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+        <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]],</span>
+        <span class="n">Iterator</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]],</span>
+    <span class="p">]</span>
+    <span class="k">if</span> <span class="n">recursive</span><span class="p">:</span>
+        <span class="n">iterator</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">iterator</span> <span class="o">=</span> <span class="p">[</span><span class="nb">next</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">file_path</span><span class="p">))]</span>
+
+    <span class="k">if</span> <span class="n">ignore_paths</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ignore_paths</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">all_absolute_ignore_paths</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">found_lines</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">should_ignore_path</span><span class="p">(</span><span class="n">path_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path_str</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">ignore_path</span> <span class="ow">in</span> <span class="n">all_absolute_ignore_paths</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">path</span> <span class="o">==</span> <span class="n">ignore_path</span> <span class="ow">or</span> <span class="n">ignore_path</span> <span class="ow">in</span> <span class="n">path</span><span class="o">.</span><span class="n">parents</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">for</span> <span class="n">path</span><span class="p">,</span> <span class="n">folders</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">iterator</span><span class="p">:</span>
+        <span class="n">expanded_ignore_paths</span> <span class="o">=</span> <span class="n">all_possible_paths</span><span class="p">(</span><span class="n">ignore_paths</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+        <span class="n">all_absolute_ignore_paths</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="nb">set</span><span class="p">([</span><span class="n">Path</span><span class="p">(</span><span class="n">path_str</span><span class="p">)</span> <span class="k">for</span> <span class="n">path_str</span> <span class="ow">in</span> <span class="n">expanded_ignore_paths</span><span class="p">])</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">should_ignore_path</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+            <span class="c1"># Skip ignored path</span>
+            <span class="k">continue</span>
+        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+            <span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+            <span class="n">lines</span> <span class="o">=</span> <span class="n">read_file_get_lines_around_regex</span><span class="p">(</span>
+                <span class="n">full_path</span><span class="p">,</span> <span class="n">str_pattern</span><span class="p">,</span> <span class="n">num_lines</span><span class="o">=</span><span class="n">num_lines</span><span class="p">,</span> <span class="n">print_lines</span><span class="o">=</span><span class="kc">False</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">lines</span><span class="p">:</span>
+                <span class="n">found_lines</span><span class="p">[</span><span class="n">full_path</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span>
+                <span class="k">if</span> <span class="n">print_lines</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">Found {len(lines)} match in </span><span class="si">{full_path}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">line_set</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+                        <span class="n">_print_tracked_lines</span><span class="p">(</span><span class="n">line_set</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">found_lines</span></div>
+
+
+<div class="viewcode-block" id="read_file_get_lines_around_regex"><a class="viewcode-back" href="../../../api/projectreport.searcher.html#projectreport.searcher.search.read_file_get_lines_around_regex">[docs]</a><span class="k">def</span> <span class="nf">read_file_get_lines_around_regex</span><span class="p">(</span>
+    <span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">str_pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">num_lines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">print_lines</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Searches for regex in each line of a file. When regex is matched, will return</span>
+<span class="sd">    num_lines lines around the file</span>
+
+<span class="sd">    :param file_path: path of file to search in</span>
+<span class="sd">    :param str_pattern: pattern to match in a line</span>
+<span class="sd">    :param num_lines: number of lines around the matching line to return/print,</span>
+<span class="sd">        defaults to 2</span>
+<span class="sd">    :param print_lines: whether to print the results, defaults to False</span>
+<span class="sd">    :return: a list where each element is a list containing the lines for one match</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">_file_reader</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="n">_get_lines_around_regex</span><span class="p">(</span>
+        <span class="n">str_pattern</span><span class="p">,</span> <span class="n">reader</span><span class="p">,</span> <span class="n">num_lines</span><span class="o">=</span><span class="n">num_lines</span><span class="p">,</span> <span class="n">print_lines</span><span class="o">=</span><span class="n">print_lines</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">lines</span></div>
+
+
+<span class="k">def</span> <span class="nf">_file_reader</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">yield</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">UnicodeDecodeError</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;latin1&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="k">yield</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not read file </span><span class="si">{filename}</span><span class="s2">: </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span>
+
+
+<span class="k">def</span> <span class="nf">_get_lines_around_regex</span><span class="p">(</span>
+    <span class="n">str_pattern</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">lines</span><span class="p">:</span> <span class="n">Generator</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+    <span class="n">num_lines</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">print_lines</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">str_pattern</span><span class="p">)</span>
+
+    <span class="n">total_num_lines</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">num_lines</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="p">)</span>  <span class="c1"># 1 line for match, then 2 * num_lines for before and after match</span>
+
+    <span class="c1"># After finding a match, must delay the print for num_lines as only</span>
+    <span class="c1"># then will we have the lines after</span>
+    <span class="c1"># the match. Set up this list to track at which lines we should print</span>
+    <span class="n">print_at_lines</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="c1"># Keeps only the last total_num_lines entires</span>
+    <span class="n">tracked_lines</span> <span class="o">=</span> <span class="n">RotatingList</span><span class="p">([],</span> <span class="n">total_num_lines</span><span class="p">)</span>
+
+    <span class="c1"># Will hold each set of found lines to return at the end</span>
+    <span class="n">found_lines</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">record_lines</span><span class="p">():</span>
+        <span class="n">found_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">tracked_lines</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">print_lines</span><span class="p">:</span>
+            <span class="n">_print_tracked_lines</span><span class="p">(</span><span class="n">tracked_lines</span><span class="p">)</span>
+
+    <span class="c1"># Find and track lines which have matches, printing num_lines after</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
+        <span class="n">line_num</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">tracked_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{line_num}</span><span class="s2">: </span><span class="si">{line}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">_matches_regex</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">line</span><span class="p">):</span>
+            <span class="n">print_at_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line_num</span> <span class="o">+</span> <span class="n">num_lines</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">line_num</span> <span class="ow">in</span> <span class="n">print_at_lines</span><span class="p">:</span>
+            <span class="n">record_lines</span><span class="p">()</span>
+
+    <span class="c1"># Print final section if requested line to print at was after the end of the file</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">([</span><span class="n">print_line_num</span> <span class="o">&gt;</span> <span class="n">line_num</span> <span class="k">for</span> <span class="n">print_line_num</span> <span class="ow">in</span> <span class="n">print_at_lines</span><span class="p">]):</span>
+        <span class="n">record_lines</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">found_lines</span>
+
+
+<span class="k">def</span> <span class="nf">_print_tracked_lines</span><span class="p">(</span><span class="n">lines</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">RotatingList</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">_matches_regex</span><span class="p">(</span><span class="n">pattern</span><span class="p">:</span> <span class="n">re</span><span class="o">.</span><span class="n">Pattern</span><span class="p">,</span> <span class="n">search_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">search_str</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">match</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../index.html">Table of Contents</a></h3>
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Getting started with project-report</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/modules.html">projectreport</a></li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../../index.html">Documentation overview</a><ul>
+  <li><a href="../../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Nick DeRobertis.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -9,6 +9,7 @@ Subpackages
    projectreport.analyzer
    projectreport.finder
    projectreport.report
+   projectreport.searcher
    projectreport.tools
 
 Submodules

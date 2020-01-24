@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>projectreport.searcher package &#8212; project-report 0.2.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx_paramlinks.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="projectreport.tools package" href="projectreport.tools.html" />
+    <link rel="prev" title="projectreport.report package" href="projectreport.report.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="projectreport-searcher-package">
+<h1>projectreport.searcher package<a class="headerlink" href="#projectreport-searcher-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-projectreport.searcher.rotating_list">
+<span id="projectreport-searcher-rotating-list-module"></span><h2>projectreport.searcher.rotating_list module<a class="headerlink" href="#module-projectreport.searcher.rotating_list" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="projectreport.searcher.rotating_list.RotatingList">
+<em class="property">class </em><code class="sig-prename descclassname">projectreport.searcher.rotating_list.</code><code class="sig-name descname">RotatingList</code><span class="sig-paren">(</span><em class="sig-param">items</em>, <em class="sig-param">max_len</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/rotating_list.html#RotatingList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.rotating_list.RotatingList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">collections.UserList</span></code></p>
+<p>A list which will hold only max_len items. Once more items are added then
+can fit in the list, items will be removed.</p>
+<p>When appending or extending items which will make the list larger than
+max_len, the earliest items in the list will
+be removed. When inserting an item which will make the list larger than
+max_len, the last item will be removed.</p>
+<dl class="method">
+<dt id="projectreport.searcher.rotating_list.RotatingList.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">items</em>, <em class="sig-param">max_len</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/rotating_list.html#RotatingList.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.rotating_list.RotatingList.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="projectreport.searcher.rotating_list.RotatingList.append">
+<code class="sig-name descname">append</code><span class="sig-paren">(</span><em class="sig-param">item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/rotating_list.html#RotatingList.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.rotating_list.RotatingList.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>S.append(value) – append value to the end of the sequence</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="projectreport.searcher.rotating_list.RotatingList.extend">
+<code class="sig-name descname">extend</code><span class="sig-paren">(</span><em class="sig-param">items</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/rotating_list.html#RotatingList.extend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.rotating_list.RotatingList.extend" title="Permalink to this definition">¶</a></dt>
+<dd><p>S.extend(iterable) – extend sequence by appending elements from the iterable</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="projectreport.searcher.rotating_list.RotatingList.insert">
+<code class="sig-name descname">insert</code><span class="sig-paren">(</span><em class="sig-param">index</em>, <em class="sig-param">item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/rotating_list.html#RotatingList.insert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.rotating_list.RotatingList.insert" title="Permalink to this definition">¶</a></dt>
+<dd><p>S.insert(index, value) – insert value before index</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-projectreport.searcher.search">
+<span id="projectreport-searcher-search-module"></span><h2>projectreport.searcher.search module<a class="headerlink" href="#module-projectreport.searcher.search" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="projectreport.searcher.search.read_all_files_in_folder_print_lines_around_regex">
+<code class="sig-prename descclassname">projectreport.searcher.search.</code><code class="sig-name descname">read_all_files_in_folder_print_lines_around_regex</code><span class="sig-paren">(</span><em class="sig-param">file_path</em>, <em class="sig-param">str_pattern</em>, <em class="sig-param">num_lines=2</em>, <em class="sig-param">recursive=False</em>, <em class="sig-param">print_lines=True</em>, <em class="sig-param">ignore_paths=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/search.html#read_all_files_in_folder_print_lines_around_regex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.search.read_all_files_in_folder_print_lines_around_regex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches for regex in each line of every file in a folder. When regex is matched,
+will return num_lines lines around the file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="projectreport.searcher.search.read_all_files_in_folder_print_lines_around_regex.params.file_path"></span><strong>file_path</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.search.read_all_files_in_folder_print_lines_around_regex.params.file_path">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Path of file to search in</p></li>
+<li><p><span class="target" id="projectreport.searcher.search.read_all_files_in_folder_print_lines_around_regex.params.str_pattern"></span><strong>str_pattern</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.search.read_all_files_in_folder_print_lines_around_regex.params.str_pattern">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Pattern to match in a line</p></li>
+<li><p><span class="target" id="projectreport.searcher.search.read_all_files_in_folder_print_lines_around_regex.params.num_lines"></span><strong>num_lines</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.search.read_all_files_in_folder_print_lines_around_regex.params.num_lines">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of lines around the matching line to return/print,
+defaults to 2</p></li>
+<li><p><span class="target" id="projectreport.searcher.search.read_all_files_in_folder_print_lines_around_regex.params.recursive"></span><strong>recursive</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.search.read_all_files_in_folder_print_lines_around_regex.params.recursive">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to search folders within passed folder, defaults to False</p></li>
+<li><p><span class="target" id="projectreport.searcher.search.read_all_files_in_folder_print_lines_around_regex.params.print_lines"></span><strong>print_lines</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.search.read_all_files_in_folder_print_lines_around_regex.params.print_lines">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to print the results, defaults to False</p></li>
+<li><p><span class="target" id="projectreport.searcher.search.read_all_files_in_folder_print_lines_around_regex.params.ignore_paths"></span><strong>ignore_paths</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.search.read_all_files_in_folder_print_lines_around_regex.params.ignore_paths">¶</a> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]) – Relative paths to ignore. Globs are accepted, defaults to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dictionary where keys are file paths, and values are lists where each
+element is a list containing the lines for one match</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="projectreport.searcher.search.read_all_files_in_folders_print_lines_around_regex">
+<code class="sig-prename descclassname">projectreport.searcher.search.</code><code class="sig-name descname">read_all_files_in_folders_print_lines_around_regex</code><span class="sig-paren">(</span><em class="sig-param">folders</em>, <em class="sig-param">str_pattern</em>, <em class="sig-param">num_lines=2</em>, <em class="sig-param">recursive=False</em>, <em class="sig-param">print_lines=True</em>, <em class="sig-param">ignore_paths=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/search.html#read_all_files_in_folders_print_lines_around_regex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.search.read_all_files_in_folders_print_lines_around_regex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches for regex in each line of every file in multiple folders. When regex is
+matched, will return num_lines lines around the file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="projectreport.searcher.search.read_all_files_in_folders_print_lines_around_regex.params.folders"></span><strong>folders</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.search.read_all_files_in_folders_print_lines_around_regex.params.folders">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Folders to search in</p></li>
+<li><p><span class="target" id="projectreport.searcher.search.read_all_files_in_folders_print_lines_around_regex.params.str_pattern"></span><strong>str_pattern</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.search.read_all_files_in_folders_print_lines_around_regex.params.str_pattern">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Pattern to match in a line</p></li>
+<li><p><span class="target" id="projectreport.searcher.search.read_all_files_in_folders_print_lines_around_regex.params.num_lines"></span><strong>num_lines</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.search.read_all_files_in_folders_print_lines_around_regex.params.num_lines">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of lines around the matching line to return/print,
+defaults to 2</p></li>
+<li><p><span class="target" id="projectreport.searcher.search.read_all_files_in_folders_print_lines_around_regex.params.recursive"></span><strong>recursive</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.search.read_all_files_in_folders_print_lines_around_regex.params.recursive">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to search folders within passed folder, defaults to False</p></li>
+<li><p><span class="target" id="projectreport.searcher.search.read_all_files_in_folders_print_lines_around_regex.params.print_lines"></span><strong>print_lines</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.search.read_all_files_in_folders_print_lines_around_regex.params.print_lines">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to print the results, defaults to False</p></li>
+<li><p><span class="target" id="projectreport.searcher.search.read_all_files_in_folders_print_lines_around_regex.params.ignore_paths"></span><strong>ignore_paths</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.search.read_all_files_in_folders_print_lines_around_regex.params.ignore_paths">¶</a> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]) – Relative paths to ignore. Globs are accepted, defaults to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dictionary where keys are file paths, and values are lists where each
+element is a list containing the lines for one match</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="projectreport.searcher.search.read_file_get_lines_around_regex">
+<code class="sig-prename descclassname">projectreport.searcher.search.</code><code class="sig-name descname">read_file_get_lines_around_regex</code><span class="sig-paren">(</span><em class="sig-param">file_path</em>, <em class="sig-param">str_pattern</em>, <em class="sig-param">num_lines=2</em>, <em class="sig-param">print_lines=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/search.html#read_file_get_lines_around_regex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.search.read_file_get_lines_around_regex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches for regex in each line of a file. When regex is matched, will return
+num_lines lines around the file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="projectreport.searcher.search.read_file_get_lines_around_regex.params.file_path"></span><strong>file_path</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.search.read_file_get_lines_around_regex.params.file_path">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – path of file to search in</p></li>
+<li><p><span class="target" id="projectreport.searcher.search.read_file_get_lines_around_regex.params.str_pattern"></span><strong>str_pattern</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.search.read_file_get_lines_around_regex.params.str_pattern">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – pattern to match in a line</p></li>
+<li><p><span class="target" id="projectreport.searcher.search.read_file_get_lines_around_regex.params.num_lines"></span><strong>num_lines</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.search.read_file_get_lines_around_regex.params.num_lines">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – number of lines around the matching line to return/print,
+defaults to 2</p></li>
+<li><p><span class="target" id="projectreport.searcher.search.read_file_get_lines_around_regex.params.print_lines"></span><strong>print_lines</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.search.read_file_get_lines_around_regex.params.print_lines">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – whether to print the results, defaults to False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list where each element is a list containing the lines for one match</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-projectreport.searcher">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-projectreport.searcher" title="Permalink to this headline">¶</a></h2>
+<p>Tools to search for regex within files and return lines around the match</p>
+<dl class="function">
+<dt id="projectreport.searcher.read_all_files_in_folder_print_lines_around_regex">
+<code class="sig-prename descclassname">projectreport.searcher.</code><code class="sig-name descname">read_all_files_in_folder_print_lines_around_regex</code><span class="sig-paren">(</span><em class="sig-param">file_path</em>, <em class="sig-param">str_pattern</em>, <em class="sig-param">num_lines=2</em>, <em class="sig-param">recursive=False</em>, <em class="sig-param">print_lines=True</em>, <em class="sig-param">ignore_paths=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/search.html#read_all_files_in_folder_print_lines_around_regex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.read_all_files_in_folder_print_lines_around_regex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches for regex in each line of every file in a folder. When regex is matched,
+will return num_lines lines around the file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="projectreport.searcher.read_all_files_in_folder_print_lines_around_regex.params.file_path"></span><strong>file_path</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.read_all_files_in_folder_print_lines_around_regex.params.file_path">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Path of file to search in</p></li>
+<li><p><span class="target" id="projectreport.searcher.read_all_files_in_folder_print_lines_around_regex.params.str_pattern"></span><strong>str_pattern</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.read_all_files_in_folder_print_lines_around_regex.params.str_pattern">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Pattern to match in a line</p></li>
+<li><p><span class="target" id="projectreport.searcher.read_all_files_in_folder_print_lines_around_regex.params.num_lines"></span><strong>num_lines</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.read_all_files_in_folder_print_lines_around_regex.params.num_lines">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of lines around the matching line to return/print,
+defaults to 2</p></li>
+<li><p><span class="target" id="projectreport.searcher.read_all_files_in_folder_print_lines_around_regex.params.recursive"></span><strong>recursive</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.read_all_files_in_folder_print_lines_around_regex.params.recursive">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to search folders within passed folder, defaults to False</p></li>
+<li><p><span class="target" id="projectreport.searcher.read_all_files_in_folder_print_lines_around_regex.params.print_lines"></span><strong>print_lines</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.read_all_files_in_folder_print_lines_around_regex.params.print_lines">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to print the results, defaults to False</p></li>
+<li><p><span class="target" id="projectreport.searcher.read_all_files_in_folder_print_lines_around_regex.params.ignore_paths"></span><strong>ignore_paths</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.read_all_files_in_folder_print_lines_around_regex.params.ignore_paths">¶</a> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]) – Relative paths to ignore. Globs are accepted, defaults to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dictionary where keys are file paths, and values are lists where each
+element is a list containing the lines for one match</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="projectreport.searcher.read_all_files_in_folders_print_lines_around_regex">
+<code class="sig-prename descclassname">projectreport.searcher.</code><code class="sig-name descname">read_all_files_in_folders_print_lines_around_regex</code><span class="sig-paren">(</span><em class="sig-param">folders</em>, <em class="sig-param">str_pattern</em>, <em class="sig-param">num_lines=2</em>, <em class="sig-param">recursive=False</em>, <em class="sig-param">print_lines=True</em>, <em class="sig-param">ignore_paths=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/search.html#read_all_files_in_folders_print_lines_around_regex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.read_all_files_in_folders_print_lines_around_regex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches for regex in each line of every file in multiple folders. When regex is
+matched, will return num_lines lines around the file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="projectreport.searcher.read_all_files_in_folders_print_lines_around_regex.params.folders"></span><strong>folders</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.read_all_files_in_folders_print_lines_around_regex.params.folders">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]) – Folders to search in</p></li>
+<li><p><span class="target" id="projectreport.searcher.read_all_files_in_folders_print_lines_around_regex.params.str_pattern"></span><strong>str_pattern</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.read_all_files_in_folders_print_lines_around_regex.params.str_pattern">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Pattern to match in a line</p></li>
+<li><p><span class="target" id="projectreport.searcher.read_all_files_in_folders_print_lines_around_regex.params.num_lines"></span><strong>num_lines</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.read_all_files_in_folders_print_lines_around_regex.params.num_lines">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of lines around the matching line to return/print,
+defaults to 2</p></li>
+<li><p><span class="target" id="projectreport.searcher.read_all_files_in_folders_print_lines_around_regex.params.recursive"></span><strong>recursive</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.read_all_files_in_folders_print_lines_around_regex.params.recursive">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to search folders within passed folder, defaults to False</p></li>
+<li><p><span class="target" id="projectreport.searcher.read_all_files_in_folders_print_lines_around_regex.params.print_lines"></span><strong>print_lines</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.read_all_files_in_folders_print_lines_around_regex.params.print_lines">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – Whether to print the results, defaults to False</p></li>
+<li><p><span class="target" id="projectreport.searcher.read_all_files_in_folders_print_lines_around_regex.params.ignore_paths"></span><strong>ignore_paths</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.read_all_files_in_folders_print_lines_around_regex.params.ignore_paths">¶</a> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]) – Relative paths to ignore. Globs are accepted, defaults to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dictionary where keys are file paths, and values are lists where each
+element is a list containing the lines for one match</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="projectreport.searcher.read_file_get_lines_around_regex">
+<code class="sig-prename descclassname">projectreport.searcher.</code><code class="sig-name descname">read_file_get_lines_around_regex</code><span class="sig-paren">(</span><em class="sig-param">file_path</em>, <em class="sig-param">str_pattern</em>, <em class="sig-param">num_lines=2</em>, <em class="sig-param">print_lines=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/search.html#read_file_get_lines_around_regex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.read_file_get_lines_around_regex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches for regex in each line of a file. When regex is matched, will return
+num_lines lines around the file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><span class="target" id="projectreport.searcher.read_file_get_lines_around_regex.params.file_path"></span><strong>file_path</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.read_file_get_lines_around_regex.params.file_path">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – path of file to search in</p></li>
+<li><p><span class="target" id="projectreport.searcher.read_file_get_lines_around_regex.params.str_pattern"></span><strong>str_pattern</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.read_file_get_lines_around_regex.params.str_pattern">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – pattern to match in a line</p></li>
+<li><p><span class="target" id="projectreport.searcher.read_file_get_lines_around_regex.params.num_lines"></span><strong>num_lines</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.read_file_get_lines_around_regex.params.num_lines">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – number of lines around the matching line to return/print,
+defaults to 2</p></li>
+<li><p><span class="target" id="projectreport.searcher.read_file_get_lines_around_regex.params.print_lines"></span><strong>print_lines</strong><a class="paramlink headerlink reference internal" href="#projectreport.searcher.read_file_get_lines_around_regex.params.print_lines">¶</a> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – whether to print the results, defaults to False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list where each element is a list containing the lines for one match</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting started with project-report</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">projectreport</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="projectreport.html">projectreport package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="projectreport.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="projectreport.analyzer.html">projectreport.analyzer package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projectreport.finder.html">projectreport.finder package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projectreport.report.html">projectreport.report package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">projectreport.searcher package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-projectreport.searcher.rotating_list">projectreport.searcher.rotating_list module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-projectreport.searcher.search">projectreport.searcher.search module</a></li>
+<li class="toctree-l5"><a class="reference internal" href="#module-projectreport.searcher">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="projectreport.tools.html">projectreport.tools package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="projectreport.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="projectreport.html#module-projectreport.config">projectreport.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="projectreport.html#module-projectreport">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">projectreport</a><ul>
+  <li><a href="projectreport.html">projectreport package</a><ul>
+      <li>Previous: <a href="projectreport.report.html" title="previous chapter">projectreport.report package</a></li>
+      <li>Next: <a href="projectreport.tools.html" title="next chapter">projectreport.tools package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Nick DeRobertis.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/api/projectreport.searcher.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

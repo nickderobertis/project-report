@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>projectreport.report.base &#8212; project-report 0.1.0 documentation</title>
+    <title>projectreport.report.base &#8212; project-report 0.2.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_paramlinks.css" />
@@ -32,14 +32,14 @@
           <div class="body" role="main">
             
   <h1>Source code for projectreport.report.base</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">cached_property</span> <span class="k">import</span> <span class="n">cached_property</span>
+<span></span><span class="kn">from</span> <span class="nn">cached_property</span> <span class="kn">import</span> <span class="n">cached_property</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
-<span class="kn">from</span> <span class="nn">projectreport.report.json</span> <span class="k">import</span> <span class="n">to_json</span>
+<span class="kn">from</span> <span class="nn">projectreport.report.json</span> <span class="kn">import</span> <span class="n">to_json</span>
 
 
 <div class="viewcode-block" id="BaseReport"><a class="viewcode-back" href="../../../api/projectreport.report.html#projectreport.report.base.BaseReport">[docs]</a><span class="k">class</span> <span class="nc">BaseReport</span><span class="p">:</span>
 
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">yaml</span>
 
 <div class="viewcode-block" id="BaseReport.json"><a class="viewcode-back" href="../../../api/projectreport.report.html#projectreport.report.base.BaseReport.json">[docs]</a>    <span class="nd">@cached_property</span>
@@ -102,10 +102,10 @@
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2019, Nick DeRobertis.
+      &copy;2020, Nick DeRobertis.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.3.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
     </div>
