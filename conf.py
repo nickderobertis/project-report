@@ -62,6 +62,6 @@ DOCS_OTHER_MOCK_IMPORTS = [
 ]
 
 PACKAGE_URLS = {
-    "Code": "https://github.com/whoopnip/project-report/",
-    "Documentation": "https://whoopnip.github.io/project-report/",
+    "Code": "https://github.com/nickderobertis/project-report/",
+    "Documentation": "https://nickderobertis.github.io/project-report/",
 }

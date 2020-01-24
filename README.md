@@ -8,6 +8,4 @@ and outputs reports.
 ## Links
 
 See the
-[documentation here.](
-https://whoopnip.github.io/project-report/
-)
+[documentation here.](https://nickderobertis.github.io/project-report/)
