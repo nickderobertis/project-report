@@ -4,6 +4,10 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+pylint = "*"
+flake8 = "*"
+black = "*"
+mypy = "*"
 
 [packages]
 sphinx = "*"
@@ -14,9 +18,13 @@ sphinx-paramlinks = "*"
 twine = "*"
 pygount = "*"
 cached_property = "*"
+pywin32 = {version = "==224",os_name = "== 'windows'"}  # temporary to solve issue https://github.com/jupyter/notebook/issues/4909#issuecomment-577656011
 jupyterlab = "*"
 gitpython = "*"
 pyexlatex = "*"
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
