@@ -4,6 +4,9 @@
 # Main package name
 PACKAGE_NAME = "project-report"
 
+# Directory name of package
+PACKAGE_DIRECTORY = "projectreport"
+
 # Name of Repo
 REPO_NAME = "project-report"
 
@@ -110,7 +113,7 @@ PACKAGE_URLS = {
 
 # Does not affect anything about the current package. Simply used for tracking when this repo was created off
 # of the quickstart template, so it is easier to bring over new changes to the template.
-_TEMPLATE_VERSION_TUPLE = (0, 5, 6)
+_TEMPLATE_VERSION_TUPLE = (0, 6, 0)
 
 if __name__ == '__main__':
     # Store config as environment variables
