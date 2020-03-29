@@ -20,7 +20,7 @@ A simple example:
 ```python
 import projectreport
 
-# Do something with project-report
+# Do something with projectreport
 ```
 
 ## Links

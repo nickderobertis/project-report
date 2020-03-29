@@ -11,4 +11,7 @@ Install via::
 Usage
 =========
 
-Coming soon.
+This is a simple example::
+
+    import projectreport
+
