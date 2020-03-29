@@ -4,6 +4,18 @@
 # Main package name
 PACKAGE_NAME = "project-report"
 
+# Name of Repo
+REPO_NAME = "project-report"
+
+# Github username of the user which owns the repo
+REPO_USERNAME = "nickderobertis"
+
+# List of maintainers of package, by default the same user which owns the repo
+# Pull requests raised by these maintainers without the "no auto merge" label will be automatically merged
+REPO_MAINTAINERS = [
+    REPO_USERNAME,
+]
+
 # Package version in the format (major, minor, release)
 PACKAGE_VERSION_TUPLE = (0, 2, 0)
 
@@ -11,10 +23,7 @@ PACKAGE_VERSION_TUPLE = (0, 2, 0)
 PACKAGE_SHORT_DESCRIPTION = "Find software projects, analyze them, and output a report."
 
 # Long description of the package
-PACKAGE_DESCRIPTION = """
-A set of tools for describing software projects. Finds software projects, analyzes them,
-and outputs reports.
-"""
+PACKAGE_DESCRIPTION = 'auto'
 
 # Author
 PACKAGE_AUTHOR = "Nick DeRobertis"
@@ -52,6 +61,26 @@ PACKAGE_INSTALL_REQUIRES = [
     "pyexlatex",
 ]
 
+# Add any third party packages you use in requirements for optional features of your package here
+# Keys should be name of the optional feature and values are lists of required packages
+# E.g. {'feature1': ['pandas', 'numpy'], 'feature2': ['matplotlib']}
+OPTIONAL_PACKAGE_INSTALL_REQUIRES = {
+
+}
+
+# Packages added to Binder environment so that examples can be executed in Binder
+# By default, takes this package (PACKAGE_NAME)
+# everything the package requires (PACKAGE_INSTALL_REQUIRES) and everything
+# that the package optionally requires (OPTIONAL_PACKAGE_INSTALL_REQUIRES) and adds them all to one list
+# If a custom list is passed, it must include all the requirements for the Binder environment
+BINDER_ENVIRONMENT_REQUIRES = list(
+    set(
+        PACKAGE_INSTALL_REQUIRES + [PACKAGE_NAME] +
+        [package for package_list in OPTIONAL_PACKAGE_INSTALL_REQUIRES.values() for package in package_list]
+    )
+)
+
+
 # Sphinx executes all the import statements as it generates the documentation. To avoid having to install all
 # the necessary packages, third-party packages can be passed to mock imports to just skip the import.
 # By default, everything in PACKAGE_INSTALL_REQUIRES will be passed as mock imports, along with anything here.
@@ -61,7 +90,33 @@ DOCS_OTHER_MOCK_IMPORTS = [
     # 'package',
 ]
 
+# Add any Python scripts which should be exposed to the command line in the format:
+# CONSOLE_SCRIPTS = ['funniest-joke=funniest.command_line:main']
+CONSOLE_SCRIPTS = [],
+
+# Add any arbitrary scripts to be exposed to the command line in the format:
+# SCRIPTS = ['bin/funniest-joke']
+SCRIPTS = []
+
+# Optional Google Analytics tracking ID for documentation
+# Go to https://analytics.google.com/ and set it up for your documentation URL
+# Set to None or empty string to not use this
+GOOGLE_ANALYTICS_TRACKING_ID = "UA-162159439-1"
+
 PACKAGE_URLS = {
     "Code": "https://github.com/nickderobertis/project-report/",
     "Documentation": "https://nickderobertis.github.io/project-report/",
 }
+
+# Does not affect anything about the current package. Simply used for tracking when this repo was created off
+# of the quickstart template, so it is easier to bring over new changes to the template.
+_TEMPLATE_VERSION_TUPLE = (0, 4, 0)
+
+if __name__ == '__main__':
+    # Store config as environment variables
+    env_vars = dict(locals())
+    # Imports after getting locals so that locals are only environment variables
+    import shlex
+    for name, value in env_vars.items():
+        quoted_value = shlex.quote(str(value))
+        print(f'export {name}={quoted_value};')

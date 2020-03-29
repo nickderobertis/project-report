@@ -1,7 +1,0 @@
-projectreport
-=============
-
-.. toctree::
-   :maxdepth: 4
-
-   projectreport
