@@ -39,7 +39,7 @@ class Folder(Analyzable):
     @cached_property
     def file_paths(self) -> List[str]:
         included_files = []
-        if self.options['ignore_paths']:
+        if self.options['ignore_paths'] is not None:
             all_ignore_paths = all_possible_paths(self.options['ignore_paths'], self.path)
 
         for file in self.file_names:
@@ -48,10 +48,10 @@ class Folder(Analyzable):
                 if file_path in all_ignore_paths:
                     continue  # this file excluded, skip it
             extension = os.path.splitext(file)[1].strip('.')
-            if self.options['included_types']:
+            if self.options['included_types'] is not None:
                 if extension in self.options['included_types']:
                     included_files.append(file)
-            elif self.options['excluded_types']:
+            elif self.options['excluded_types'] is not None:
                 if extension not in self.options['excluded_types']:
                     included_files.append(file)
             else:
@@ -64,13 +64,13 @@ class Folder(Analyzable):
     def folder_paths(self) -> List[str]:
         folders = [file for file in next(os.walk(self.path))[1]]
 
-        if self.options['ignore_paths']:
+        if self.options['ignore_paths'] is not None:
             all_ignore_paths = all_possible_paths(self.options['ignore_paths'], self.path)
 
         out_folders = []
         for folder in folders:
             abs_folder = os.path.join(self.path, folder)
-            if self.options['ignore_paths']:
+            if self.options['ignore_paths'] is not None:
                 if abs_folder in all_ignore_paths:
                     continue  # this folder excluded, skip it
             out_folders.append(abs_folder)

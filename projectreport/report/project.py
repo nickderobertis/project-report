@@ -19,16 +19,18 @@ class ProjectReport(BaseReport):
 
     @cached_property
     def data(self) -> Dict[str, Union[str, int, dict]]:
-        data = {}
+        data: Dict[str, Union[str, int, dict]] = {}
         data.update(self.project.data)
         if self.depth == 0:
             return data
 
-        data.update({'subprojects': {}})
+        subprojects_dict: Dict[str, Dict[str, Union[str, int, dict]]] = {}
         for folder in self.project.folders:
-            folder_data = {}
+            folder_data: Dict[str, Union[str, int, dict]] = {}
             gather_data(folder, folder_data, remaining_depth=self.depth - 1)
-            data['subprojects'][folder.path] = folder_data
+            subprojects_dict[folder.path] = folder_data
+        data.update({'subprojects': subprojects_dict})
+
 
         return data
 
@@ -38,11 +40,13 @@ def gather_data(folder: 'Folder', data: dict, remaining_depth: int = 0):
     if remaining_depth <= 0:
         return
 
-    data.update({'subprojects': {}})
+
+    subprojects_dict: Dict[str, Dict[str, Union[str, int, dict]]] = {}
     for folder in folder.folders:
-        folder_data = {}
+        folder_data: Dict[str, Union[str, int, dict]] = {}
         gather_data(folder, folder_data, remaining_depth=remaining_depth - 1)
-        data['subprojects'][folder.path] = folder_data
+        subprojects_dict[folder.path] = folder_data
+    data.update({'subprojects': subprojects_dict})
 
 
 

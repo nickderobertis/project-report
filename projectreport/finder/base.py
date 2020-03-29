@@ -1,4 +1,4 @@
-from typing import Optional, Sequence
+from typing import Optional, Sequence, List
 import os
 
 from projectreport.tools.expand_glob import all_possible_paths
@@ -17,7 +17,7 @@ class Finder:
         self.required_folders = required_folders
         self.required_files = required_files
         self.file_extensions = file_extensions
-        self.project_paths = []
+        self.project_paths: List[str] = []
 
     def find(self, path: str, ignore_paths: Optional[Sequence[str]] = DEFAULT_IGNORE_PATHS):
         if ignore_paths:
@@ -69,7 +69,6 @@ class Finder:
                 return False
 
         return True
-
 
     def _validate(self):
         if not any([self.required_folders, self.required_files, self.file_extensions]):

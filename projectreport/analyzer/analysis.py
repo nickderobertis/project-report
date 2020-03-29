@@ -1,9 +1,8 @@
-from typing import Optional, List, Sequence, TYPE_CHECKING
+from typing import Optional, List, TYPE_CHECKING
 if TYPE_CHECKING:
     from projectreport.analyzer.module import Module
     from projectreport.analyzer.analyzable import Analyzable
     from projectreport.analyzer.folder import Folder
-from copy import deepcopy
 from datetime import datetime
 import pygount
 from cached_property import cached_property
@@ -11,8 +10,8 @@ import git
 
 
 class Analysis:
-    loc = None
-    full_loc = None
+    _loc: Optional[int] = None
+    _full_loc: Optional[int] = None
 
     def __init__(self, analyzable: 'Analyzable'):
         self.git_analysis = GitAnalysis(analyzable)
@@ -27,6 +26,22 @@ class Analysis:
             full_lines=self.full_loc,
             urls=self.git_analysis.urls
         )
+
+    @property
+    def loc(self) -> Optional[int]:
+        return self._loc
+
+    @loc.setter
+    def loc(self, value: int):
+        self._loc = value
+
+    @property
+    def full_loc(self) -> Optional[int]:
+        return self._full_loc
+
+    @full_loc.setter
+    def full_loc(self, value: int):
+        self._full_loc = value
 
 
 class FolderAnalysis(Analysis):
@@ -61,6 +76,10 @@ class FolderAnalysis(Analysis):
     def loc(self) -> int:
         return self.lines['code']
 
+    @loc.setter
+    def loc(self, value: int):
+        raise NotImplementedError
+
     @property
     def full_loc(self) -> int:
         loc = 0
@@ -74,12 +93,16 @@ class FolderAnalysis(Analysis):
             loc += self.lines[key]
         return loc
 
+    @full_loc.setter
+    def full_loc(self, value: int):
+        raise NotImplementedError
+
 
 class ModuleAnalysis(Analysis):
 
     def __init__(self, module: 'Module'):
         self.module = module
-        self.source_analysis = pygount.source_analysis(self.module.path, self.module.package)
+        self.source_analysis: pygount.SourceAnalysis = pygount.source_analysis(self.module.path, self.module.package)
         self.loc = self.source_analysis.code
 
         full_loc = 0
@@ -97,6 +120,8 @@ class GitAnalysis:
     @cached_property
     def commits(self) -> Optional[List[git.Commit]]:
         if not self.has_repo:
+            return None
+        if self.ref.project is None:  # for mypy
             return None
         commits = [commit for commit in self.ref.project.repo.iter_commits(paths=self.ref.path)]
         return commits
@@ -125,6 +150,8 @@ class GitAnalysis:
 
     @cached_property
     def has_remote(self) -> bool:
+        if self.ref.project is None:
+            return False
         try:
             self.ref.project.repo.remote()
             return True
@@ -139,7 +166,8 @@ class GitAnalysis:
     def urls(self) -> Optional[List[str]]:
         if not self.has_repo or not self.has_remote:
             return None
-
+        if self.ref.project is None:  # for mypy
+            return None
         urls = list(self.ref.project.repo.remote().urls)
 
         # Urls currently have .git on the end, strip

@@ -12,8 +12,6 @@ class CombinedFinder(Finder):
     def __init__(self, finders: Sequence[Finder], recursive: bool = True):
         self.finders = finders
         super().__init__(recursive=recursive)
-        self.required_folders = any([finder.required_folders for finder in self.finders])
-        self.required_files = any([finder.required_files for finder in self.finders])
         self.file_extensions = []
         for finder in self.finders:
             if finder.file_extensions:
