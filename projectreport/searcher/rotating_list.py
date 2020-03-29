@@ -28,7 +28,7 @@ class RotatingList(UserList):
         super().insert(index, item)
 
     def extend(self, items: Iterable[Any]):
-        # TODO [$5e80fdc257a1fc0007028f26]: more efficient implementation of RotatingList.extend
+        # TODO [#4]: more efficient implementation of RotatingList.extend
         [self.append(item) for item in items]
         # if len(items) >= self.max_len:
         #     self.data = items[-self.max_len:]

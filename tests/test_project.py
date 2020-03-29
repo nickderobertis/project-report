@@ -14,11 +14,11 @@ def test_python_project():
     assert project.repo is None
     assert not project.is_empty
     assert project.folders == []
-    # TODO [$5e80fdc257a1fc0007028f28]: test python project .analysis, .modules, .data
+    # TODO [#6]: test python project .analysis, .modules, .data
 
 
 def test_git_project():
     project = get_git_project()
 
     assert project.repo is not None
-    # TODO [$5e80fdc257a1fc0007028f29]: better testing of git project
+    # TODO [#7]: better testing of git project
