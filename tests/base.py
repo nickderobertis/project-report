@@ -34,7 +34,7 @@ def get_project_report() -> Report:
     report = Report(projects)
     return report
 
-# TODO: include an example git repo for testing
+# TODO [#5]: include an example git repo for testing
 #
 # Need to determine how to include a .git folder inside a subfolder in the repo.
 # Alternatively, use gitpython to create on the fly and delete at end of test
