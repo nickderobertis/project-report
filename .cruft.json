@@ -1,0 +1,17 @@
+{
+    "template": "https://github.com/nickderobertis/cookiecutter-pypi-sphinx",
+    "commit": "b07a55813cd5f213515cf5f3f6a0a7b693c50b0d",
+    "context": {
+        "cookiecutter": {
+            "package_name": "project-report",
+            "full_name": "Project Report",
+            "repo_name": "project-report",
+            "repo_username": "nickderobertis",
+            "short_description": "Find software projects, analyze them, and output a report.",
+            "package_author": "Nick DeRobertis",
+            "author_email": "whoopnip@gmail.com",
+            "google_analytics_id": "UA-162159439-1",
+            "_template": "https://github.com/nickderobertis/cookiecutter-pypi-sphinx"
+        }
+    }
+}
