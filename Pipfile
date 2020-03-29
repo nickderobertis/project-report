@@ -20,6 +20,7 @@ pytest = "*"
 pytest-cov = "*"
 mypy = "*"
 pypandoc = "*"
+cruft = "*"
 pygount = "*"
 cached_property = "*"
 pywin32 = {version = "==224",os_name = "== 'windows'"}  # temporary to solve issue https://github.com/jupyter/notebook/issues/4909#issuecomment-577656011

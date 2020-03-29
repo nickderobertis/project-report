@@ -1,6 +1,6 @@
 {
     "template": "https://github.com/nickderobertis/cookiecutter-pypi-sphinx",
-    "commit": "b07a55813cd5f213515cf5f3f6a0a7b693c50b0d",
+    "commit": "b7eab35a0360b489172e7b20ac0dcae23a17a446",
     "context": {
         "cookiecutter": {
             "package_name": "project-report",
