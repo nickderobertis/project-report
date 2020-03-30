@@ -1,0 +1,642 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>projectreport.analyzer package &mdash; project-report 0.2.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/sphinx_paramlinks.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/gallery-dataframe.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="projectreport.analyzer.parsers package" href="projectreport.analyzer.parsers.html" />
+    <link rel="prev" title="projectreport package" href="projectreport.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> project-report
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Getting started with project-report</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">projectreport</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="projectreport.html">projectreport package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="projectreport.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4 current"><a class="current reference internal" href="#">projectreport.analyzer package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projectreport.finder.html">projectreport.finder package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projectreport.report.html">projectreport.report package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projectreport.searcher.html">projectreport.searcher package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="projectreport.tools.html">projectreport.tools package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="projectreport.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="projectreport.html#module-projectreport.config">projectreport.config module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">project-report</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="modules.html">projectreport</a> &raquo;</li>
+        
+          <li><a href="projectreport.html">projectreport package</a> &raquo;</li>
+        
+      <li>projectreport.analyzer package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/api/projectreport.analyzer.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-projectreport.analyzer">
+<span id="projectreport-analyzer-package"></span><h1>projectreport.analyzer package<a class="headerlink" href="#module-projectreport.analyzer" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="projectreport.analyzer.parsers.html">projectreport.analyzer.parsers package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="projectreport.analyzer.parsers.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="projectreport.analyzer.parsers.html#module-projectreport.analyzer.parsers.base">projectreport.analyzer.parsers.base module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="projectreport.analyzer.parsers.html#module-projectreport.analyzer.parsers.index">projectreport.analyzer.parsers.index module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="projectreport.analyzer.parsers.html#module-projectreport.analyzer.parsers.python">projectreport.analyzer.parsers.python module</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-projectreport.analyzer.analysis">
+<span id="projectreport-analyzer-analysis-module"></span><h2>projectreport.analyzer.analysis module<a class="headerlink" href="#module-projectreport.analyzer.analysis" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="projectreport.analyzer.analysis.analysis">
+<span id="projectreport.analyzer.analysis.Analysis"></span><em class="property">class </em><code class="sig-prename descclassname">projectreport.analyzer.analysis.</code><code class="sig-name descname">Analysis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">analyzable</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#Analysis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.analysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.analysis.__init__">
+<span id="projectreport.analyzer.analysis.Analysis.__init__"></span><code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">analyzable</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#Analysis.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.analysis.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.analysis.data">
+<span id="projectreport.analyzer.analysis.Analysis.data"></span><code class="sig-name descname">data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#Analysis.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.analysis.data" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.analysis.full_loc">
+<span id="projectreport.analyzer.analysis.Analysis.full_loc"></span><em class="property">property </em><code class="sig-name descname">full_loc</code><a class="headerlink" href="#projectreport.analyzer.analysis.analysis.full_loc" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.analysis.loc">
+<span id="projectreport.analyzer.analysis.Analysis.loc"></span><em class="property">property </em><code class="sig-name descname">loc</code><a class="headerlink" href="#projectreport.analyzer.analysis.analysis.loc" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="projectreport.analyzer.analysis.folderanalysis">
+<span id="projectreport.analyzer.analysis.FolderAnalysis"></span><em class="property">class </em><code class="sig-prename descclassname">projectreport.analyzer.analysis.</code><code class="sig-name descname">FolderAnalysis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#FolderAnalysis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.folderanalysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#projectreport.analyzer.analysis.analysis" title="projectreport.analyzer.analysis.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">projectreport.analyzer.analysis.Analysis</span></code></a></p>
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.folderanalysis.__init__">
+<span id="projectreport.analyzer.analysis.FolderAnalysis.__init__"></span><code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">folder</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#FolderAnalysis.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.folderanalysis.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.folderanalysis.add_module_analysis">
+<span id="projectreport.analyzer.analysis.FolderAnalysis.add_module_analysis"></span><code class="sig-name descname">add_module_analysis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">analysis</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#FolderAnalysis.add_module_analysis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.folderanalysis.add_module_analysis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.folderanalysis.add_subfolder_analysis">
+<span id="projectreport.analyzer.analysis.FolderAnalysis.add_subfolder_analysis"></span><code class="sig-name descname">add_subfolder_analysis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">analysis</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#FolderAnalysis.add_subfolder_analysis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.folderanalysis.add_subfolder_analysis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.folderanalysis.full_loc">
+<span id="projectreport.analyzer.analysis.FolderAnalysis.full_loc"></span><em class="property">property </em><code class="sig-name descname">full_loc</code><a class="headerlink" href="#projectreport.analyzer.analysis.folderanalysis.full_loc" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.folderanalysis.loc">
+<span id="projectreport.analyzer.analysis.FolderAnalysis.loc"></span><em class="property">property </em><code class="sig-name descname">loc</code><a class="headerlink" href="#projectreport.analyzer.analysis.folderanalysis.loc" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="projectreport.analyzer.analysis.gitanalysis">
+<span id="projectreport.analyzer.analysis.GitAnalysis"></span><em class="property">class </em><code class="sig-prename descclassname">projectreport.analyzer.analysis.</code><code class="sig-name descname">GitAnalysis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">analyzable</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#GitAnalysis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.gitanalysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.gitanalysis.__init__">
+<span id="projectreport.analyzer.analysis.GitAnalysis.__init__"></span><code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">analyzable</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#GitAnalysis.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.gitanalysis.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.gitanalysis.commits">
+<span id="projectreport.analyzer.analysis.GitAnalysis.commits"></span><code class="sig-name descname">commits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#GitAnalysis.commits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.gitanalysis.commits" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Commit</span></code>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.gitanalysis.created">
+<span id="projectreport.analyzer.analysis.GitAnalysis.created"></span><code class="sig-name descname">created</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#GitAnalysis.created"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.gitanalysis.created" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.gitanalysis.has_remote">
+<span id="projectreport.analyzer.analysis.GitAnalysis.has_remote"></span><code class="sig-name descname">has_remote</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#GitAnalysis.has_remote"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.gitanalysis.has_remote" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.gitanalysis.has_repo">
+<span id="projectreport.analyzer.analysis.GitAnalysis.has_repo"></span><code class="sig-name descname">has_repo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#GitAnalysis.has_repo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.gitanalysis.has_repo" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.gitanalysis.num_commits">
+<span id="projectreport.analyzer.analysis.GitAnalysis.num_commits"></span><code class="sig-name descname">num_commits</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#GitAnalysis.num_commits"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.gitanalysis.num_commits" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.gitanalysis.updated">
+<span id="projectreport.analyzer.analysis.GitAnalysis.updated"></span><code class="sig-name descname">updated</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#GitAnalysis.updated"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.gitanalysis.updated" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/datetime.html#datetime.datetime" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">datetime</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.gitanalysis.urls">
+<span id="projectreport.analyzer.analysis.GitAnalysis.urls"></span><code class="sig-name descname">urls</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#GitAnalysis.urls"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.gitanalysis.urls" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="projectreport.analyzer.analysis.moduleanalysis">
+<span id="projectreport.analyzer.analysis.ModuleAnalysis"></span><em class="property">class </em><code class="sig-prename descclassname">projectreport.analyzer.analysis.</code><code class="sig-name descname">ModuleAnalysis</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">module</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#ModuleAnalysis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.moduleanalysis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#projectreport.analyzer.analysis.analysis" title="projectreport.analyzer.analysis.Analysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">projectreport.analyzer.analysis.Analysis</span></code></a></p>
+<dl class="py method">
+<dt id="projectreport.analyzer.analysis.moduleanalysis.__init__">
+<span id="projectreport.analyzer.analysis.ModuleAnalysis.__init__"></span><code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">module</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analysis.html#ModuleAnalysis.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analysis.moduleanalysis.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-projectreport.analyzer.analyzable">
+<span id="projectreport-analyzer-analyzable-module"></span><h2>projectreport.analyzer.analyzable module<a class="headerlink" href="#module-projectreport.analyzer.analyzable" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="projectreport.analyzer.analyzable.analyzable">
+<span id="projectreport.analyzer.analyzable.Analyzable"></span><em class="property">class </em><code class="sig-prename descclassname">projectreport.analyzer.analyzable.</code><code class="sig-name descname">Analyzable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analyzable.html#Analyzable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analyzable.analyzable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt id="projectreport.analyzer.analyzable.analyzable.__init__">
+<span id="projectreport.analyzer.analyzable.Analyzable.__init__"></span><code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analyzable.html#Analyzable.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analyzable.analyzable.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="projectreport.analyzer.analyzable.analyzable.analysis">
+<span id="projectreport.analyzer.analyzable.Analyzable.analysis"></span><code class="sig-name descname">analysis</code><em class="property">: Optional[Analysis]</em><em class="property"> = None</em><a class="headerlink" href="#projectreport.analyzer.analyzable.analyzable.analysis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.analyzable.analyzable.data">
+<span id="projectreport.analyzer.analyzable.Analyzable.data"></span><code class="sig-name descname">data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analyzable.html#Analyzable.data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analyzable.analyzable.data" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.analyzable.analyzable.docstring">
+<span id="projectreport.analyzer.analyzable.Analyzable.docstring"></span><code class="sig-name descname">docstring</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/analyzable.html#Analyzable.docstring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.analyzable.analyzable.docstring" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="projectreport.analyzer.analyzable.analyzable.name">
+<span id="projectreport.analyzer.analyzable.Analyzable.name"></span><code class="sig-name descname">name</code><em class="property">: Optional[str]</em><em class="property"> = None</em><a class="headerlink" href="#projectreport.analyzer.analyzable.analyzable.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="projectreport.analyzer.analyzable.analyzable.parser">
+<span id="projectreport.analyzer.analyzable.Analyzable.parser"></span><code class="sig-name descname">parser</code><em class="property">: Optional[Parser]</em><em class="property"> = None</em><a class="headerlink" href="#projectreport.analyzer.analyzable.analyzable.parser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-projectreport.analyzer.folder">
+<span id="projectreport-analyzer-folder-module"></span><h2>projectreport.analyzer.folder module<a class="headerlink" href="#module-projectreport.analyzer.folder" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="projectreport.analyzer.folder.folder">
+<span id="projectreport.analyzer.folder.Folder"></span><em class="property">class </em><code class="sig-prename descclassname">projectreport.analyzer.folder.</code><code class="sig-name descname">Folder</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">excluded_types</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">included_types</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ignore_paths</span><span class="o">=</span><span class="default_value">'.*', '__pycache__'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/folder.html#Folder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.folder.folder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#projectreport.analyzer.analyzable.analyzable" title="projectreport.analyzer.analyzable.Analyzable"><code class="xref py py-class docutils literal notranslate"><span class="pre">projectreport.analyzer.analyzable.Analyzable</span></code></a></p>
+<dl class="py method">
+<dt id="projectreport.analyzer.folder.folder.__init__">
+<span id="projectreport.analyzer.folder.Folder.__init__"></span><code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">excluded_types</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">included_types</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ignore_paths</span><span class="o">=</span><span class="default_value">'.*', '__pycache__'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/folder.html#Folder.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.folder.folder.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.folder.folder.analysis">
+<span id="projectreport.analyzer.folder.Folder.analysis"></span><code class="sig-name descname">analysis</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/folder.html#Folder.analysis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.folder.folder.analysis" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#projectreport.analyzer.analysis.folderanalysis" title="projectreport.analyzer.analysis.FolderAnalysis"><code class="xref py py-class docutils literal notranslate"><span class="pre">FolderAnalysis</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.folder.folder.file_names">
+<span id="projectreport.analyzer.folder.Folder.file_names"></span><code class="sig-name descname">file_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/folder.html#Folder.file_names"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.folder.folder.file_names" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.folder.folder.file_paths">
+<span id="projectreport.analyzer.folder.Folder.file_paths"></span><code class="sig-name descname">file_paths</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/folder.html#Folder.file_paths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.folder.folder.file_paths" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.folder.folder.folder_paths">
+<span id="projectreport.analyzer.folder.Folder.folder_paths"></span><code class="sig-name descname">folder_paths</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/folder.html#Folder.folder_paths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.folder.folder.folder_paths" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.folder.folder.folders">
+<span id="projectreport.analyzer.folder.Folder.folders"></span><code class="sig-name descname">folders</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/folder.html#Folder.folders"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.folder.folder.folders" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference internal" href="#projectreport.analyzer.folder.folder" title="projectreport.analyzer.folder.Folder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Folder</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.folder.folder.is_empty">
+<span id="projectreport.analyzer.folder.Folder.is_empty"></span><code class="sig-name descname">is_empty</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/folder.html#Folder.is_empty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.folder.folder.is_empty" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.folder.folder.modules">
+<span id="projectreport.analyzer.folder.Folder.modules"></span><code class="sig-name descname">modules</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/folder.html#Folder.modules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.folder.folder.modules" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference internal" href="#projectreport.analyzer.module.module" title="projectreport.analyzer.module.Module"><code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.folder.folder.parser">
+<span id="projectreport.analyzer.folder.Folder.parser"></span><code class="sig-name descname">parser</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/folder.html#Folder.parser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.folder.folder.parser" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ForwardRef" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForwardRef</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-projectreport.analyzer.module">
+<span id="projectreport-analyzer-module-module"></span><h2>projectreport.analyzer.module module<a class="headerlink" href="#module-projectreport.analyzer.module" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="projectreport.analyzer.module.module">
+<span id="projectreport.analyzer.module.Module"></span><em class="property">class </em><code class="sig-prename descclassname">projectreport.analyzer.module.</code><code class="sig-name descname">Module</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">package</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/module.html#Module"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.module.module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#projectreport.analyzer.analyzable.analyzable" title="projectreport.analyzer.analyzable.Analyzable"><code class="xref py py-class docutils literal notranslate"><span class="pre">projectreport.analyzer.analyzable.Analyzable</span></code></a></p>
+<dl class="py method">
+<dt id="projectreport.analyzer.module.module.__init__">
+<span id="projectreport.analyzer.module.Module.__init__"></span><code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">package</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">project</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/module.html#Module.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.module.module.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.module.module.parser">
+<span id="projectreport.analyzer.module.Module.parser"></span><code class="sig-name descname">parser</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/module.html#Module.parser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.module.module.parser" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ForwardRef" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForwardRef</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-projectreport.analyzer.project">
+<span id="projectreport-analyzer-project-module"></span><h2>projectreport.analyzer.project module<a class="headerlink" href="#module-projectreport.analyzer.project" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="projectreport.analyzer.project.project">
+<span id="projectreport.analyzer.project.Project"></span><em class="property">class </em><code class="sig-prename descclassname">projectreport.analyzer.project.</code><code class="sig-name descname">Project</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">excluded_types</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">included_types</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ignore_paths</span><span class="o">=</span><span class="default_value">'.*', '__pycache__'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/project.html#Project"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.project.project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#projectreport.analyzer.folder.folder" title="projectreport.analyzer.folder.Folder"><code class="xref py py-class docutils literal notranslate"><span class="pre">projectreport.analyzer.folder.Folder</span></code></a></p>
+<p>Pass a project path to get analysis about the project.</p>
+<dl class="py method">
+<dt id="projectreport.analyzer.project.project.__init__">
+<span id="projectreport.analyzer.project.Project.__init__"></span><code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">excluded_types</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">included_types</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ignore_paths</span><span class="o">=</span><span class="default_value">'.*', '__pycache__'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/project.html#Project.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.project.project.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.project.project.repo">
+<span id="projectreport.analyzer.project.Project.repo"></span><code class="sig-name descname">repo</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/project.html#Project.repo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.project.project.repo" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Repo</span></code>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="projectreport.analyzer.parsers.html" class="btn btn-neutral float-right" title="projectreport.analyzer.parsers package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="projectreport.html" class="btn btn-neutral float-left" title="projectreport package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Nick DeRobertis
+
+    </p>
+  </div>
+    
+    
+      Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    <!-- Theme Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-162159439-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+    
+   
+
+</body>
+</html>

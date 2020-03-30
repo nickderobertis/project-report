@@ -1,0 +1,394 @@
+
+
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>projectreport.analyzer.analysis &mdash; project-report 0.2.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/sphinx_paramlinks.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home" alt="Documentation Home"> project-report
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorial.html">Getting started with project-report</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/modules.html">projectreport</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">project-report</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>projectreport.analyzer.analysis</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for projectreport.analyzer.analysis</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">projectreport.analyzer.module</span> <span class="kn">import</span> <span class="n">Module</span>
+    <span class="kn">from</span> <span class="nn">projectreport.analyzer.analyzable</span> <span class="kn">import</span> <span class="n">Analyzable</span>
+    <span class="kn">from</span> <span class="nn">projectreport.analyzer.folder</span> <span class="kn">import</span> <span class="n">Folder</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">pygount</span>
+<span class="kn">from</span> <span class="nn">cached_property</span> <span class="kn">import</span> <span class="n">cached_property</span>
+<span class="kn">import</span> <span class="nn">git</span>
+
+
+<div class="viewcode-block" id="Analysis"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.Analysis">[docs]</a><span class="k">class</span> <span class="nc">Analysis</span><span class="p">:</span>
+    <span class="n">_loc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_full_loc</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="Analysis.__init__"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.Analysis.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analyzable</span><span class="p">:</span> <span class="s1">&#39;Analyzable&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">git_analysis</span> <span class="o">=</span> <span class="n">GitAnalysis</span><span class="p">(</span><span class="n">analyzable</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Analysis.data"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.Analysis.data">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span>
+            <span class="n">num_commits</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">git_analysis</span><span class="o">.</span><span class="n">num_commits</span><span class="p">,</span>
+            <span class="n">created</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">git_analysis</span><span class="o">.</span><span class="n">created</span><span class="p">,</span>
+            <span class="n">updated</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">git_analysis</span><span class="o">.</span><span class="n">updated</span><span class="p">,</span>
+            <span class="n">lines</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">loc</span><span class="p">,</span>
+            <span class="n">full_lines</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">full_loc</span><span class="p">,</span>
+            <span class="n">urls</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">git_analysis</span><span class="o">.</span><span class="n">urls</span>
+        <span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">loc</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_loc</span>
+
+    <span class="nd">@loc</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">loc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_loc</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">full_loc</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_full_loc</span>
+
+    <span class="nd">@full_loc</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">full_loc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_full_loc</span> <span class="o">=</span> <span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="FolderAnalysis"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.FolderAnalysis">[docs]</a><span class="k">class</span> <span class="nc">FolderAnalysis</span><span class="p">(</span><span class="n">Analysis</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FolderAnalysis.__init__"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.FolderAnalysis.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder</span><span class="p">:</span> <span class="s1">&#39;Folder&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span>
+            <span class="s1">&#39;code&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;documentation&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;empty&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;string&#39;</span>
+        <span class="p">]}</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">folder</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;&lt;PackageAnalysis(lines=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="si">}</span><span class="s1">)&gt;&#39;</span>
+
+<div class="viewcode-block" id="FolderAnalysis.add_module_analysis"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.FolderAnalysis.add_module_analysis">[docs]</a>    <span class="k">def</span> <span class="nf">add_module_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analysis</span><span class="p">:</span> <span class="s1">&#39;ModuleAnalysis&#39;</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">analysis</span><span class="o">.</span><span class="n">source_analysis</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span> <span class="o">+=</span> <span class="n">value</span></div>
+
+<div class="viewcode-block" id="FolderAnalysis.add_subfolder_analysis"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.FolderAnalysis.add_subfolder_analysis">[docs]</a>    <span class="k">def</span> <span class="nf">add_subfolder_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analysis</span><span class="p">:</span> <span class="s1">&#39;FolderAnalysis&#39;</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">:</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">analysis</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">attr</span><span class="p">]</span> <span class="o">+=</span> <span class="n">value</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">loc</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">]</span>
+
+    <span class="nd">@loc</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">loc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">full_loc</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">loc</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">keys</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s1">&#39;code&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;documentation&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;empty&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;string&#39;</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">:</span>
+            <span class="n">loc</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">loc</span>
+
+    <span class="nd">@full_loc</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">full_loc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
+
+<div class="viewcode-block" id="ModuleAnalysis"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.ModuleAnalysis">[docs]</a><span class="k">class</span> <span class="nc">ModuleAnalysis</span><span class="p">(</span><span class="n">Analysis</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ModuleAnalysis.__init__"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.ModuleAnalysis.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">:</span> <span class="s1">&#39;Module&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">module</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">source_analysis</span><span class="p">:</span> <span class="n">pygount</span><span class="o">.</span><span class="n">SourceAnalysis</span> <span class="o">=</span> <span class="n">pygount</span><span class="o">.</span><span class="n">source_analysis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">package</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_analysis</span><span class="o">.</span><span class="n">code</span>
+
+        <span class="n">full_loc</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">,</span> <span class="s1">&#39;documentation&#39;</span><span class="p">,</span> <span class="s1">&#39;empty&#39;</span><span class="p">,</span> <span class="s1">&#39;string&#39;</span><span class="p">]:</span>
+            <span class="n">full_loc</span> <span class="o">+=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">source_analysis</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">full_loc</span> <span class="o">=</span> <span class="n">full_loc</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">module</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="GitAnalysis"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.GitAnalysis">[docs]</a><span class="k">class</span> <span class="nc">GitAnalysis</span><span class="p">:</span>
+
+<div class="viewcode-block" id="GitAnalysis.__init__"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.GitAnalysis.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">analyzable</span><span class="p">:</span> <span class="s1">&#39;Analyzable&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="o">=</span> <span class="n">analyzable</span></div>
+
+<div class="viewcode-block" id="GitAnalysis.commits"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.GitAnalysis.commits">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">commits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">git</span><span class="o">.</span><span class="n">Commit</span><span class="p">]]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_repo</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="o">.</span><span class="n">project</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># for mypy</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">commits</span> <span class="o">=</span> <span class="p">[</span><span class="n">commit</span> <span class="k">for</span> <span class="n">commit</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">iter_commits</span><span class="p">(</span><span class="n">paths</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="o">.</span><span class="n">path</span><span class="p">)]</span>
+        <span class="k">return</span> <span class="n">commits</span></div>
+
+<div class="viewcode-block" id="GitAnalysis.num_commits"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.GitAnalysis.num_commits">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">num_commits</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_repo</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">commits</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GitAnalysis.created"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.GitAnalysis.created">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">created</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">commits</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">commits</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">committed_datetime</span></div>
+
+<div class="viewcode-block" id="GitAnalysis.updated"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.GitAnalysis.updated">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">updated</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">datetime</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">commits</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">commits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">committed_datetime</span></div>
+
+<div class="viewcode-block" id="GitAnalysis.has_repo"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.GitAnalysis.has_repo">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">has_repo</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="o">.</span><span class="n">project</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">repo</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="GitAnalysis.has_remote"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.GitAnalysis.has_remote">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">has_remote</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="o">.</span><span class="n">project</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;Remote named &#39;origin&#39; didn&#39;t exist&quot;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+                <span class="c1"># Repo does not have remote</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="n">e</span></div>
+
+<div class="viewcode-block" id="GitAnalysis.urls"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.analysis.GitAnalysis.urls">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">urls</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_repo</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_remote</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="o">.</span><span class="n">project</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># for mypy</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">urls</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">repo</span><span class="o">.</span><span class="n">remote</span><span class="p">()</span><span class="o">.</span><span class="n">urls</span><span class="p">)</span>
+
+        <span class="c1"># Urls currently have .git on the end, strip</span>
+        <span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="n">url</span><span class="p">[:</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">urls</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Nick DeRobertis
+
+    </p>
+  </div>
+    
+    
+      Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+    <!-- Theme Analytics -->
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-162159439-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+projectreport.analyzer package
+==============================
+
+.. automodule:: projectreport.analyzer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+
+   projectreport.analyzer.parsers
+
+Submodules
+----------
+
+projectreport.analyzer.analysis module
+--------------------------------------
+
+.. automodule:: projectreport.analyzer.analysis
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.analyzer.analyzable module
+----------------------------------------
+
+.. automodule:: projectreport.analyzer.analyzable
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.analyzer.folder module
+------------------------------------
+
+.. automodule:: projectreport.analyzer.folder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.analyzer.module module
+------------------------------------
+
+.. automodule:: projectreport.analyzer.module
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.analyzer.project module
+-------------------------------------
+
+.. automodule:: projectreport.analyzer.project
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
