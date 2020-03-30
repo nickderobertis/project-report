@@ -28,6 +28,8 @@ sys.path.insert(0, os.path.abspath('../..'))
 import conf
 import version as vs
 from docsrc.directives.auto_summary import AutoSummaryNameOnly
+from docsrc.domains.python_patch import PatchedPythonDomain as PythonDomain
+from sphinx.application import Sphinx
 
 # -- General configuration ------------------------------------------------
 
@@ -241,7 +243,8 @@ def skip(app, what, name, obj, would_skip, options):
     return would_skip
 
 
-def setup(app):
+def setup(app: Sphinx):
     app.connect("autodoc-skip-member", skip)
     app.add_directive('autosummarynameonly', AutoSummaryNameOnly)
     app.add_css_file('custom.css')
+    app.add_domain(PythonDomain, override=True)
