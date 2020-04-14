@@ -1,5 +1,5 @@
-pygount
 pyexlatex
-cached_property
 gitpython
+cached_property
 project-report
+pygount
