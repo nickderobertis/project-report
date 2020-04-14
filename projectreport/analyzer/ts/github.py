@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from typing import Dict, Callable, Union, List
 
 import dateutil
+from dateutil import parser as dateparser
 import pandas as pd
 from github.NamedUser import NamedUser
 from github.Repository import Repository
@@ -22,7 +23,7 @@ class GithubAnalysis(TimeSeriesAnalysis):
 
     @property
     def event_functions(self) -> Dict[str, Callable[[Repository], DictList]]:
-        funcs = dict(
+        funcs: Dict[str, Callable[[Repository], DictList]] = dict(
             commits=commit_stats_from_repo,
             issues=issue_stats_from_repo,
             stars=stars_from_repo,
@@ -31,7 +32,7 @@ class GithubAnalysis(TimeSeriesAnalysis):
 
     @property
     def count_functions(self) -> Dict[str, Callable[[DictList, str], DictList]]:
-        funcs = dict(
+        funcs: Dict[str, Callable[[DictList, str], DictList]] = dict(
             commits=commit_loc_counts_from_commit_events,
             issues=issue_counts_from_issue_events,
             stars=star_counts_from_star_events,
@@ -41,15 +42,15 @@ class GithubAnalysis(TimeSeriesAnalysis):
 
 def commit_stats_from_repo(repo: Repository) -> DictList:
     all_data = []
+    commit: Commit
     for commit in repo.get_commits():
-        commit: Commit
         stats: CommitStats = commit.stats
         author: NamedUser = commit.author
         data_dict = dict(
             sha=commit.sha,
             author_name=author.name,
             author_login=author.login,
-            last_modified=dateutil.parser.parse(commit.last_modified),
+            last_modified=dateparser.parse(commit.last_modified),
             additions=stats.additions,
             deletions=stats.deletions
         )
@@ -74,12 +75,12 @@ def commit_loc_counts_from_commit_events(commits: DictList, freq: str = 'd') -> 
     count_data = []
     for date in dates:
         until_time_df = event_df[event_df['last_modified'] < date]
-        commits = len(until_time_df)
+        commit_counts = len(until_time_df)
         loc = until_time_df['net'].sum()
         loc_changed = until_time_df['change'].sum()
         count_data.append(dict(
             date=date,
-            commits=commits,
+            commits=commit_counts,
             loc=loc,
             loc_changed=loc_changed
         ))
@@ -88,8 +89,8 @@ def commit_loc_counts_from_commit_events(commits: DictList, freq: str = 'd') -> 
 
 def issue_stats_from_repo(repo: Repository) -> DictList:
     all_data = []
+    issue: Issue
     for issue in repo.get_issues(state='all'):
-        issue: Issue
         data_dict = dict(
             number=issue.number,
             created_at=issue.created_at,
@@ -138,8 +139,8 @@ def issue_counts_from_issue_events(issues: DictList, freq: str = 'd') -> DictLis
 
 def stars_from_repo(repo: Repository) -> DictList:
     all_data = []
+    stars: Stargazer
     for stars in repo.get_stargazers_with_dates():
-        stars: Stargazer
         user: NamedUser = stars.user
         data_dict = dict(
             date=stars.starred_at,
