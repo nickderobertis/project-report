@@ -8,6 +8,7 @@ from github.Repository import Repository
 from github.Commit import Commit
 from github.CommitStats import CommitStats
 from github.Issue import Issue
+from github.Stargazer import Stargazer
 
 from projectreport.analyzer.ts.base import TimeSeriesAnalysis
 from projectreport.analyzer.ts.types import DictList
@@ -24,6 +25,7 @@ class GithubAnalysis(TimeSeriesAnalysis):
         funcs = dict(
             commits=commit_stats_from_repo,
             issues=issue_stats_from_repo,
+            stars=stars_from_repo,
         )
         return funcs
 
@@ -32,6 +34,7 @@ class GithubAnalysis(TimeSeriesAnalysis):
         funcs = dict(
             commits=commit_loc_counts_from_commit_events,
             issues=issue_counts_from_issue_events,
+            stars=star_counts_from_star_events,
         )
         return funcs
 
@@ -128,6 +131,39 @@ def issue_counts_from_issue_events(issues: DictList, freq: str = 'd') -> DictLis
             closed_pull_issues=closed_pull_issues,
             open_issues=open_issues,
             open_pull_issues=open_pull_issues,
+        ))
+
+    return count_data
+
+
+def stars_from_repo(repo: Repository) -> DictList:
+    all_data = []
+    for stars in repo.get_stargazers_with_dates():
+        stars: Stargazer
+        user: NamedUser = stars.user
+        data_dict = dict(
+            date=stars.starred_at,
+            user_name=user.name,
+            user_login=user.login,
+        )
+        all_data.append(data_dict)
+
+    return all_data
+
+
+def star_counts_from_star_events(stars: DictList, freq: str = 'd') -> DictList:
+    event_df = pd.DataFrame(stars)
+    start = event_df['date'].min()
+    end = event_df['date'].max() + timedelta(days=1)
+
+    dates = pd.date_range(start=start, end=end, freq=freq)
+    count_data = []
+    for date in dates:
+        until_time_df = event_df[event_df['date'] < date]
+        star_count = len(until_time_df)
+        count_data.append(dict(
+            date=date,
+            stars=star_count
         ))
 
     return count_data
