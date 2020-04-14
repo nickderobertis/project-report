@@ -65,7 +65,7 @@ def commit_loc_counts_from_commit_events(commits: DictList, freq: str = 'd') -> 
     event_df['change'] = event_df['additions'] + event_df['deletions']
     start = event_df['last_modified'].min()
 
-    # TODO [$5e9588b31c086a00073641de]: should not necessarily add a day in GithubAnalyzer counts, depends on freq
+    # TODO [#13]: should not necessarily add a day in GithubAnalyzer counts, depends on freq
     #
     # This is being added because events on the last day were not coming to the counts.
     # This kind of code is in every time-series counts function
