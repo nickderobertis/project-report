@@ -1,0 +1,35 @@
+projectreport.analyzer.ts package
+=================================
+
+.. automodule:: projectreport.analyzer.ts
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+projectreport.analyzer.ts.base module
+-------------------------------------
+
+.. automodule:: projectreport.analyzer.ts.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.analyzer.ts.github module
+---------------------------------------
+
+.. automodule:: projectreport.analyzer.ts.github
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.analyzer.ts.types module
+--------------------------------------
+
+.. automodule:: projectreport.analyzer.ts.types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

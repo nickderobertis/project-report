@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>projectreport.searcher package &mdash; project-report 0.2.1 documentation</title>
+  <title>projectreport.searcher package &mdash; project-report 0.3.0 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.3.0
               </div>
             
           
@@ -270,8 +270,8 @@ defaults to 2</p></li>
 <div class="section" id="module-projectreport.searcher.rotating_list">
 <span id="projectreport-searcher-rotating-list-module"></span><h2>projectreport.searcher.rotating_list module<a class="headerlink" href="#module-projectreport.searcher.rotating_list" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="projectreport.searcher.rotating_list.rotatinglist">
-<span id="projectreport.searcher.rotating_list.RotatingList"></span><em class="property">class </em><code class="sig-prename descclassname">projectreport.searcher.rotating_list.</code><code class="sig-name descname">RotatingList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">items</span></em>, <em class="sig-param"><span class="n">max_len</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/rotating_list.html#RotatingList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.rotating_list.rotatinglist" title="Permalink to this definition">¶</a></dt>
+<dt id="projectreport.searcher.rotating_list.RotatingList">
+<em class="property">class </em><code class="sig-prename descclassname">projectreport.searcher.rotating_list.</code><code class="sig-name descname">RotatingList</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">items</span></em>, <em class="sig-param"><span class="n">max_len</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/rotating_list.html#RotatingList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.rotating_list.RotatingList" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.UserList" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.UserList</span></code></a></p>
 <p>A list which will hold only max_len items. Once more items are added then
 can fit in the list, items will be removed.</p>
@@ -280,26 +280,26 @@ max_len, the earliest items in the list will
 be removed. When inserting an item which will make the list larger than
 max_len, the last item will be removed.</p>
 <dl class="py method">
-<dt id="projectreport.searcher.rotating_list.rotatinglist.__init__">
-<span id="projectreport.searcher.rotating_list.RotatingList.__init__"></span><code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">items</span></em>, <em class="sig-param"><span class="n">max_len</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/rotating_list.html#RotatingList.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.rotating_list.rotatinglist.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="projectreport.searcher.rotating_list.RotatingList.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">items</span></em>, <em class="sig-param"><span class="n">max_len</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/rotating_list.html#RotatingList.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.rotating_list.RotatingList.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Initialize self.  See help(type(self)) for accurate signature.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="projectreport.searcher.rotating_list.rotatinglist.append">
-<span id="projectreport.searcher.rotating_list.RotatingList.append"></span><code class="sig-name descname">append</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/rotating_list.html#RotatingList.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.rotating_list.rotatinglist.append" title="Permalink to this definition">¶</a></dt>
+<dt id="projectreport.searcher.rotating_list.RotatingList.append">
+<code class="sig-name descname">append</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/rotating_list.html#RotatingList.append"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.rotating_list.RotatingList.append" title="Permalink to this definition">¶</a></dt>
 <dd><p>S.append(value) – append value to the end of the sequence</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="projectreport.searcher.rotating_list.rotatinglist.extend">
-<span id="projectreport.searcher.rotating_list.RotatingList.extend"></span><code class="sig-name descname">extend</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">items</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/rotating_list.html#RotatingList.extend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.rotating_list.rotatinglist.extend" title="Permalink to this definition">¶</a></dt>
+<dt id="projectreport.searcher.rotating_list.RotatingList.extend">
+<code class="sig-name descname">extend</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">items</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/rotating_list.html#RotatingList.extend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.rotating_list.RotatingList.extend" title="Permalink to this definition">¶</a></dt>
 <dd><p>S.extend(iterable) – extend sequence by appending elements from the iterable</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="projectreport.searcher.rotating_list.rotatinglist.insert">
-<span id="projectreport.searcher.rotating_list.RotatingList.insert"></span><code class="sig-name descname">insert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/rotating_list.html#RotatingList.insert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.rotating_list.rotatinglist.insert" title="Permalink to this definition">¶</a></dt>
+<dt id="projectreport.searcher.rotating_list.RotatingList.insert">
+<code class="sig-name descname">insert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">item</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/searcher/rotating_list.html#RotatingList.insert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.searcher.rotating_list.RotatingList.insert" title="Permalink to this definition">¶</a></dt>
 <dd><p>S.insert(index, value) – insert value before index</p>
 </dd></dl>
 

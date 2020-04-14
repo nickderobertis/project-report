@@ -12,6 +12,7 @@ Subpackages
 .. toctree::
 
    projectreport.analyzer.parsers
+   projectreport.analyzer.ts
 
 Submodules
 ----------
