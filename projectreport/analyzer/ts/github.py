@@ -1,9 +1,11 @@
 from datetime import datetime, timedelta
-from typing import Dict, Callable, Union, List
+from typing import Dict, Callable, Union, List, Optional
 
 import dateutil
 from dateutil import parser as dateparser
 import pandas as pd
+from github.GitAuthor import GitAuthor
+from github.GitCommit import GitCommit
 from github.NamedUser import NamedUser
 from github.Repository import Repository
 from github.Commit import Commit
@@ -45,15 +47,19 @@ def commit_stats_from_repo(repo: Repository) -> DictList:
     commit: Commit
     for commit in repo.get_commits():
         stats: CommitStats = commit.stats
-        author: NamedUser = commit.author
+        author: Optional[Union[NamedUser, GitAuthor]] = _get_author_from_commit(commit)
+        committer: Optional[Union[NamedUser, GitAuthor]] = _get_committer_from_commit(commit)
         data_dict = dict(
             sha=commit.sha,
-            author_name=author.name,
-            author_login=author.login,
             last_modified=dateparser.parse(commit.last_modified),
             additions=stats.additions,
-            deletions=stats.deletions
+            deletions=stats.deletions,
+            url=commit.html_url
         )
+        if author is not None:
+            data_dict.update(_get_data_from_named_user_or_git_author(author))
+        if committer is not None:
+            data_dict.update(_get_data_from_named_user_or_git_author(committer, is_committer=True))
         all_data.append(data_dict)
 
     return all_data
@@ -168,3 +174,43 @@ def star_counts_from_star_events(stars: DictList, freq: str = 'd') -> DictList:
         ))
 
     return count_data
+
+
+def _get_data_from_named_user_or_git_author(user: Union[NamedUser, GitAuthor],
+                                            is_committer: bool = False) -> Dict[str, str]:
+    if is_committer:
+        key_base = 'committer'
+    else:
+        key_base = 'author'
+
+    data: Dict[str, str] = {
+        f'{key_base}_name': user.name,
+        f'{key_base}_email': user.email,
+    }
+
+    if isinstance(user, NamedUser):
+        data.update({
+            f'{key_base}_login': user.login,
+        })
+
+    return data
+
+
+def _get_author_from_commit(commit: Commit) -> Optional[Union[NamedUser, GitAuthor]]:
+    if commit.author is not None:
+        # NamedUser
+        return commit.author
+
+    git_commit: GitCommit = commit.commit
+    # GitAuthor
+    return git_commit.author
+
+
+def _get_committer_from_commit(commit: Commit) -> Optional[Union[NamedUser, GitAuthor]]:
+    if commit.committer is not None:
+        # NamedUser
+        return commit.committer
+
+    git_commit: GitCommit = commit.commit
+    # GitAuthor
+    return git_commit.committer
