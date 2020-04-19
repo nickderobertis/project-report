@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>projectreport.analyzer.ts.github &mdash; project-report 0.3.0 documentation</title>
+  <title>projectreport.analyzer.ts.github &mdash; project-report 0.3.1 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.3.1
               </div>
             
           
@@ -228,7 +228,7 @@
     <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;additions&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;deletions&#39;</span><span class="p">]</span>
     <span class="n">start</span> <span class="o">=</span> <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;last_modified&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
 
-    <span class="c1"># TODO [$5e9588b31c086a00073641de]: should not necessarily add a day in GithubAnalyzer counts, depends on freq</span>
+    <span class="c1"># TODO [#13]: should not necessarily add a day in GithubAnalyzer counts, depends on freq</span>
     <span class="c1">#</span>
     <span class="c1"># This is being added because events on the last day were not coming to the counts.</span>
     <span class="c1"># This kind of code is in every time-series counts function</span>
