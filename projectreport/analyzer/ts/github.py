@@ -1,3 +1,4 @@
+from copy import deepcopy
 from datetime import datetime, timedelta
 from typing import Dict, Callable, Union, List, Optional
 
@@ -15,13 +16,17 @@ from github.Stargazer import Stargazer
 
 from projectreport.analyzer.ts.base import TimeSeriesAnalysis
 from projectreport.analyzer.ts.types import DictList
+from projectreport.tools.monkey_patch_github import monkey_patch_github_obj_for_throttling
 
 
 class GithubAnalysis(TimeSeriesAnalysis):
     analysis_attrs = ['repo']
 
-    def __init__(self, repo: Repository):
-        self.repo = repo
+    def __init__(self, repo: Repository, auto_throttle: bool = True):
+        self.repo = deepcopy(repo)
+        self.auto_throttle = auto_throttle
+        if self.auto_throttle:
+            monkey_patch_github_obj_for_throttling(self.repo)
 
     @property
     def event_functions(self) -> Dict[str, Callable[[Repository], DictList]]:
