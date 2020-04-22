@@ -1,36 +1,76 @@
-from datetime import timezone, datetime
+from datetime import timezone, datetime, timedelta
 import time
 import types
+from typing import Union
 
 from github import RateLimitExceededException
+from github import Github
 from github.GithubObject import GithubObject
 from github.RateLimit import RateLimit
+from github.Rate import Rate
 from github.Requester import Requester
 
 from projectreport.logger import logger
 
-
-def monkey_patch_github_obj_for_throttling(gh_obj: GithubObject):
-    gh_obj._requester._Requester__check = types.MethodType(__check_patched_for_throttling, gh_obj._requester)
+RATE_LIMIT_PAD_SECONDS = 180
 
 
-def __check_patched_for_throttling(obj: Requester, status, responseHeaders, output):
-    logger.debug('made request')
-    output = obj._Requester__structuredFromJson(output)
-    if status >= 400:
-        exc = obj._Requester__createException(status, responseHeaders, output)
-        if isinstance(exc, RateLimitExceededException):
+def monkey_patch_github_obj_for_throttling(gh_obj: Union[Github, GithubObject]):
+    requester = _get_requester(gh_obj)
+    orig_request_and_check = requester.requestJsonAndCheck
+
+    def request_json_and_check_patched_for_throttling(obj: Requester, verb: str, url: str, **kwargs):
+        logger.debug(f'made {verb} request to {url}')
+        try:
+            return orig_request_and_check(verb, url, **kwargs)
+        except RateLimitExceededException:
             headers, data = obj.requestJsonAndCheck("GET", "/rate_limit")
             limits = RateLimit(obj, headers, data["resources"], True)
-            reset = limits.search.reset.replace(tzinfo=timezone.utc)
+            reset = _get_last_reset_datetime_utc(limits)
             now = datetime.now(timezone.utc)
-            seconds = (reset - now).total_seconds()
+            diff = reset - now
+            seconds = diff.total_seconds()
+            current_tz = datetime.utcnow().astimezone().tzinfo
             logger.info(f"Rate limit exceeded")
-            logger.info(f"Reset is in {seconds:.3g} seconds.")
+            logger.info(f"Reset is at {reset.astimezone(current_tz)}.")
             if seconds > 0.0:
-                logger.info(f"Waiting for {seconds:.3g} seconds...")
-                time.sleep(seconds)
-                logger.info("Done waiting - resume!")
-        else:
-            raise exc
-    return responseHeaders, output
+                # Extra 10s to ensure it's ready
+                logger.info(f"Waiting for {diff + timedelta(seconds=RATE_LIMIT_PAD_SECONDS)}")
+                time.sleep(seconds + RATE_LIMIT_PAD_SECONDS)
+                logger.info(f"Done waiting - resuming at {datetime.now()}")
+            return orig_request_and_check(verb, url, **kwargs)
+
+    requester.requestJsonAndCheck = types.MethodType(
+        request_json_and_check_patched_for_throttling,
+        requester
+    )
+
+
+def _get_last_reset_datetime_utc(limit: RateLimit) -> datetime:
+    # For some reason integration_manifest and source_import are in the raw data
+    # but not supported by RateLimit object
+    limit_attrs = [
+        'core',
+        'search',
+        'graphql',
+        # 'integration_manifest',
+        # 'source_import',
+        'rate',
+    ]
+    all_resets = []
+    for attr in limit_attrs:
+        rate: Rate = getattr(limit, attr)
+        reset = rate.reset.replace(tzinfo=timezone.utc)
+        all_resets.append(reset)
+
+    last_reset = max(all_resets)
+    return last_reset
+
+
+def _get_requester(gh_obj: Union[Github, GithubObject]) -> Requester:
+    if isinstance(gh_obj, Github):
+        attr = '_Github__requester'
+    else:
+        attr = '_requester'
+    requester: Requester = getattr(gh_obj, attr)
+    return requester
