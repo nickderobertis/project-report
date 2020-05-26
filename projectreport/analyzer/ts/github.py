@@ -1,3 +1,4 @@
+import warnings
 from copy import deepcopy
 from datetime import datetime, timedelta
 from typing import Dict, Callable, Union, List, Optional
@@ -16,7 +17,7 @@ from github.Stargazer import Stargazer
 
 from projectreport.analyzer.ts.base import TimeSeriesAnalysis
 from projectreport.analyzer.ts.types import DictList
-from projectreport.tools.monkey_patch_github import monkey_patch_github_obj_for_throttling
+from projectreport.tools.monkey_patch_github import monkey_patch_github_obj_for_throttling, NoMorePagesAllowedException
 
 
 class GithubAnalysis(TimeSeriesAnalysis):
@@ -47,25 +48,30 @@ class GithubAnalysis(TimeSeriesAnalysis):
         return funcs
 
 
-def commit_stats_from_repo(repo: Repository) -> DictList:
+def commit_stats_from_repo(repo: Repository, author_stats: bool = True) -> DictList:
     all_data = []
     commit: Commit
-    for commit in repo.get_commits():
-        stats: CommitStats = commit.stats
-        author: Optional[Union[NamedUser, GitAuthor]] = _get_author_from_commit(commit)
-        committer: Optional[Union[NamedUser, GitAuthor]] = _get_committer_from_commit(commit)
-        data_dict = dict(
-            sha=commit.sha,
-            last_modified=dateparser.parse(commit.last_modified),
-            additions=stats.additions,
-            deletions=stats.deletions,
-            url=commit.html_url
-        )
-        if author is not None:
-            data_dict.update(_get_data_from_named_user_or_git_author(author))
-        if committer is not None:
-            data_dict.update(_get_data_from_named_user_or_git_author(committer, is_committer=True))
-        all_data.append(data_dict)
+    try:
+        for commit in repo.get_commits():
+            stats: CommitStats = commit.stats
+            author: Optional[Union[NamedUser, GitAuthor]] = _get_author_from_commit(commit)
+            committer: Optional[Union[NamedUser, GitAuthor]] = _get_committer_from_commit(commit)
+            data_dict = dict(
+                sha=commit.sha,
+                last_modified=dateparser.parse(commit.last_modified) if commit.last_modified is not None else None,
+                additions=stats.additions,
+                deletions=stats.deletions,
+                url=commit.html_url
+            )
+            if author_stats:
+                if author is not None:
+                    data_dict.update(_get_data_from_named_user_or_git_author(author))
+                if committer is not None:
+                    data_dict.update(_get_data_from_named_user_or_git_author(committer, is_committer=True))
+            all_data.append(data_dict)
+    except NoMorePagesAllowedException:
+        warnings.warn(f'Could not collect full history for {repo.name} commits as Github '
+                      f'limits the amount of history than can be pulled')
 
     return all_data
 
@@ -96,17 +102,21 @@ def commit_loc_counts_from_commit_events(commits: DictList, freq: str = 'd') -> 
 def issue_stats_from_repo(repo: Repository) -> DictList:
     all_data = []
     issue: Issue
-    for issue in repo.get_issues(state='all'):
-        data_dict = dict(
-            number=issue.number,
-            created_at=issue.created_at,
-            updated_at=issue.updated_at,
-            closed_at=issue.closed_at,
-            comments_count=issue.comments,
-            state=issue.state,
-            is_pull_issue=issue.pull_request is not None
-        )
-        all_data.append(data_dict)
+    try:
+        for issue in repo.get_issues(state='all'):
+            data_dict = dict(
+                number=issue.number,
+                created_at=issue.created_at,
+                updated_at=issue.updated_at,
+                closed_at=issue.closed_at,
+                comments_count=issue.comments,
+                state=issue.state,
+                is_pull_issue=issue.pull_request is not None
+            )
+            all_data.append(data_dict)
+    except NoMorePagesAllowedException:
+        warnings.warn(f'Could not collect full history for {repo.name} issues as Github '
+                      f'limits the amount of history than can be pulled')
 
     return all_data
 
@@ -146,14 +156,18 @@ def issue_counts_from_issue_events(issues: DictList, freq: str = 'd') -> DictLis
 def stars_from_repo(repo: Repository) -> DictList:
     all_data = []
     stars: Stargazer
-    for stars in repo.get_stargazers_with_dates():
-        user: NamedUser = stars.user
-        data_dict = dict(
-            date=stars.starred_at,
-            user_name=user.name,
-            user_login=user.login,
-        )
-        all_data.append(data_dict)
+    try:
+        for stars in repo.get_stargazers_with_dates():
+            user: NamedUser = stars.user
+            data_dict = dict(
+                date=stars.starred_at,
+                user_name=user.name,
+                user_login=user.login,
+            )
+            all_data.append(data_dict)
+    except NoMorePagesAllowedException:
+        warnings.warn(f'Could not collect full history for {repo.name} stars as Github '
+                      f'limits the amount of history than can be pulled')
 
     return all_data
 

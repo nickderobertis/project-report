@@ -9,14 +9,14 @@ from projectreport.analyzer.ts.types import DictList
 class TimeSeriesAnalysis:
     analysis_attrs: Sequence[str] = tuple()
 
-    def get_event_data(self, item: str) -> DictList:
+    def get_event_data(self, item: str, **kwargs) -> DictList:
         func = self.event_functions[item]
-        return func(*self.analysis_items)
+        return func(*self.analysis_items, **kwargs)
 
-    def get_counts(self, item: str, freq: str) -> DictList:
+    def get_counts(self, item: str, freq: str, **kwargs) -> DictList:
         event_data = self.get_event_data(item)
         func = self.count_functions[item]
-        return func(event_data, freq)
+        return func(event_data, freq, **kwargs)
 
     @property
     def event_functions(self) -> Dict[str, Callable[[Any], DictList]]:
