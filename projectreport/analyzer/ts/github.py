@@ -74,13 +74,8 @@ def commit_loc_counts_from_commit_events(commits: DictList, freq: str = 'd') -> 
     event_df = pd.DataFrame(commits)
     event_df['net'] = event_df['additions'] - event_df['deletions']
     event_df['change'] = event_df['additions'] + event_df['deletions']
-    start = event_df['last_modified'].min()
-
-    # TODO [#13]: should not necessarily add a day in GithubAnalyzer counts, depends on freq
-    #
-    # This is being added because events on the last day were not coming to the counts.
-    # This kind of code is in every time-series counts function
-    end = event_df['last_modified'].max() + timedelta(days=1)
+    start = _get_end_of_period(event_df['last_modified'].min(), freq)
+    end = event_df['last_modified'].max()
 
     dates = pd.date_range(start=start, end=end, freq=freq)
     count_data = []
@@ -118,8 +113,8 @@ def issue_stats_from_repo(repo: Repository) -> DictList:
 
 def issue_counts_from_issue_events(issues: DictList, freq: str = 'd') -> DictList:
     event_df = pd.DataFrame(issues)
-    start = event_df['created_at'].min()
-    end = event_df['updated_at'].max() + timedelta(days=1)
+    start = _get_end_of_period(event_df['created_at'].min(), freq)
+    end = event_df['updated_at'].max()
     dates = pd.date_range(start=start, end=end, freq=freq)
     count_data = []
     for date in dates:
@@ -165,8 +160,8 @@ def stars_from_repo(repo: Repository) -> DictList:
 
 def star_counts_from_star_events(stars: DictList, freq: str = 'd') -> DictList:
     event_df = pd.DataFrame(stars)
-    start = event_df['date'].min()
-    end = event_df['date'].max() + timedelta(days=1)
+    start = _get_end_of_period(event_df['date'].min(), freq)
+    end = event_df['date'].max()
 
     dates = pd.date_range(start=start, end=end, freq=freq)
     count_data = []
@@ -219,3 +214,17 @@ def _get_committer_from_commit(commit: Commit) -> Optional[Union[NamedUser, GitA
     git_commit: GitCommit = commit.commit
     # GitAuthor
     return git_commit.committer
+
+
+def _get_end_of_period(date: pd.Timestamp, freq: str) -> pd.Timestamp:
+    # TODO: get _get_end_of_period working correctly for all frequencies
+    #
+    # Works correctly for month, day, hour, and weeks starting on a different day.
+    # Currently gets beginning of period for weeks starting with the same day.
+    try:
+        return date.ceil(freq)
+    except ValueError as e:
+        if 'is a non-fixed frequency' in str(e):
+            return date.to_period(freq).to_timestamp(freq).tz_localize('UTC')
+        else:
+            raise e
