@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>projectreport.analyzer.ts.github &mdash; project-report 0.3.1 documentation</title>
+  <title>projectreport.analyzer.ts.github &mdash; project-report 0.4.0 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.3.1
+                0.4.0
               </div>
             
           
@@ -161,12 +161,16 @@
            <div itemprop="articleBody">
             
   <h1>Source code for projectreport.analyzer.ts.github</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span>
+<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="kn">import</span> <span class="n">deepcopy</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
 
 <span class="kn">import</span> <span class="nn">dateutil</span>
 <span class="kn">from</span> <span class="nn">dateutil</span> <span class="kn">import</span> <span class="n">parser</span> <span class="k">as</span> <span class="n">dateparser</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">github.GitAuthor</span> <span class="kn">import</span> <span class="n">GitAuthor</span>
+<span class="kn">from</span> <span class="nn">github.GitCommit</span> <span class="kn">import</span> <span class="n">GitCommit</span>
 <span class="kn">from</span> <span class="nn">github.NamedUser</span> <span class="kn">import</span> <span class="n">NamedUser</span>
 <span class="kn">from</span> <span class="nn">github.Repository</span> <span class="kn">import</span> <span class="n">Repository</span>
 <span class="kn">from</span> <span class="nn">github.Commit</span> <span class="kn">import</span> <span class="n">Commit</span>
@@ -176,13 +180,17 @@
 
 <span class="kn">from</span> <span class="nn">projectreport.analyzer.ts.base</span> <span class="kn">import</span> <span class="n">TimeSeriesAnalysis</span>
 <span class="kn">from</span> <span class="nn">projectreport.analyzer.ts.types</span> <span class="kn">import</span> <span class="n">DictList</span>
+<span class="kn">from</span> <span class="nn">projectreport.tools.monkey_patch_github</span> <span class="kn">import</span> <span class="n">monkey_patch_github_obj_for_throttling</span><span class="p">,</span> <span class="n">NoMorePagesAllowedException</span>
 
 
 <div class="viewcode-block" id="GithubAnalysis"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.github.GithubAnalysis">[docs]</a><span class="k">class</span> <span class="nc">GithubAnalysis</span><span class="p">(</span><span class="n">TimeSeriesAnalysis</span><span class="p">):</span>
     <span class="n">analysis_attrs</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;repo&#39;</span><span class="p">]</span>
 
-<div class="viewcode-block" id="GithubAnalysis.__init__"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.github.GithubAnalysis.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repo</span><span class="p">:</span> <span class="n">Repository</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">repo</span> <span class="o">=</span> <span class="n">repo</span></div>
+<div class="viewcode-block" id="GithubAnalysis.__init__"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.github.GithubAnalysis.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">repo</span><span class="p">:</span> <span class="n">Repository</span><span class="p">,</span> <span class="n">auto_throttle</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">repo</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">repo</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">auto_throttle</span> <span class="o">=</span> <span class="n">auto_throttle</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">auto_throttle</span><span class="p">:</span>
+            <span class="n">monkey_patch_github_obj_for_throttling</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">event_functions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Repository</span><span class="p">],</span> <span class="n">DictList</span><span class="p">]]:</span>
@@ -203,36 +211,40 @@
         <span class="k">return</span> <span class="n">funcs</span></div>
 
 
-<div class="viewcode-block" id="commit_stats_from_repo"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.github.commit_stats_from_repo">[docs]</a><span class="k">def</span> <span class="nf">commit_stats_from_repo</span><span class="p">(</span><span class="n">repo</span><span class="p">:</span> <span class="n">Repository</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DictList</span><span class="p">:</span>
+<div class="viewcode-block" id="commit_stats_from_repo"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.github.commit_stats_from_repo">[docs]</a><span class="k">def</span> <span class="nf">commit_stats_from_repo</span><span class="p">(</span><span class="n">repo</span><span class="p">:</span> <span class="n">Repository</span><span class="p">,</span> <span class="n">author_stats</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DictList</span><span class="p">:</span>
     <span class="n">all_data</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">commit</span><span class="p">:</span> <span class="n">Commit</span>
-    <span class="k">for</span> <span class="n">commit</span> <span class="ow">in</span> <span class="n">repo</span><span class="o">.</span><span class="n">get_commits</span><span class="p">():</span>
-        <span class="n">stats</span><span class="p">:</span> <span class="n">CommitStats</span> <span class="o">=</span> <span class="n">commit</span><span class="o">.</span><span class="n">stats</span>
-        <span class="n">author</span><span class="p">:</span> <span class="n">NamedUser</span> <span class="o">=</span> <span class="n">commit</span><span class="o">.</span><span class="n">author</span>
-        <span class="n">data_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-            <span class="n">sha</span><span class="o">=</span><span class="n">commit</span><span class="o">.</span><span class="n">sha</span><span class="p">,</span>
-            <span class="n">author_name</span><span class="o">=</span><span class="n">author</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="n">author_login</span><span class="o">=</span><span class="n">author</span><span class="o">.</span><span class="n">login</span><span class="p">,</span>
-            <span class="n">last_modified</span><span class="o">=</span><span class="n">dateparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">commit</span><span class="o">.</span><span class="n">last_modified</span><span class="p">),</span>
-            <span class="n">additions</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">additions</span><span class="p">,</span>
-            <span class="n">deletions</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">deletions</span>
-        <span class="p">)</span>
-        <span class="n">all_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">commit</span> <span class="ow">in</span> <span class="n">repo</span><span class="o">.</span><span class="n">get_commits</span><span class="p">():</span>
+            <span class="n">stats</span><span class="p">:</span> <span class="n">CommitStats</span> <span class="o">=</span> <span class="n">commit</span><span class="o">.</span><span class="n">stats</span>
+            <span class="n">author</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">NamedUser</span><span class="p">,</span> <span class="n">GitAuthor</span><span class="p">]]</span> <span class="o">=</span> <span class="n">_get_author_from_commit</span><span class="p">(</span><span class="n">commit</span><span class="p">)</span>
+            <span class="n">committer</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">NamedUser</span><span class="p">,</span> <span class="n">GitAuthor</span><span class="p">]]</span> <span class="o">=</span> <span class="n">_get_committer_from_commit</span><span class="p">(</span><span class="n">commit</span><span class="p">)</span>
+            <span class="n">data_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                <span class="n">sha</span><span class="o">=</span><span class="n">commit</span><span class="o">.</span><span class="n">sha</span><span class="p">,</span>
+                <span class="n">last_modified</span><span class="o">=</span><span class="n">dateparser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">commit</span><span class="o">.</span><span class="n">last_modified</span><span class="p">)</span> <span class="k">if</span> <span class="n">commit</span><span class="o">.</span><span class="n">last_modified</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">additions</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">additions</span><span class="p">,</span>
+                <span class="n">deletions</span><span class="o">=</span><span class="n">stats</span><span class="o">.</span><span class="n">deletions</span><span class="p">,</span>
+                <span class="n">url</span><span class="o">=</span><span class="n">commit</span><span class="o">.</span><span class="n">html_url</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">author_stats</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">author</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">data_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">_get_data_from_named_user_or_git_author</span><span class="p">(</span><span class="n">author</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">committer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">data_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">_get_data_from_named_user_or_git_author</span><span class="p">(</span><span class="n">committer</span><span class="p">,</span> <span class="n">is_committer</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+            <span class="n">all_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">NoMorePagesAllowedException</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Could not collect full history for </span><span class="si">{</span><span class="n">repo</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> commits as Github &#39;</span>
+                      <span class="sa">f</span><span class="s1">&#39;limits the amount of history than can be pulled&#39;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">all_data</span></div>
+    <span class="k">return</span> <span class="n">all_data</span>  <span class="c1"># type: ignore</span></div>
 
 
 <div class="viewcode-block" id="commit_loc_counts_from_commit_events"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.github.commit_loc_counts_from_commit_events">[docs]</a><span class="k">def</span> <span class="nf">commit_loc_counts_from_commit_events</span><span class="p">(</span><span class="n">commits</span><span class="p">:</span> <span class="n">DictList</span><span class="p">,</span> <span class="n">freq</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DictList</span><span class="p">:</span>
     <span class="n">event_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">commits</span><span class="p">)</span>
     <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;net&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;additions&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;deletions&#39;</span><span class="p">]</span>
     <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;additions&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;deletions&#39;</span><span class="p">]</span>
-    <span class="n">start</span> <span class="o">=</span> <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;last_modified&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-
-    <span class="c1"># TODO [#13]: should not necessarily add a day in GithubAnalyzer counts, depends on freq</span>
-    <span class="c1">#</span>
-    <span class="c1"># This is being added because events on the last day were not coming to the counts.</span>
-    <span class="c1"># This kind of code is in every time-series counts function</span>
-    <span class="n">end</span> <span class="o">=</span> <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;last_modified&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">_get_end_of_period</span><span class="p">(</span><span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;last_modified&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">freq</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;last_modified&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 
     <span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">)</span>
     <span class="n">count_data</span> <span class="o">=</span> <span class="p">[]</span>
@@ -253,25 +265,29 @@
 <div class="viewcode-block" id="issue_stats_from_repo"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.github.issue_stats_from_repo">[docs]</a><span class="k">def</span> <span class="nf">issue_stats_from_repo</span><span class="p">(</span><span class="n">repo</span><span class="p">:</span> <span class="n">Repository</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DictList</span><span class="p">:</span>
     <span class="n">all_data</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">issue</span><span class="p">:</span> <span class="n">Issue</span>
-    <span class="k">for</span> <span class="n">issue</span> <span class="ow">in</span> <span class="n">repo</span><span class="o">.</span><span class="n">get_issues</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">):</span>
-        <span class="n">data_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-            <span class="n">number</span><span class="o">=</span><span class="n">issue</span><span class="o">.</span><span class="n">number</span><span class="p">,</span>
-            <span class="n">created_at</span><span class="o">=</span><span class="n">issue</span><span class="o">.</span><span class="n">created_at</span><span class="p">,</span>
-            <span class="n">updated_at</span><span class="o">=</span><span class="n">issue</span><span class="o">.</span><span class="n">updated_at</span><span class="p">,</span>
-            <span class="n">closed_at</span><span class="o">=</span><span class="n">issue</span><span class="o">.</span><span class="n">closed_at</span><span class="p">,</span>
-            <span class="n">comments_count</span><span class="o">=</span><span class="n">issue</span><span class="o">.</span><span class="n">comments</span><span class="p">,</span>
-            <span class="n">state</span><span class="o">=</span><span class="n">issue</span><span class="o">.</span><span class="n">state</span><span class="p">,</span>
-            <span class="n">is_pull_issue</span><span class="o">=</span><span class="n">issue</span><span class="o">.</span><span class="n">pull_request</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="p">)</span>
-        <span class="n">all_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">issue</span> <span class="ow">in</span> <span class="n">repo</span><span class="o">.</span><span class="n">get_issues</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">):</span>
+            <span class="n">data_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                <span class="n">number</span><span class="o">=</span><span class="n">issue</span><span class="o">.</span><span class="n">number</span><span class="p">,</span>
+                <span class="n">created_at</span><span class="o">=</span><span class="n">issue</span><span class="o">.</span><span class="n">created_at</span><span class="p">,</span>
+                <span class="n">updated_at</span><span class="o">=</span><span class="n">issue</span><span class="o">.</span><span class="n">updated_at</span><span class="p">,</span>
+                <span class="n">closed_at</span><span class="o">=</span><span class="n">issue</span><span class="o">.</span><span class="n">closed_at</span><span class="p">,</span>
+                <span class="n">comments_count</span><span class="o">=</span><span class="n">issue</span><span class="o">.</span><span class="n">comments</span><span class="p">,</span>
+                <span class="n">state</span><span class="o">=</span><span class="n">issue</span><span class="o">.</span><span class="n">state</span><span class="p">,</span>
+                <span class="n">is_pull_issue</span><span class="o">=</span><span class="n">issue</span><span class="o">.</span><span class="n">pull_request</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="p">)</span>
+            <span class="n">all_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">NoMorePagesAllowedException</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Could not collect full history for </span><span class="si">{</span><span class="n">repo</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> issues as Github &#39;</span>
+                      <span class="sa">f</span><span class="s1">&#39;limits the amount of history than can be pulled&#39;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">all_data</span></div>
+    <span class="k">return</span> <span class="n">all_data</span>  <span class="c1"># type: ignore</span></div>
 
 
 <div class="viewcode-block" id="issue_counts_from_issue_events"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.github.issue_counts_from_issue_events">[docs]</a><span class="k">def</span> <span class="nf">issue_counts_from_issue_events</span><span class="p">(</span><span class="n">issues</span><span class="p">:</span> <span class="n">DictList</span><span class="p">,</span> <span class="n">freq</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DictList</span><span class="p">:</span>
     <span class="n">event_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">issues</span><span class="p">)</span>
-    <span class="n">start</span> <span class="o">=</span> <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;created_at&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-    <span class="n">end</span> <span class="o">=</span> <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;updated_at&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">_get_end_of_period</span><span class="p">(</span><span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;created_at&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">freq</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;updated_at&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
     <span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">)</span>
     <span class="n">count_data</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">dates</span><span class="p">:</span>
@@ -303,22 +319,26 @@
 <div class="viewcode-block" id="stars_from_repo"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.github.stars_from_repo">[docs]</a><span class="k">def</span> <span class="nf">stars_from_repo</span><span class="p">(</span><span class="n">repo</span><span class="p">:</span> <span class="n">Repository</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DictList</span><span class="p">:</span>
     <span class="n">all_data</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">stars</span><span class="p">:</span> <span class="n">Stargazer</span>
-    <span class="k">for</span> <span class="n">stars</span> <span class="ow">in</span> <span class="n">repo</span><span class="o">.</span><span class="n">get_stargazers_with_dates</span><span class="p">():</span>
-        <span class="n">user</span><span class="p">:</span> <span class="n">NamedUser</span> <span class="o">=</span> <span class="n">stars</span><span class="o">.</span><span class="n">user</span>
-        <span class="n">data_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-            <span class="n">date</span><span class="o">=</span><span class="n">stars</span><span class="o">.</span><span class="n">starred_at</span><span class="p">,</span>
-            <span class="n">user_name</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-            <span class="n">user_login</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">login</span><span class="p">,</span>
-        <span class="p">)</span>
-        <span class="n">all_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">stars</span> <span class="ow">in</span> <span class="n">repo</span><span class="o">.</span><span class="n">get_stargazers_with_dates</span><span class="p">():</span>
+            <span class="n">user</span><span class="p">:</span> <span class="n">NamedUser</span> <span class="o">=</span> <span class="n">stars</span><span class="o">.</span><span class="n">user</span>
+            <span class="n">data_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                <span class="n">date</span><span class="o">=</span><span class="n">stars</span><span class="o">.</span><span class="n">starred_at</span><span class="p">,</span>
+                <span class="n">user_name</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                <span class="n">user_login</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">login</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">all_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data_dict</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">NoMorePagesAllowedException</span><span class="p">:</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Could not collect full history for </span><span class="si">{</span><span class="n">repo</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s1"> stars as Github &#39;</span>
+                      <span class="sa">f</span><span class="s1">&#39;limits the amount of history than can be pulled&#39;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">all_data</span></div>
+    <span class="k">return</span> <span class="n">all_data</span>  <span class="c1"># type: ignore</span></div>
 
 
 <div class="viewcode-block" id="star_counts_from_star_events"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.github.star_counts_from_star_events">[docs]</a><span class="k">def</span> <span class="nf">star_counts_from_star_events</span><span class="p">(</span><span class="n">stars</span><span class="p">:</span> <span class="n">DictList</span><span class="p">,</span> <span class="n">freq</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DictList</span><span class="p">:</span>
     <span class="n">event_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">stars</span><span class="p">)</span>
-    <span class="n">start</span> <span class="o">=</span> <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
-    <span class="n">end</span> <span class="o">=</span> <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">_get_end_of_period</span><span class="p">(</span><span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">freq</span><span class="p">)</span>
+    <span class="n">end</span> <span class="o">=</span> <span class="n">event_df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 
     <span class="n">dates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="n">end</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="n">freq</span><span class="p">)</span>
     <span class="n">count_data</span> <span class="o">=</span> <span class="p">[]</span>
@@ -331,6 +351,60 @@
         <span class="p">))</span>
 
     <span class="k">return</span> <span class="n">count_data</span></div>
+
+
+<span class="k">def</span> <span class="nf">_get_data_from_named_user_or_git_author</span><span class="p">(</span><span class="n">user</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">NamedUser</span><span class="p">,</span> <span class="n">GitAuthor</span><span class="p">],</span>
+                                            <span class="n">is_committer</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">is_committer</span><span class="p">:</span>
+        <span class="n">key_base</span> <span class="o">=</span> <span class="s1">&#39;committer&#39;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">key_base</span> <span class="o">=</span> <span class="s1">&#39;author&#39;</span>
+
+    <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">key_base</span><span class="si">}</span><span class="s1">_name&#39;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">key_base</span><span class="si">}</span><span class="s1">_email&#39;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">email</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">NamedUser</span><span class="p">):</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+            <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">key_base</span><span class="si">}</span><span class="s1">_login&#39;</span><span class="p">:</span> <span class="n">user</span><span class="o">.</span><span class="n">login</span><span class="p">,</span>
+        <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">data</span>
+
+
+<span class="k">def</span> <span class="nf">_get_author_from_commit</span><span class="p">(</span><span class="n">commit</span><span class="p">:</span> <span class="n">Commit</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">NamedUser</span><span class="p">,</span> <span class="n">GitAuthor</span><span class="p">]]:</span>
+    <span class="k">if</span> <span class="n">commit</span><span class="o">.</span><span class="n">author</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># NamedUser</span>
+        <span class="k">return</span> <span class="n">commit</span><span class="o">.</span><span class="n">author</span>
+
+    <span class="n">git_commit</span><span class="p">:</span> <span class="n">GitCommit</span> <span class="o">=</span> <span class="n">commit</span><span class="o">.</span><span class="n">commit</span>
+    <span class="c1"># GitAuthor</span>
+    <span class="k">return</span> <span class="n">git_commit</span><span class="o">.</span><span class="n">author</span>
+
+
+<span class="k">def</span> <span class="nf">_get_committer_from_commit</span><span class="p">(</span><span class="n">commit</span><span class="p">:</span> <span class="n">Commit</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">NamedUser</span><span class="p">,</span> <span class="n">GitAuthor</span><span class="p">]]:</span>
+    <span class="k">if</span> <span class="n">commit</span><span class="o">.</span><span class="n">committer</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># NamedUser</span>
+        <span class="k">return</span> <span class="n">commit</span><span class="o">.</span><span class="n">committer</span>
+
+    <span class="n">git_commit</span><span class="p">:</span> <span class="n">GitCommit</span> <span class="o">=</span> <span class="n">commit</span><span class="o">.</span><span class="n">commit</span>
+    <span class="c1"># GitAuthor</span>
+    <span class="k">return</span> <span class="n">git_commit</span><span class="o">.</span><span class="n">committer</span>
+
+
+<span class="k">def</span> <span class="nf">_get_end_of_period</span><span class="p">(</span><span class="n">date</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">,</span> <span class="n">freq</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Timestamp</span><span class="p">:</span>
+    <span class="c1"># TODO: get _get_end_of_period working correctly for all frequencies</span>
+    <span class="c1">#</span>
+    <span class="c1"># Works correctly for month, day, hour, and weeks starting on a different day.</span>
+    <span class="c1"># Currently gets beginning of period for weeks starting with the same day.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">date</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;is a non-fixed frequency&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">date</span><span class="o">.</span><span class="n">to_period</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span><span class="o">.</span><span class="n">to_timestamp</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span><span class="o">.</span><span class="n">tz_localize</span><span class="p">(</span><span class="s1">&#39;UTC&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">e</span>
 </pre></div>
 
            </div>

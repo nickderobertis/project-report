@@ -17,3 +17,11 @@ projectreport.tools.expand\_glob module
    :undoc-members:
    :show-inheritance:
 
+projectreport.tools.monkey\_patch\_github module
+------------------------------------------------
+
+.. automodule:: projectreport.tools.monkey_patch_github
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>projectreport.analyzer.ts.base &mdash; project-report 0.3.1 documentation</title>
+  <title>projectreport.analyzer.ts.base &mdash; project-report 0.4.0 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.3.1
+                0.4.0
               </div>
             
           
@@ -172,21 +172,21 @@
 <div class="viewcode-block" id="TimeSeriesAnalysis"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.base.TimeSeriesAnalysis">[docs]</a><span class="k">class</span> <span class="nc">TimeSeriesAnalysis</span><span class="p">:</span>
     <span class="n">analysis_attrs</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
 
-<div class="viewcode-block" id="TimeSeriesAnalysis.get_event_data"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.base.TimeSeriesAnalysis.get_event_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_event_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DictList</span><span class="p">:</span>
+<div class="viewcode-block" id="TimeSeriesAnalysis.get_event_data"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.base.TimeSeriesAnalysis.get_event_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_event_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DictList</span><span class="p">:</span>
         <span class="n">func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">event_functions</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">analysis_items</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">analysis_items</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TimeSeriesAnalysis.get_counts"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.base.TimeSeriesAnalysis.get_counts">[docs]</a>    <span class="k">def</span> <span class="nf">get_counts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">freq</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DictList</span><span class="p">:</span>
+<div class="viewcode-block" id="TimeSeriesAnalysis.get_counts"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.base.TimeSeriesAnalysis.get_counts">[docs]</a>    <span class="k">def</span> <span class="nf">get_counts</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">freq</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DictList</span><span class="p">:</span>
         <span class="n">event_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_event_data</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
         <span class="n">func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">count_functions</span><span class="p">[</span><span class="n">item</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">event_data</span><span class="p">,</span> <span class="n">freq</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="n">event_data</span><span class="p">,</span> <span class="n">freq</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">event_functions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">DictList</span><span class="p">]]:</span>
+    <span class="k">def</span> <span class="nf">event_functions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">count_functions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">DictList</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">DictList</span><span class="p">]]:</span>
+    <span class="k">def</span> <span class="nf">count_functions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
     <span class="nd">@property</span>

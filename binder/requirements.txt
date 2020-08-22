@@ -1,7 +1,7 @@
-PyGithub
-pygount
-cached_property
-gitpython
-project-report
-pyexlatex
 PyYAML
+project-report
+gitpython
+cached_property
+pygount
+PyGithub
+pyexlatex

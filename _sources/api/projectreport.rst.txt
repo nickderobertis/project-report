@@ -28,3 +28,11 @@ projectreport.config module
    :undoc-members:
    :show-inheritance:
 
+projectreport.logger module
+---------------------------
+
+.. automodule:: projectreport.logger
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
