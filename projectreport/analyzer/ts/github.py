@@ -73,7 +73,7 @@ def commit_stats_from_repo(repo: Repository, author_stats: bool = True) -> DictL
         warnings.warn(f'Could not collect full history for {repo.name} commits as Github '
                       f'limits the amount of history than can be pulled')
 
-    return all_data
+    return all_data  # type: ignore
 
 
 def commit_loc_counts_from_commit_events(commits: DictList, freq: str = 'd') -> DictList:
@@ -118,7 +118,7 @@ def issue_stats_from_repo(repo: Repository) -> DictList:
         warnings.warn(f'Could not collect full history for {repo.name} issues as Github '
                       f'limits the amount of history than can be pulled')
 
-    return all_data
+    return all_data  # type: ignore
 
 
 def issue_counts_from_issue_events(issues: DictList, freq: str = 'd') -> DictList:
@@ -169,7 +169,7 @@ def stars_from_repo(repo: Repository) -> DictList:
         warnings.warn(f'Could not collect full history for {repo.name} stars as Github '
                       f'limits the amount of history than can be pulled')
 
-    return all_data
+    return all_data  # type: ignore
 
 
 def star_counts_from_star_events(stars: DictList, freq: str = 'd') -> DictList:

@@ -61,13 +61,13 @@ def monkey_patch_github_obj_for_throttling(gh_obj: Union[Github, GithubObject]):
                 **kwargs
             )
 
-    requester.requestJsonAndCheck = types.MethodType(
+    requester.requestJsonAndCheck = types.MethodType(  # type: ignore
         request_json_and_check_patched_for_throttling,
         requester
     )
 
 
-def _wait_for_read_timeout(e: RequestException):
+def _wait_for_read_timeout(e: Union[RequestException, GithubException]):
     logger.warning(f'Got request/Github exception: {e}. Sleeping for {REQUEST_EXCEPTION_WAIT}s')
     time.sleep(REQUEST_EXCEPTION_WAIT)
     logger.info(f'Resuming from read timeout sleep at {datetime.now()}')
@@ -75,6 +75,8 @@ def _wait_for_read_timeout(e: RequestException):
 
 def _get_rate_limit_and_wait(obj: Requester):
     headers, data = obj.requestJsonAndCheck("GET", "/rate_limit")
+    if data is None:
+        raise ValueError('got no data from request')
     limits = RateLimit(obj, headers, data["resources"], True)
     reset = _get_last_reset_datetime_utc(limits)
     now = datetime.now(timezone.utc)

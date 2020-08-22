@@ -19,11 +19,11 @@ class TimeSeriesAnalysis:
         return func(event_data, freq, **kwargs)
 
     @property
-    def event_functions(self) -> Dict[str, Callable[[Any], DictList]]:
+    def event_functions(self) -> Dict[str, Callable]:
         raise NotImplementedError
 
     @property
-    def count_functions(self) -> Dict[str, Callable[[DictList, str], DictList]]:
+    def count_functions(self) -> Dict[str, Callable]:
         raise NotImplementedError
 
     @property
