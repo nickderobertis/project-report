@@ -102,7 +102,9 @@ class ModuleAnalysis(Analysis):
 
     def __init__(self, module: 'Module'):
         self.module = module
-        self.source_analysis: pygount.SourceAnalysis = pygount.source_analysis(self.module.path, self.module.package)
+        self.source_analysis: pygount.SourceAnalysis = pygount.SourceAnalysis.from_file(
+            self.module.path, self.module.package
+        )
         self.loc = self.source_analysis.code
 
         full_loc = 0

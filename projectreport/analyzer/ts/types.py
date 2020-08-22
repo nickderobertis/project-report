@@ -1,4 +1,4 @@
 from datetime import datetime
-from typing import Union, Dict, List
+from typing import Union, Dict, List, Optional
 
-DictList = List[Dict[str, Union[str, int, float, datetime]]]
+DictList = List[Dict[str, Optional[Union[str, int, float, datetime]]]]

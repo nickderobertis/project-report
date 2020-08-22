@@ -1,9 +1,13 @@
+import warnings
+from copy import deepcopy
 from datetime import datetime, timedelta
-from typing import Dict, Callable, Union, List
+from typing import Dict, Callable, Union, List, Optional
 
 import dateutil
 from dateutil import parser as dateparser
 import pandas as pd
+from github.GitAuthor import GitAuthor
+from github.GitCommit import GitCommit
 from github.NamedUser import NamedUser
 from github.Repository import Repository
 from github.Commit import Commit
@@ -13,13 +17,17 @@ from github.Stargazer import Stargazer
 
 from projectreport.analyzer.ts.base import TimeSeriesAnalysis
 from projectreport.analyzer.ts.types import DictList
+from projectreport.tools.monkey_patch_github import monkey_patch_github_obj_for_throttling, NoMorePagesAllowedException
 
 
 class GithubAnalysis(TimeSeriesAnalysis):
     analysis_attrs = ['repo']
 
-    def __init__(self, repo: Repository):
-        self.repo = repo
+    def __init__(self, repo: Repository, auto_throttle: bool = True):
+        self.repo = deepcopy(repo)
+        self.auto_throttle = auto_throttle
+        if self.auto_throttle:
+            monkey_patch_github_obj_for_throttling(self.repo)
 
     @property
     def event_functions(self) -> Dict[str, Callable[[Repository], DictList]]:
@@ -40,36 +48,40 @@ class GithubAnalysis(TimeSeriesAnalysis):
         return funcs
 
 
-def commit_stats_from_repo(repo: Repository) -> DictList:
+def commit_stats_from_repo(repo: Repository, author_stats: bool = True) -> DictList:
     all_data = []
     commit: Commit
-    for commit in repo.get_commits():
-        stats: CommitStats = commit.stats
-        author: NamedUser = commit.author
-        data_dict = dict(
-            sha=commit.sha,
-            author_name=author.name,
-            author_login=author.login,
-            last_modified=dateparser.parse(commit.last_modified),
-            additions=stats.additions,
-            deletions=stats.deletions
-        )
-        all_data.append(data_dict)
+    try:
+        for commit in repo.get_commits():
+            stats: CommitStats = commit.stats
+            author: Optional[Union[NamedUser, GitAuthor]] = _get_author_from_commit(commit)
+            committer: Optional[Union[NamedUser, GitAuthor]] = _get_committer_from_commit(commit)
+            data_dict = dict(
+                sha=commit.sha,
+                last_modified=dateparser.parse(commit.last_modified) if commit.last_modified is not None else None,
+                additions=stats.additions,
+                deletions=stats.deletions,
+                url=commit.html_url
+            )
+            if author_stats:
+                if author is not None:
+                    data_dict.update(_get_data_from_named_user_or_git_author(author))
+                if committer is not None:
+                    data_dict.update(_get_data_from_named_user_or_git_author(committer, is_committer=True))
+            all_data.append(data_dict)
+    except NoMorePagesAllowedException:
+        warnings.warn(f'Could not collect full history for {repo.name} commits as Github '
+                      f'limits the amount of history than can be pulled')
 
-    return all_data
+    return all_data  # type: ignore
 
 
 def commit_loc_counts_from_commit_events(commits: DictList, freq: str = 'd') -> DictList:
     event_df = pd.DataFrame(commits)
     event_df['net'] = event_df['additions'] - event_df['deletions']
     event_df['change'] = event_df['additions'] + event_df['deletions']
-    start = event_df['last_modified'].min()
-
-    # TODO [#13]: should not necessarily add a day in GithubAnalyzer counts, depends on freq
-    #
-    # This is being added because events on the last day were not coming to the counts.
-    # This kind of code is in every time-series counts function
-    end = event_df['last_modified'].max() + timedelta(days=1)
+    start = _get_end_of_period(event_df['last_modified'].min(), freq)
+    end = event_df['last_modified'].max()
 
     dates = pd.date_range(start=start, end=end, freq=freq)
     count_data = []
@@ -90,25 +102,29 @@ def commit_loc_counts_from_commit_events(commits: DictList, freq: str = 'd') -> 
 def issue_stats_from_repo(repo: Repository) -> DictList:
     all_data = []
     issue: Issue
-    for issue in repo.get_issues(state='all'):
-        data_dict = dict(
-            number=issue.number,
-            created_at=issue.created_at,
-            updated_at=issue.updated_at,
-            closed_at=issue.closed_at,
-            comments_count=issue.comments,
-            state=issue.state,
-            is_pull_issue=issue.pull_request is not None
-        )
-        all_data.append(data_dict)
+    try:
+        for issue in repo.get_issues(state='all'):
+            data_dict = dict(
+                number=issue.number,
+                created_at=issue.created_at,
+                updated_at=issue.updated_at,
+                closed_at=issue.closed_at,
+                comments_count=issue.comments,
+                state=issue.state,
+                is_pull_issue=issue.pull_request is not None
+            )
+            all_data.append(data_dict)
+    except NoMorePagesAllowedException:
+        warnings.warn(f'Could not collect full history for {repo.name} issues as Github '
+                      f'limits the amount of history than can be pulled')
 
-    return all_data
+    return all_data  # type: ignore
 
 
 def issue_counts_from_issue_events(issues: DictList, freq: str = 'd') -> DictList:
     event_df = pd.DataFrame(issues)
-    start = event_df['created_at'].min()
-    end = event_df['updated_at'].max() + timedelta(days=1)
+    start = _get_end_of_period(event_df['created_at'].min(), freq)
+    end = event_df['updated_at'].max()
     dates = pd.date_range(start=start, end=end, freq=freq)
     count_data = []
     for date in dates:
@@ -140,22 +156,26 @@ def issue_counts_from_issue_events(issues: DictList, freq: str = 'd') -> DictLis
 def stars_from_repo(repo: Repository) -> DictList:
     all_data = []
     stars: Stargazer
-    for stars in repo.get_stargazers_with_dates():
-        user: NamedUser = stars.user
-        data_dict = dict(
-            date=stars.starred_at,
-            user_name=user.name,
-            user_login=user.login,
-        )
-        all_data.append(data_dict)
+    try:
+        for stars in repo.get_stargazers_with_dates():
+            user: NamedUser = stars.user
+            data_dict = dict(
+                date=stars.starred_at,
+                user_name=user.name,
+                user_login=user.login,
+            )
+            all_data.append(data_dict)
+    except NoMorePagesAllowedException:
+        warnings.warn(f'Could not collect full history for {repo.name} stars as Github '
+                      f'limits the amount of history than can be pulled')
 
-    return all_data
+    return all_data  # type: ignore
 
 
 def star_counts_from_star_events(stars: DictList, freq: str = 'd') -> DictList:
     event_df = pd.DataFrame(stars)
-    start = event_df['date'].min()
-    end = event_df['date'].max() + timedelta(days=1)
+    start = _get_end_of_period(event_df['date'].min(), freq)
+    end = event_df['date'].max()
 
     dates = pd.date_range(start=start, end=end, freq=freq)
     count_data = []
@@ -168,3 +188,57 @@ def star_counts_from_star_events(stars: DictList, freq: str = 'd') -> DictList:
         ))
 
     return count_data
+
+
+def _get_data_from_named_user_or_git_author(user: Union[NamedUser, GitAuthor],
+                                            is_committer: bool = False) -> Dict[str, str]:
+    if is_committer:
+        key_base = 'committer'
+    else:
+        key_base = 'author'
+
+    data: Dict[str, str] = {
+        f'{key_base}_name': user.name,
+        f'{key_base}_email': user.email,
+    }
+
+    if isinstance(user, NamedUser):
+        data.update({
+            f'{key_base}_login': user.login,
+        })
+
+    return data
+
+
+def _get_author_from_commit(commit: Commit) -> Optional[Union[NamedUser, GitAuthor]]:
+    if commit.author is not None:
+        # NamedUser
+        return commit.author
+
+    git_commit: GitCommit = commit.commit
+    # GitAuthor
+    return git_commit.author
+
+
+def _get_committer_from_commit(commit: Commit) -> Optional[Union[NamedUser, GitAuthor]]:
+    if commit.committer is not None:
+        # NamedUser
+        return commit.committer
+
+    git_commit: GitCommit = commit.commit
+    # GitAuthor
+    return git_commit.committer
+
+
+def _get_end_of_period(date: pd.Timestamp, freq: str) -> pd.Timestamp:
+    # TODO: get _get_end_of_period working correctly for all frequencies
+    #
+    # Works correctly for month, day, hour, and weeks starting on a different day.
+    # Currently gets beginning of period for weeks starting with the same day.
+    try:
+        return date.ceil(freq)
+    except ValueError as e:
+        if 'is a non-fixed frequency' in str(e):
+            return date.to_period(freq).to_timestamp(freq).tz_localize('UTC')
+        else:
+            raise e
