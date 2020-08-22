@@ -231,7 +231,7 @@ def _get_committer_from_commit(commit: Commit) -> Optional[Union[NamedUser, GitA
 
 
 def _get_end_of_period(date: pd.Timestamp, freq: str) -> pd.Timestamp:
-    # TODO: get _get_end_of_period working correctly for all frequencies
+    # TODO [$5f4128933180390007904278]: get _get_end_of_period working correctly for all frequencies
     #
     # Works correctly for month, day, hour, and weeks starting on a different day.
     # Currently gets beginning of period for weeks starting with the same day.
