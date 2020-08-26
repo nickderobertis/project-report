@@ -173,5 +173,5 @@ class GitAnalysis:
         urls = list(self.ref.project.repo.remote().urls)
 
         # Urls currently have .git on the end, strip
-        urls = [url[:-4] for url in urls]
+        urls = [url[:-4] if url.endswith('.git') else url for url in urls]
         return urls
