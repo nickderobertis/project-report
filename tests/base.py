@@ -1,9 +1,12 @@
+import datetime
 import os
 from pathlib import Path
+from typing import Optional, Sequence
 
 import pytest
 from tempfile import TemporaryDirectory
 import git
+import pytz
 
 from projectreport.analyzer.project import Project
 from projectreport.report.report import Report
@@ -25,16 +28,19 @@ def get_python_project() -> Project:
 
 @pytest.fixture(scope='session')
 def git_project() -> Project:
-    with TemporaryDirectory() as d:
+    with TemporaryDirectory() as base_dir:
+        d = Path(base_dir) / 'gitrepo'
         r = git.Repo.init(d)
         # This function just creates an empty file ...
-        (Path(d) / 'tempfile').write_text('woo')
+        (d / 'tempfile').write_text('woo')
         r.index.add(['tempfile'])
         r.index.commit("initial commit")
         included_types = None
         project = Project(d, included_types=included_types)
-        assert project.name == Path(d).name
-        assert project.path == d
+        eastern = pytz.timezone('US/Eastern')
+        project.data['created'] = datetime.datetime(2020, 2, 1, 12, 0, 0, 0, tzinfo=eastern)
+        project.data['updated'] = datetime.datetime(2020, 2, 1, 12, 1, 0, 0, tzinfo=eastern)
+        assert project.path == str(d)
         yield project
 
 
@@ -45,12 +51,15 @@ def get_github_project() -> Project:
     return project
 
 
-def get_project_report() -> Report:
+def get_project_report(add_projects: Optional[Sequence[Project]] = None) -> Report:
     py_project = get_python_project()
 
     projects = [
-        py_project
+        py_project,
     ]
+
+    if add_projects:
+        projects.extend(add_projects)
 
     report = Report(projects)
     return report

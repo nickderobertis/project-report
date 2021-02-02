@@ -48,6 +48,7 @@ def test_python_project():
 def test_git_project(git_project: Project):
     project = git_project
 
+    assert project.name == 'gitrepo'
     assert project.file_names == ["tempfile"]
     assert isinstance(project.repo, Repo)
     analysis: FolderAnalysis = project.analysis
