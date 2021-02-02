@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>projectreport.report.latex &mdash; project-report 0.4.1 documentation</title>
+  <title>projectreport.report.latex &mdash; project-report 0.4.2 documentation</title>
   
 
   
@@ -25,7 +25,6 @@
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
     
@@ -42,6 +41,7 @@
   <link rel="stylesheet" href="../../../_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/gallery-rendered-html.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.4.1
+                0.4.2
               </div>
             
           
@@ -168,13 +168,13 @@
 <span class="kn">from</span> <span class="nn">pyexlatex.models.format.breaks</span> <span class="kn">import</span> <span class="n">OutputLineBreak</span>
 
 
-<span class="k">class</span> <span class="nc">SubProjectLatex</span><span class="p">(</span><span class="n">TextAreaMixin</span><span class="p">,</span> <span class="n">ItemBase</span><span class="p">):</span>
+<div class="viewcode-block" id="SubProjectLatex"><a class="viewcode-back" href="../../../api/projectreport.report.html#projectreport.report.latex.SubProjectLatex">[docs]</a><span class="k">class</span> <span class="nc">SubProjectLatex</span><span class="p">(</span><span class="n">TextAreaMixin</span><span class="p">,</span> <span class="n">ItemBase</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="SubProjectLatex.__init__"><a class="viewcode-back" href="../../../api/projectreport.report.html#projectreport.report.latex.SubProjectLatex.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">contents</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_contents</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">contents</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">contents</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">get_contents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="SubProjectLatex.get_contents"><a class="viewcode-back" href="../../../api/projectreport.report.html#projectreport.report.latex.SubProjectLatex.get_contents">[docs]</a>    <span class="k">def</span> <span class="nf">get_contents</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
         <span class="n">line_break</span> <span class="o">=</span> <span class="n">OutputLineBreak</span><span class="p">()</span>
         <span class="n">green</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">RGB</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">138</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">color_name</span><span class="o">=</span><span class="s1">&#39;darkgreen&#39;</span><span class="p">)</span>
         <span class="n">commits_str</span> <span class="o">=</span> <span class="s1">&#39;Commits&#39;</span> <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;num_commits&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;num_commits&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="s1">&#39;Commit&#39;</span>
@@ -190,13 +190,13 @@
         <span class="n">contents</span> <span class="o">=</span> <span class="p">[</span><span class="n">content</span> <span class="k">for</span> <span class="n">content</span> <span class="ow">in</span> <span class="n">contents</span> <span class="k">if</span> <span class="n">content</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">contents</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">line_break</span><span class="p">:</span>
             <span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line_break</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">contents</span>
+        <span class="k">return</span> <span class="n">contents</span></div>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span> <span class="nn">pyexlatex.logic.builder</span> <span class="kn">import</span> <span class="n">_build</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">contents</span>
-        <span class="k">return</span> <span class="n">_build</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_build</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="project_latex"><a class="viewcode-back" href="../../../api/projectreport.report.html#projectreport.report.latex.project_latex">[docs]</a><span class="k">def</span> <span class="nf">project_latex</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
@@ -250,7 +250,7 @@
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, Nick DeRobertis
+        &copy; Copyright 2021, Nick DeRobertis
 
     </p>
   </div>

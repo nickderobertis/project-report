@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; project-report 0.4.1 documentation</title>
+  <title>Index &mdash; project-report 0.4.2 documentation</title>
   
 
   
@@ -25,7 +25,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script src="_static/clipboard.min.js"></script>
         <script src="_static/copybutton.js"></script>
     
@@ -42,6 +41,7 @@
   <link rel="stylesheet" href="_static/gallery.css" type="text/css" />
   <link rel="stylesheet" href="_static/gallery-binder.css" type="text/css" />
   <link rel="stylesheet" href="_static/gallery-dataframe.css" type="text/css" />
+  <link rel="stylesheet" href="_static/gallery-rendered-html.css" type="text/css" />
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
 </head>
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.4.1
+                0.4.2
               </div>
             
           
@@ -218,6 +218,8 @@
 </li>
         <li><a href="api/projectreport.finder.html#projectreport.finder.python.PythonPackageFinder.__init__">(projectreport.finder.python.PythonPackageFinder method)</a>
 </li>
+        <li><a href="api/projectreport.report.html#projectreport.report.latex.SubProjectLatex.__init__">(projectreport.report.latex.SubProjectLatex method)</a>
+</li>
         <li><a href="api/projectreport.report.html#projectreport.report.project.ProjectReport.__init__">(projectreport.report.project.ProjectReport method)</a>
 </li>
         <li><a href="api/projectreport.report.html#projectreport.report.report.Report.__init__">(projectreport.report.report.Report method)</a>
@@ -313,6 +315,8 @@
         <li><a href="api/projectreport.report.html#projectreport.report.report.Report.data">(projectreport.report.report.Report method)</a>
 </li>
       </ul></li>
+      <li><a href="api/projectreport.report.html#projectreport.report.report.Report.default_sort">default_sort() (projectreport.report.report.Report method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/projectreport.report.html#projectreport.report.base.BaseReport.doc">doc() (projectreport.report.base.BaseReport method)</a>
@@ -403,12 +407,14 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/projectreport.report.html#projectreport.report.project.gather_data">gather_data() (in module projectreport.report.project)</a>
 </li>
-      <li><a href="api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.base.TimeSeriesAnalysis.get_counts">get_counts() (projectreport.analyzer.ts.base.TimeSeriesAnalysis method)</a>
+      <li><a href="api/projectreport.report.html#projectreport.report.latex.SubProjectLatex.get_contents">get_contents() (projectreport.report.latex.SubProjectLatex method)</a>
 </li>
-      <li><a href="api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.base.TimeSeriesAnalysis.get_event_data">get_event_data() (projectreport.analyzer.ts.base.TimeSeriesAnalysis method)</a>
+      <li><a href="api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.base.TimeSeriesAnalysis.get_counts">get_counts() (projectreport.analyzer.ts.base.TimeSeriesAnalysis method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.base.TimeSeriesAnalysis.get_event_data">get_event_data() (projectreport.analyzer.ts.base.TimeSeriesAnalysis method)</a>
+</li>
       <li><a href="api/projectreport.analyzer.html#projectreport.analyzer.analysis.GitAnalysis">GitAnalysis (class in projectreport.analyzer.analysis)</a>
 </li>
       <li><a href="api/projectreport.finder.html#projectreport.finder.git.GitFinder">GitFinder (class in projectreport.finder.git)</a>
@@ -938,6 +944,8 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/projectreport.report.html#projectreport.report.report.Report.sort">sort() (projectreport.report.report.Report method)</a>
+</li>
       <li><a href="api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.github.star_counts_from_star_events">star_counts_from_star_events() (in module projectreport.analyzer.ts.github)</a>
 </li>
       <li><a href="api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.github.stars_from_repo">stars_from_repo() (in module projectreport.analyzer.ts.github)</a>
@@ -958,6 +966,8 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="api/projectreport.report.html#projectreport.report.latex.SubProjectLatex">SubProjectLatex (class in projectreport.report.latex)</a>
+</li>
       <li><a href="api/projectreport.analyzer.ts.html#projectreport.analyzer.ts.base.TimeSeriesAnalysis.supported_items">supported_items() (projectreport.analyzer.ts.base.TimeSeriesAnalysis property)</a>
 </li>
   </ul></td>
@@ -1008,7 +1018,7 @@
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2020, Nick DeRobertis
+        &copy; Copyright 2021, Nick DeRobertis
 
     </p>
   </div>
