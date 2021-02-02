@@ -1,24 +1,76 @@
+import datetime
 import os
 
-from tests.base import PYTHON_PROJECT_PATH, PYTHON_PROJECT_NAME, get_python_project, get_git_project
+import pytz
+from git import Repo
+
+from projectreport import Project
+from projectreport.analyzer.analysis import FolderAnalysis
+from tests.base import (
+    PYTHON_PROJECT_PATH,
+    PYTHON_PROJECT_NAME,
+    get_python_project,
+    get_github_project,
+    git_project,
+)
 
 
 def test_python_project():
     project = get_python_project()
 
-    assert project.file_names == ['__init__.py']
-    assert project.file_paths == [os.path.abspath(os.path.join(PYTHON_PROJECT_PATH, '__init__.py'))]
-    assert project.docstring == 'An example Python package for testing purposes'
+    assert project.file_names == ["__init__.py"]
+    assert project.file_paths == [
+        os.path.abspath(os.path.join(PYTHON_PROJECT_PATH, "__init__.py"))
+    ]
+    assert project.docstring == "An example Python package for testing purposes"
     assert project.name == PYTHON_PROJECT_NAME
     assert project.path == os.path.abspath(PYTHON_PROJECT_PATH)
     assert project.repo is None
     assert not project.is_empty
     assert project.folders == []
-    # TODO [#6]: test python project .analysis, .modules, .data
+
+    analysis: FolderAnalysis = project.analysis
+    assert analysis.lines == {"code": 0, "documentation": 3, "empty": 0, "string": 0}
+    assert len(project.modules) == 1
+    assert project.modules[0].name == "__init__"
+    assert project.data == {
+        "num_commits": None,
+        "created": None,
+        "updated": None,
+        "lines": 0,
+        "full_lines": 3,
+        "urls": None,
+        "docstring": "An example Python package for testing purposes",
+        "name": "python_example",
+    }
 
 
-def test_git_project():
-    project = get_git_project()
+def test_git_project(git_project: Project):
+    project = git_project
 
-    assert project.repo is not None
-    # TODO [#7]: better testing of git project
+    assert project.name == 'gitrepo'
+    assert project.file_names == ["tempfile"]
+    assert isinstance(project.repo, Repo)
+    analysis: FolderAnalysis = project.analysis
+    assert analysis.lines == {"code": 0, "documentation": 0, "empty": 0, "string": 0}
+    assert len(project.modules) == 1
+    assert project.modules[0].name == "tempfile"
+    data = project.data
+    assert data["num_commits"] == 1
+
+    assert (data["created"] - datetime.datetime.now(pytz.utc)).total_seconds() < 180
+    assert (data["updated"] - datetime.datetime.now(pytz.utc)).total_seconds() < 180
+
+
+def test_github_project():
+    project = get_github_project()
+
+    assert isinstance(project.repo, Repo)
+    assert project.name == "project-report"
+    analysis: FolderAnalysis = project.analysis
+    assert analysis.lines["code"] > 0
+    assert analysis.lines["documentation"] > 0
+    assert analysis.lines["empty"] > 0
+    assert analysis.lines["string"] > 0
+    data = project.data
+    assert data["urls"] == ["https://github.com/nickderobertis/project-report"]

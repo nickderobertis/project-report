@@ -56,7 +56,7 @@ class FolderAnalysis(Analysis):
         super().__init__(folder)
 
     def __repr__(self):
-        return f'<PackageAnalysis(lines={self.lines})>'
+        return f'<FolderAnalysis(lines={self.lines})>'
 
     def add_module_analysis(self, analysis: 'ModuleAnalysis'):
         for attr in self.lines:

@@ -8,5 +8,35 @@
     "urls": null,
     "docstring": "An example Python package for testing purposes",
     "name": "python_example"
+  },
+  {
+    "num_commits": 1,
+    "created": "2020-02-01 12:00:00-04:56",
+    "updated": "2020-02-01 12:01:00-04:56",
+    "lines": 0,
+    "full_lines": 0,
+    "urls": null,
+    "docstring": null,
+    "name": "gitrepo"
+  },
+  {
+    "num_commits": 1,
+    "created": "2020-02-01 12:00:00-04:56",
+    "updated": "2020-02-01 12:01:00-04:56",
+    "lines": 0,
+    "full_lines": 0,
+    "urls": null,
+    "docstring": null,
+    "name": "zgitrepo"
+  },
+  {
+    "num_commits": 1,
+    "created": "2020-02-01 13:00:00-04:56",
+    "updated": "2020-02-01 12:01:00-04:56",
+    "lines": 0,
+    "full_lines": 0,
+    "urls": null,
+    "docstring": null,
+    "name": "agitrepo"
   }
 ]
