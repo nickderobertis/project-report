@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>projectreport.analyzer.parsers package &mdash; project-report 0.4.2 documentation</title>
+  <title>projectreport.analyzer.parsers package &mdash; project-report 0.5.0 documentation</title>
   
 
   
@@ -69,7 +69,7 @@
             
             
               <div class="version">
-                0.4.2
+                0.5.0
               </div>
             
           
@@ -206,7 +206,12 @@
 <dl class="py method">
 <dt id="projectreport.analyzer.parsers.base.Parser.contents">
 <code class="sig-name descname">contents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/parsers/base.html#Parser.contents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.parsers.base.Parser.contents" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt id="projectreport.analyzer.parsers.base.Parser.docstring">
@@ -224,22 +229,41 @@
 <div class="section" id="module-projectreport.analyzer.parsers.index">
 <span id="projectreport-analyzer-parsers-index-module"></span><h2>projectreport.analyzer.parsers.index module<a class="headerlink" href="#module-projectreport.analyzer.parsers.index" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-projectreport.analyzer.parsers.javascript">
+<span id="projectreport-analyzer-parsers-javascript-module"></span><h2>projectreport.analyzer.parsers.javascript module<a class="headerlink" href="#module-projectreport.analyzer.parsers.javascript" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="projectreport.analyzer.parsers.javascript.PackageJSONParser">
+<em class="property">class </em><code class="sig-prename descclassname">projectreport.analyzer.parsers.javascript.</code><code class="sig-name descname">PackageJSONParser</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/parsers/javascript.html#PackageJSONParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.parsers.javascript.PackageJSONParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#projectreport.analyzer.parsers.base.Parser" title="projectreport.analyzer.parsers.base.Parser"><code class="xref py py-class docutils literal notranslate"><span class="pre">projectreport.analyzer.parsers.base.Parser</span></code></a></p>
+<dl class="py method">
+<dt id="projectreport.analyzer.parsers.javascript.PackageJSONParser.docstring">
+<code class="sig-name descname">docstring</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/parsers/javascript.html#PackageJSONParser.docstring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.parsers.javascript.PackageJSONParser.docstring" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="projectreport.analyzer.parsers.javascript.PackageJSONParser.parsed">
+<code class="sig-name descname">parsed</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/parsers/javascript.html#PackageJSONParser.parsed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.parsers.javascript.PackageJSONParser.parsed" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.9)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-projectreport.analyzer.parsers.python">
 <span id="projectreport-analyzer-parsers-python-module"></span><h2>projectreport.analyzer.parsers.python module<a class="headerlink" href="#module-projectreport.analyzer.parsers.python" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt id="projectreport.analyzer.parsers.python.PythonParser">
 <em class="property">class </em><code class="sig-prename descclassname">projectreport.analyzer.parsers.python.</code><code class="sig-name descname">PythonParser</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/parsers/python.html#PythonParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.parsers.python.PythonParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#projectreport.analyzer.parsers.base.Parser" title="projectreport.analyzer.parsers.base.Parser"><code class="xref py py-class docutils literal notranslate"><span class="pre">projectreport.analyzer.parsers.base.Parser</span></code></a></p>
-<dl class="py method">
-<dt id="projectreport.analyzer.parsers.python.PythonParser.contents">
-<code class="sig-name descname">contents</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/parsers/python.html#PythonParser.contents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.parsers.python.PythonParser.contents" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a></p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py method">
 <dt id="projectreport.analyzer.parsers.python.PythonParser.docstring">
 <code class="sig-name descname">docstring</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/parsers/python.html#PythonParser.docstring"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.analyzer.parsers.python.PythonParser.docstring" title="Permalink to this definition">¶</a></dt>

@@ -33,6 +33,14 @@ projectreport.finder.git module
    :undoc-members:
    :show-inheritance:
 
+projectreport.finder.js module
+------------------------------
+
+.. automodule:: projectreport.finder.js
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 projectreport.finder.python module
 ----------------------------------
 

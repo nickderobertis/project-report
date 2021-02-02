@@ -25,6 +25,14 @@ projectreport.analyzer.parsers.index module
    :undoc-members:
    :show-inheritance:
 
+projectreport.analyzer.parsers.javascript module
+------------------------------------------------
+
+.. automodule:: projectreport.analyzer.parsers.javascript
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 projectreport.analyzer.parsers.python module
 --------------------------------------------
 
