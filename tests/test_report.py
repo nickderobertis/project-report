@@ -1,4 +1,8 @@
+import datetime
 import os
+from copy import deepcopy
+
+import pytz
 
 from tests.base import get_project_report, REPORTS_FOLDER, git_project
 
@@ -6,7 +10,17 @@ GENERATE_REPORTS = False
 
 
 def test_report(git_project):
-    report = get_project_report(add_projects=[git_project])
+    # Same created, later name
+    gp2 = deepcopy(git_project)
+    gp2.data['name'] = 'zgitrepo'
+
+    # Later created, earlier name
+    gp3 = deepcopy(git_project)
+    gp3.data['name'] = 'agitrepo'
+    eastern = pytz.timezone('US/Eastern')
+    gp3.data['created'] = datetime.datetime(2020, 2, 1, 13, 0, 0, 0, tzinfo=eastern)
+
+    report = get_project_report(add_projects=[gp2, gp3, git_project])
 
     attr_extensions = dict(
         json='json',
