@@ -1,4 +1,9 @@
 import os
+from pathlib import Path
+
+import pytest
+from tempfile import TemporaryDirectory
+import git
 
 from projectreport.analyzer.project import Project
 from projectreport.report.report import Report
@@ -6,6 +11,7 @@ from projectreport.report.report import Report
 TEST_FILES_BASE_PATH = os.path.sep.join(['tests', 'input_data'])
 PYTHON_PROJECT_NAME = 'python_example'
 PYTHON_PROJECT_PATH = os.path.sep.join([TEST_FILES_BASE_PATH, PYTHON_PROJECT_NAME])
+GIT_PROJECT_NAME = 'git_example'
 REPORTS_NAME = 'reports'
 REPORTS_FOLDER = os.path.join(TEST_FILES_BASE_PATH, REPORTS_NAME)
 
@@ -17,7 +23,22 @@ def get_python_project() -> Project:
     return project
 
 
-def get_git_project() -> Project:
+@pytest.fixture(scope='session')
+def git_project() -> Project:
+    with TemporaryDirectory() as d:
+        r = git.Repo.init(d)
+        # This function just creates an empty file ...
+        (Path(d) / 'tempfile').write_text('woo')
+        r.index.add(['tempfile'])
+        r.index.commit("initial commit")
+        included_types = None
+        project = Project(d, included_types=included_types)
+        assert project.name == Path(d).name
+        assert project.path == d
+        yield project
+
+
+def get_github_project() -> Project:
     project_path = '.'
     included_types = None
     project = Project(project_path, included_types=included_types)
