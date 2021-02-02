@@ -11,17 +11,27 @@ import pytz
 from projectreport.analyzer.project import Project
 from projectreport.report.report import Report
 
-TEST_FILES_BASE_PATH = os.path.sep.join(['tests', 'input_data'])
+TESTS_DIR = Path(__file__).parent
+TEST_FILES_BASE_PATH = TESTS_DIR / 'input_data'
 PYTHON_PROJECT_NAME = 'python_example'
-PYTHON_PROJECT_PATH = os.path.sep.join([TEST_FILES_BASE_PATH, PYTHON_PROJECT_NAME])
+PYTHON_PROJECT_PATH = TEST_FILES_BASE_PATH / PYTHON_PROJECT_NAME
+JS_PROJECT_NAME = 'js_example'
+JS_PROJECT_PATH = TEST_FILES_BASE_PATH / JS_PROJECT_NAME
 GIT_PROJECT_NAME = 'git_example'
 REPORTS_NAME = 'reports'
-REPORTS_FOLDER = os.path.join(TEST_FILES_BASE_PATH, REPORTS_NAME)
+REPORTS_FOLDER = TEST_FILES_BASE_PATH / REPORTS_NAME
 
 
 def get_python_project() -> Project:
     project_path = PYTHON_PROJECT_PATH
     included_types = ('py',)
+    project = Project(project_path, included_types=included_types)
+    return project
+
+
+def get_js_project() -> Project:
+    project_path = JS_PROJECT_PATH
+    included_types = ('js',)
     project = Project(project_path, included_types=included_types)
     return project
 

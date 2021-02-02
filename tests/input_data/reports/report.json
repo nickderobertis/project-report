@@ -3,6 +3,16 @@
     "num_commits": null,
     "created": null,
     "updated": null,
+    "lines": 1,
+    "full_lines": 1,
+    "urls": null,
+    "docstring": "An example JavaScript package",
+    "name": "js_example"
+  },
+  {
+    "num_commits": null,
+    "created": null,
+    "updated": null,
     "lines": 0,
     "full_lines": 3,
     "urls": null,

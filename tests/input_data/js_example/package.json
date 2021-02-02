@@ -1,0 +1,15 @@
+{
+  "name": "js_example",
+  "version": "1.0.0",
+  "description": "An example JavaScript package",
+  "main": "index.js",
+  "scripts": {
+    "test": "./runtest.sh"
+  },
+  "keywords": [
+    "kwd1",
+    "kwd2"
+  ],
+  "author": "Nick DeRobertis",
+  "license": "MIT"
+}

@@ -11,8 +11,10 @@ class Parser:
         raise NotImplementedError
 
     @cached_property
-    def contents(self):
-        raise NotImplementedError
+    def contents(self) -> str:
+        with open(self.path, encoding='utf8') as f:
+            file_contents = f.read()
+        return file_contents
 
     @cached_property
     def docstring(self):

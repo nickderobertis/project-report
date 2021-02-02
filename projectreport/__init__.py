@@ -4,6 +4,7 @@ and outputs reports.
 """
 from projectreport.analyzer.project import Project
 from projectreport.finder.python import PythonPackageFinder
+from projectreport.finder.js import JavaScriptPackageFinder
 from projectreport.finder.git import GitFinder
 from projectreport.finder.combine import CombinedFinder
 from projectreport.report.report import Report

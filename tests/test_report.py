@@ -4,12 +4,14 @@ from copy import deepcopy
 
 import pytz
 
-from tests.base import get_project_report, REPORTS_FOLDER, git_project
+from tests.base import get_project_report, REPORTS_FOLDER, git_project, get_js_project
 
 GENERATE_REPORTS = False
 
 
 def test_report(git_project):
+    js_project = get_js_project()
+
     # Same created, later name
     gp2 = deepcopy(git_project)
     gp2.data['name'] = 'zgitrepo'
@@ -20,7 +22,7 @@ def test_report(git_project):
     eastern = pytz.timezone('US/Eastern')
     gp3.data['created'] = datetime.datetime(2020, 2, 1, 13, 0, 0, 0, tzinfo=eastern)
 
-    report = get_project_report(add_projects=[gp2, gp3, git_project])
+    report = get_project_report(add_projects=[gp2, gp3, git_project, js_project])
 
     attr_extensions = dict(
         json='json',
