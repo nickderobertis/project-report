@@ -11,7 +11,7 @@ from tests.base import (
     PYTHON_PROJECT_NAME,
     get_python_project,
     get_github_project,
-    git_project,
+    git_project, get_js_project, JS_PROJECT_PATH, JS_PROJECT_NAME,
 )
 
 
@@ -42,6 +42,36 @@ def test_python_project():
         "urls": None,
         "docstring": "An example Python package for testing purposes",
         "name": "python_example",
+    }
+
+
+def test_javascript_project():
+    project = get_js_project()
+
+    assert project.file_names == ["index.js", 'package.json']
+    assert project.file_paths == [
+        os.path.abspath(os.path.join(JS_PROJECT_PATH, "index.js")),
+    ]
+    assert project.docstring == "An example JavaScript package"
+    assert project.name == JS_PROJECT_NAME
+    assert project.path == os.path.abspath(JS_PROJECT_PATH)
+    assert project.repo is None
+    assert not project.is_empty
+    assert project.folders == []
+
+    analysis: FolderAnalysis = project.analysis
+    assert analysis.lines == {"code": 1, "documentation": 0, "empty": 0, "string": 0}
+    assert len(project.modules) == 1
+    assert project.modules[0].name == "index"
+    assert project.data == {
+        "num_commits": None,
+        "created": None,
+        "updated": None,
+        "lines": 1,
+        "full_lines": 1,
+        "urls": None,
+        "docstring": "An example JavaScript package",
+        "name": "js_example",
     }
 
 

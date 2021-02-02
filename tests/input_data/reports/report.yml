@@ -1,4 +1,12 @@
 - created: null
+  docstring: An example JavaScript package
+  full_lines: 1
+  lines: 1
+  name: js_example
+  num_commits: null
+  updated: null
+  urls: null
+- created: null
   docstring: An example Python package for testing purposes
   full_lines: 3
   lines: 0
