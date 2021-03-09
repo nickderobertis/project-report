@@ -216,6 +216,11 @@ def releases_from_repo(repo: Repository) -> DictList:
     try:
         for release in repo.get_releases():
             author = release.author
+            author_name: Optional[str] = None
+            author_login: Optional[str] = None
+            if author is not None:
+                author_name = author.name
+                author_login = author.login
             data_dict = dict(
                 created_at=release.created_at,
                 published_at=release.published_at,
@@ -225,8 +230,8 @@ def releases_from_repo(repo: Repository) -> DictList:
                 draft=release.draft,
                 prerelease=release.prerelease,
                 body=release.body,
-                author_name=author.name,
-                author_login=author.login,
+                author_name=author_name,
+                author_login=author_login,
             )
             all_data.append(data_dict)
     except NoMorePagesAllowedException:
