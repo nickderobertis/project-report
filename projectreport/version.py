@@ -1,6 +1,7 @@
 from dataclasses import dataclass
-from typing import Optional
+from typing import Optional, Tuple
 
+import pandas as pd
 import semver
 
 
@@ -128,3 +129,39 @@ class Version:
             return self.full_str
 
         return str(self.semantic_version)
+
+
+def major_minor_patch(
+    version: Version,
+) -> Tuple[Optional[int], Optional[int], Optional[int]]:
+    if not version.is_semver:
+        return None, None, None
+    return version.major, version.minor, version.patch
+
+
+def add_major_minor_patch_to_df(df: pd.DataFrame, version_col: str = "tag_name"):
+    df["Version"] = df[version_col].apply(lambda tag: Version.from_str(tag))
+    df["Major"], df["Minor"], df["Patch"] = zip(*df["Version"].map(major_minor_patch))
+
+
+def add_major_minor_patch_changed_to_df(df: pd.DataFrame):
+    df["Max Version"] = df["Version"].cummax()
+    df["Max Major"], df["Max Minor"], df["Max Patch"] = zip(
+        *df["Max Version"].map(major_minor_patch)
+    )
+    for col in ["Major", "Minor", "Patch"]:
+        df[f"Max {col}"] = df[f"Max {col}"].shift()
+        df[f"{col} Diff"] = df[col] - df[f"Max {col}"]
+    df["Major Changed"] = False
+    df.loc[(~pd.isnull(df["Major Diff"])) & (df["Major Diff"] != 0), "Major Changed"] = True
+    df["Minor Changed"] = False
+    df.loc[
+        (~pd.isnull(df["Minor Diff"])) & (df["Minor Diff"] != 0) & (~df["Major Changed"]),
+        "Minor Changed",
+    ] = True
+    df["Patch Changed"] = False
+    df.loc[
+        (~pd.isnull(df["Patch Diff"])) & (df["Patch Diff"]
+        != 0) & (~df["Minor Changed"]) & (~df["Major Changed"]),
+        "Patch Changed",
+    ] = True

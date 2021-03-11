@@ -22,6 +22,10 @@ from projectreport.tools.monkey_patch_github import (
     monkey_patch_github_obj_for_throttling,
     NoMorePagesAllowedException,
 )
+from projectreport.version import (
+    add_major_minor_patch_to_df,
+    add_major_minor_patch_changed_to_df,
+)
 
 
 class GithubAnalysis(TimeSeriesAnalysis):
@@ -244,18 +248,40 @@ def releases_from_repo(repo: Repository) -> DictList:
 
 
 def release_counts_from_release_events(
-    releases: DictList, freq: str = "d", date_var: str = "published_at"
+    releases: DictList,
+    freq: str = "d",
+    date_var: str = "published_at",
 ) -> DictList:
     event_df = pd.DataFrame(releases)
+    event_df.sort_values(date_var, inplace=True)
     start = _get_end_of_period(event_df[date_var].min(), freq)
     end = event_df[date_var].max()
+    add_major_minor_patch_to_df(event_df)
+
+    semver_df = event_df.loc[event_df['Version'].apply(lambda ver: ver.is_semver)]
+    add_major_minor_patch_changed_to_df(semver_df)
 
     dates = pd.date_range(start=start, end=end, freq=freq)
     count_data = []
     for date in dates:
         until_time_df = event_df[event_df[date_var] < date]
         release_count = len(until_time_df)
-        count_data.append(dict(date=date, releases=release_count))
+        until_time_df = semver_df[semver_df[date_var] < date]
+        major_df = until_time_df[until_time_df["Major Changed"]]
+        major_count = len(major_df)
+        minor_df = until_time_df[until_time_df["Minor Changed"]]
+        minor_count = len(minor_df)
+        patch_df = until_time_df[until_time_df["Patch Changed"]]
+        patch_count = len(patch_df)
+        count_data.append(
+            dict(
+                date=date,
+                releases=release_count,
+                major_releases=major_count,
+                minor_releases=minor_count,
+                patch_releases=patch_count,
+            )
+        )
 
     return count_data
 
