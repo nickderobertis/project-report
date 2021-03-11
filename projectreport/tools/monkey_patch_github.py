@@ -105,9 +105,14 @@ def _get_last_reset_datetime_utc(limit: RateLimit) -> datetime:
     ]
     all_resets = []
     for attr in limit_attrs:
-        rate: Rate = getattr(limit, attr)
+        try:
+            rate: Rate = getattr(limit, attr)
+        except AttributeError:
+            continue
         reset = rate.reset.replace(tzinfo=timezone.utc)
         all_resets.append(reset)
+    if not all_resets:
+        raise ValueError(f'no reset time in rate limit object: {limit} with data {limit.raw_data}')
 
     last_reset = max(all_resets)
     return last_reset
