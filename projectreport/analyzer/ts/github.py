@@ -259,7 +259,8 @@ def release_counts_from_release_events(
     add_major_minor_patch_to_df(event_df)
 
     semver_df = event_df.loc[event_df['Version'].apply(lambda ver: ver.is_semver)]
-    add_major_minor_patch_changed_to_df(semver_df)
+    if not semver_df.empty:
+        add_major_minor_patch_changed_to_df(semver_df)
 
     dates = pd.date_range(start=start, end=end, freq=freq)
     count_data = []
@@ -267,12 +268,15 @@ def release_counts_from_release_events(
         until_time_df = event_df[event_df[date_var] < date]
         release_count = len(until_time_df)
         until_time_df = semver_df[semver_df[date_var] < date]
-        major_df = until_time_df[until_time_df["Major Changed"]]
-        major_count = len(major_df)
-        minor_df = until_time_df[until_time_df["Minor Changed"]]
-        minor_count = len(minor_df)
-        patch_df = until_time_df[until_time_df["Patch Changed"]]
-        patch_count = len(patch_df)
+        if not until_time_df.empty:
+            major_df = until_time_df[until_time_df["Major Changed"]]
+            major_count = len(major_df)
+            minor_df = until_time_df[until_time_df["Minor Changed"]]
+            minor_count = len(minor_df)
+            patch_df = until_time_df[until_time_df["Patch Changed"]]
+            patch_count = len(patch_df)
+        else:
+            major_count, minor_count, patch_count = 0, 0, 0
         count_data.append(
             dict(
                 date=date,
