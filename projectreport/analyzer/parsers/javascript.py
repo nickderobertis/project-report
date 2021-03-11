@@ -6,13 +6,12 @@ from projectreport.analyzer.parsers.base import Parser
 
 
 class PackageJSONParser(Parser):
-
     @cached_property
     def parsed(self) -> Optional[Dict[str, Any]]:
         try:
             return json.loads(self.contents)
         except SyntaxError:
-            warnings.warn(f'Could not parse {self.path} due to SyntaxError')
+            warnings.warn(f"Could not parse {self.path} due to SyntaxError")
             return None
 
     @cached_property
@@ -20,3 +19,9 @@ class PackageJSONParser(Parser):
         if self.parsed is None:
             return None
         return self.parsed.get("description")
+
+    @cached_property
+    def version(self) -> Optional[str]:
+        if self.parsed is None:
+            return None
+        return self.parsed.get("version")

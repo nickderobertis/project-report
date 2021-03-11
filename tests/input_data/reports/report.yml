@@ -6,14 +6,16 @@
   num_commits: null
   updated: null
   urls: null
+  version: 1.0.0
 - created: null
   docstring: An example Python package for testing purposes
-  full_lines: 3
-  lines: 0
+  full_lines: 4
+  lines: 1
   name: python_example
   num_commits: null
   updated: null
   urls: null
+  version: 0.0.1
 - created: 2020-02-01 12:00:00-04:56
   docstring: null
   full_lines: 0
@@ -22,6 +24,7 @@
   num_commits: 1
   updated: 2020-02-01 12:01:00-04:56
   urls: null
+  version: null
 - created: 2020-02-01 12:00:00-04:56
   docstring: null
   full_lines: 0
@@ -30,6 +33,7 @@
   num_commits: 1
   updated: 2020-02-01 12:01:00-04:56
   urls: null
+  version: null
 - created: 2020-02-01 13:00:00-04:56
   docstring: null
   full_lines: 0
@@ -38,3 +42,4 @@
   num_commits: 1
   updated: 2020-02-01 12:01:00-04:56
   urls: null
+  version: null

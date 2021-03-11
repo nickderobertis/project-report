@@ -64,6 +64,8 @@ PACKAGE_INSTALL_REQUIRES = [
     "pyexlatex",
     'PyYAML',
     'PyGithub',
+    'semver',
+    'getversion',
 ]
 
 # Add any third party packages you use in requirements for optional features of your package here

@@ -29,6 +29,8 @@ pyexlatex = "*"
 pygithub = "*"
 PyYAML = "*"
 freezegun = "*"
+semver = "*"
+getversion = "*"
 
 [requires]
 python_version = "3.8"

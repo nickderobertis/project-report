@@ -1,6 +1,4 @@
 \documentclass[]{article}
-\usepackage{xcolor}
-\definecolor{darkgreen}{RGB}{42,138,11}
 \usepackage{amsmath}
 \usepackage{pdflscape}
 \usepackage{booktabs}
@@ -14,12 +12,15 @@
 \newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
 \newcolumntype{.}{D{.}{.}{-1}}
+\newcolumntype{d}[1]{D{.}{.}{#1}}
 \usepackage[T1]{fontenc}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{graphicx}
 \usepackage[margin=0.8in, bottom=1.2in]{geometry}
 \usepackage[page]{appendix}
+\usepackage{xcolor}
+\definecolor{darkgreen}{RGB}{42,138,11}
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0pt}
 \fancyhead{}
@@ -40,6 +41,7 @@ An example JavaScript package
 
 \vspace{0.5cm}
 \textbf{python\_example}
+\textcolor{darkgreen}{1 LOC}
 \\
 An example Python package for testing purposes
 \\
