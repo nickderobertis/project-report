@@ -11,6 +11,7 @@ from getversion.plugin_eggs_and_wheels import get_unzipped_wheel_or_egg_version
 from getversion.plugin_importlib_metadata import get_version_using_importlib_metadata
 
 from projectreport.analyzer.parsers.base import Parser
+from projectreport.version import Version
 
 
 class PythonParser(Parser):
@@ -36,7 +37,7 @@ class PythonParser(Parser):
         return module
 
     @cached_property
-    def version(self) -> Optional[str]:
+    def version(self) -> Optional[Version]:
         try:
             version, details = get_module_version(
                 self.module,
@@ -48,7 +49,6 @@ class PythonParser(Parser):
                     # get_version_using_setuptools_scm,  # was returning invalid results
                 ),
             )
-        except ModuleVersionNotFound as e:
-            raise e
+        except ModuleVersionNotFound:
             return None
-        return version
+        return Version.from_str(version)

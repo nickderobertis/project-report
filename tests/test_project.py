@@ -6,6 +6,7 @@ from git import Repo
 
 from projectreport import Project
 from projectreport.analyzer.analysis import FolderAnalysis
+from projectreport.version import Version
 from tests.base import (
     PYTHON_PROJECT_PATH,
     PYTHON_PROJECT_NAME,
@@ -26,7 +27,7 @@ def test_python_project():
         os.path.abspath(os.path.join(PYTHON_PROJECT_PATH, "__init__.py"))
     ]
     assert project.docstring == "An example Python package for testing purposes"
-    assert project.version == "0.0.1"
+    assert project.version == Version.from_str("0.0.1")
     assert project.name == PYTHON_PROJECT_NAME
     assert project.path == os.path.abspath(PYTHON_PROJECT_PATH)
     assert project.repo is None
@@ -58,7 +59,7 @@ def test_javascript_project():
         os.path.abspath(os.path.join(JS_PROJECT_PATH, "index.js")),
     ]
     assert project.docstring == "An example JavaScript package"
-    assert project.version == "1.0.0"
+    assert project.version == Version.from_str("1.0.0")
     assert project.name == JS_PROJECT_NAME
     assert project.path == os.path.abspath(JS_PROJECT_PATH)
     assert project.repo is None

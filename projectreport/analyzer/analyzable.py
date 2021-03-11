@@ -1,4 +1,7 @@
 from typing import Optional, Dict, Union, TYPE_CHECKING
+
+from projectreport.version import Version
+
 if TYPE_CHECKING:
     from projectreport.analyzer.project import Project
     from projectreport.analyzer.analysis import Analysis
@@ -22,7 +25,7 @@ class Analyzable:
         return self.parser.docstring
 
     @cached_property
-    def version(self) -> Optional[str]:
+    def version(self) -> Optional[Version]:
         if self.parser is None:
             return None
         return self.parser.version
@@ -36,7 +39,7 @@ class Analyzable:
         data.update(self.analysis.data)
         data.update(dict(
             docstring=self.docstring,
-            version=self.version,
+            version=str(self.version) if self.version is not None else None,
         ))
         if self.name is not None:
             data.update(dict(name=self.name))

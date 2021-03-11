@@ -3,6 +3,7 @@ import warnings
 import json
 from cached_property import cached_property
 from projectreport.analyzer.parsers.base import Parser
+from projectreport.version import Version
 
 
 class PackageJSONParser(Parser):
@@ -21,7 +22,7 @@ class PackageJSONParser(Parser):
         return self.parsed.get("description")
 
     @cached_property
-    def version(self) -> Optional[str]:
+    def version(self) -> Optional[Version]:
         if self.parsed is None:
             return None
-        return self.parsed.get("version")
+        return Version.from_str(self.parsed.get("version"))
