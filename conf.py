@@ -20,7 +20,7 @@ REPO_MAINTAINERS = [
 ]
 
 # Package version in the format (major, minor, release)
-PACKAGE_VERSION_TUPLE = (0, 5, 0)
+PACKAGE_VERSION_TUPLE = (0, 6, 0)
 
 # Short description of the package
 PACKAGE_SHORT_DESCRIPTION = "Find software projects, analyze them, and output a report."
@@ -64,6 +64,8 @@ PACKAGE_INSTALL_REQUIRES = [
     "pyexlatex",
     'PyYAML',
     'PyGithub',
+    'semver',
+    'getversion',
 ]
 
 # Add any third party packages you use in requirements for optional features of your package here

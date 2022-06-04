@@ -7,16 +7,18 @@
     "full_lines": 1,
     "urls": null,
     "docstring": "An example JavaScript package",
+    "version": "1.0.0",
     "name": "js_example"
   },
   {
     "num_commits": null,
     "created": null,
     "updated": null,
-    "lines": 0,
-    "full_lines": 3,
+    "lines": 1,
+    "full_lines": 4,
     "urls": null,
     "docstring": "An example Python package for testing purposes",
+    "version": "0.0.1",
     "name": "python_example"
   },
   {
@@ -27,6 +29,7 @@
     "full_lines": 0,
     "urls": null,
     "docstring": null,
+    "version": null,
     "name": "gitrepo"
   },
   {
@@ -37,6 +40,7 @@
     "full_lines": 0,
     "urls": null,
     "docstring": null,
+    "version": null,
     "name": "zgitrepo"
   },
   {
@@ -47,6 +51,7 @@
     "full_lines": 0,
     "urls": null,
     "docstring": null,
+    "version": null,
     "name": "agitrepo"
   }
 ]

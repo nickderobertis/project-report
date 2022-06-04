@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from cached_property import cached_property
 
 
@@ -19,3 +21,12 @@ class Parser:
     @cached_property
     def docstring(self):
         raise NotImplementedError
+
+    @cached_property
+    def version(self):
+        raise NotImplementedError
+
+    @cached_property
+    def file_name(self) -> str:
+        return Path(self.path).with_suffix('').name
+
