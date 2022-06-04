@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>projectreport.analyzer.parsers.base &mdash; project-report 0.5.0 documentation</title>
+  <title>projectreport.analyzer.parsers.base &mdash; project-report 0.6.0 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.6.0
               </div>
             
           
@@ -161,7 +161,9 @@
            <div itemprop="articleBody">
             
   <h1>Source code for projectreport.analyzer.parsers.base</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">cached_property</span> <span class="kn">import</span> <span class="n">cached_property</span>
+<span></span><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span> <span class="nn">cached_property</span> <span class="kn">import</span> <span class="n">cached_property</span>
 
 
 <div class="viewcode-block" id="Parser"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.parsers.html#projectreport.analyzer.parsers.base.Parser">[docs]</a><span class="k">class</span> <span class="nc">Parser</span><span class="p">:</span>
@@ -169,19 +171,28 @@
 <div class="viewcode-block" id="Parser.__init__"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.parsers.html#projectreport.analyzer.parsers.base.Parser.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span></div>
 
-<div class="viewcode-block" id="Parser.parsed"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.parsers.html#projectreport.analyzer.parsers.base.Parser.parsed">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">parsed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-<div class="viewcode-block" id="Parser.contents"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.parsers.html#projectreport.analyzer.parsers.base.Parser.contents">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">contents</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="n">file_contents</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">file_contents</span></div>
+        <span class="k">return</span> <span class="n">file_contents</span>
 
-<div class="viewcode-block" id="Parser.docstring"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.parsers.html#projectreport.analyzer.parsers.base.Parser.docstring">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">docstring</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">name</span></div>
+
 </pre></div>
 
            </div>
@@ -195,7 +206,7 @@
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2021, Nick DeRobertis
+        &copy; Copyright 2022, Nick DeRobertis
 
     </p>
   </div>

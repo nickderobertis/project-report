@@ -1,7 +1,9 @@
-project-report
-PyGithub
+getversion
 pygount
-gitpython
-PyYAML
 pyexlatex
+project-report
+PyYAML
+PyGithub
+semver
+gitpython
 cached_property

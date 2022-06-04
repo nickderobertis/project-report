@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>projectreport.analyzer.folder &mdash; project-report 0.5.0 documentation</title>
+  <title>projectreport.analyzer.folder &mdash; project-report 0.6.0 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.6.0
               </div>
             
           
@@ -194,12 +194,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_validate</span><span class="p">()</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="n">project</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Folder.file_names"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.folder.Folder.file_names">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">file_names</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="n">file_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">file</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">next</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">))[</span><span class="mi">2</span><span class="p">]]</span>
-        <span class="k">return</span> <span class="n">file_names</span></div>
+        <span class="k">return</span> <span class="n">file_names</span>
 
-<div class="viewcode-block" id="Folder.file_paths"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.folder.Folder.file_paths">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">file_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="n">included_files</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;ignore_paths&#39;</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -221,9 +221,9 @@
                 <span class="c1"># No included or excluded files, just keep all</span>
                 <span class="n">included_files</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
         <span class="n">files</span> <span class="o">=</span> <span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">included_files</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">files</span></div>
+        <span class="k">return</span> <span class="n">files</span>
 
-<div class="viewcode-block" id="Folder.folder_paths"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.folder.Folder.folder_paths">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">folder_paths</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="n">folders</span> <span class="o">=</span> <span class="p">[</span><span class="n">file</span> <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="nb">next</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">))[</span><span class="mi">1</span><span class="p">]]</span>
 
@@ -238,39 +238,39 @@
                     <span class="k">continue</span>  <span class="c1"># this folder excluded, skip it</span>
             <span class="n">out_folders</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">abs_folder</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">out_folders</span></div>
+        <span class="k">return</span> <span class="n">out_folders</span>
 
-<div class="viewcode-block" id="Folder.modules"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.folder.Folder.modules">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">modules</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;Module&#39;</span><span class="p">]:</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">Module</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">)</span> <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_paths</span><span class="p">]</span></div>
+        <span class="k">return</span> <span class="p">[</span><span class="n">Module</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">)</span> <span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_paths</span><span class="p">]</span>
 
-<div class="viewcode-block" id="Folder.folders"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.folder.Folder.folders">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">folders</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="s1">&#39;Folder&#39;</span><span class="p">]:</span>
         <span class="n">all_folders</span> <span class="o">=</span> <span class="p">[</span><span class="n">Folder</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">project</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">)</span> <span class="k">for</span> <span class="n">folder</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">folder_paths</span><span class="p">]</span>
         <span class="n">non_empty_folders</span> <span class="o">=</span> <span class="p">[</span><span class="n">folder</span> <span class="k">for</span> <span class="n">folder</span> <span class="ow">in</span> <span class="n">all_folders</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">folder</span><span class="o">.</span><span class="n">is_empty</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">non_empty_folders</span></div>
+        <span class="k">return</span> <span class="n">non_empty_folders</span>
 
-<div class="viewcode-block" id="Folder.analysis"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.folder.Folder.analysis">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;FolderAnalysis&#39;</span><span class="p">:</span>
         <span class="n">analysis</span> <span class="o">=</span> <span class="n">FolderAnalysis</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">folder</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="p">:</span>
             <span class="n">analysis</span><span class="o">.</span><span class="n">add_subfolder_analysis</span><span class="p">(</span><span class="n">folder</span><span class="o">.</span><span class="n">analysis</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>
             <span class="n">analysis</span><span class="o">.</span><span class="n">add_module_analysis</span><span class="p">(</span><span class="n">module</span><span class="o">.</span><span class="n">analysis</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">analysis</span></div>
+        <span class="k">return</span> <span class="n">analysis</span>
 
-<div class="viewcode-block" id="Folder.parser"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.folder.Folder.parser">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">parser</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="s1">&#39;Parser&#39;</span><span class="p">]:</span>
         <span class="k">for</span> <span class="n">file</span><span class="p">,</span> <span class="n">parser</span> <span class="ow">in</span> <span class="n">PARSER_DOC_FILES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="n">file</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">file_names</span><span class="p">:</span>
                 <span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">PARSER_DOC_FILES</span><span class="p">[</span><span class="n">file</span><span class="p">](</span><span class="n">full_path</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">None</span></div>
+        <span class="k">return</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="Folder.is_empty"><a class="viewcode-back" href="../../../api/projectreport.analyzer.html#projectreport.analyzer.folder.Folder.is_empty">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="n">len_contents</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_paths</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">folders</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">len_contents</span> <span class="o">==</span> <span class="mi">0</span></div>
+        <span class="k">return</span> <span class="n">len_contents</span> <span class="o">==</span> <span class="mi">0</span>
 
     <span class="k">def</span> <span class="nf">_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;included_types&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="p">[</span><span class="s1">&#39;excluded_types&#39;</span><span class="p">]:</span>
@@ -288,7 +288,7 @@
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2021, Nick DeRobertis
+        &copy; Copyright 2022, Nick DeRobertis
 
     </p>
   </div>

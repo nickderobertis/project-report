@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>projectreport.analyzer.parsers.python &mdash; project-report 0.5.0 documentation</title>
+  <title>projectreport.analyzer.parsers.python &mdash; project-report 0.6.0 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.6.0
               </div>
             
           
@@ -161,28 +161,60 @@
            <div itemprop="articleBody">
             
   <h1>Source code for projectreport.analyzer.parsers.python</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span></span><span class="kn">import</span> <span class="nn">importlib.util</span>
+<span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">ModuleType</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 <span class="kn">import</span> <span class="nn">ast</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">from</span> <span class="nn">cached_property</span> <span class="kn">import</span> <span class="n">cached_property</span>
+<span class="kn">from</span> <span class="nn">getversion</span> <span class="kn">import</span> <span class="n">get_module_version</span>
+<span class="kn">from</span> <span class="nn">getversion.main</span> <span class="kn">import</span> <span class="n">get_version_using_pkgresources</span><span class="p">,</span> <span class="n">ModuleVersionNotFound</span>
+<span class="kn">from</span> <span class="nn">getversion.plugin_builtins</span> <span class="kn">import</span> <span class="n">get_builtin_module_version</span>
+<span class="kn">from</span> <span class="nn">getversion.plugin_eggs_and_wheels</span> <span class="kn">import</span> <span class="n">get_unzipped_wheel_or_egg_version</span>
+<span class="kn">from</span> <span class="nn">getversion.plugin_importlib_metadata</span> <span class="kn">import</span> <span class="n">get_version_using_importlib_metadata</span>
+
 <span class="kn">from</span> <span class="nn">projectreport.analyzer.parsers.base</span> <span class="kn">import</span> <span class="n">Parser</span>
+<span class="kn">from</span> <span class="nn">projectreport.version</span> <span class="kn">import</span> <span class="n">Version</span>
 
 
 <div class="viewcode-block" id="PythonParser"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.parsers.html#projectreport.analyzer.parsers.python.PythonParser">[docs]</a><span class="k">class</span> <span class="nc">PythonParser</span><span class="p">(</span><span class="n">Parser</span><span class="p">):</span>
-
-<div class="viewcode-block" id="PythonParser.parsed"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.parsers.html#projectreport.analyzer.parsers.python.PythonParser.parsed">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">parsed</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">)</span>
         <span class="k">except</span> <span class="ne">SyntaxError</span><span class="p">:</span>
-            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Could not parse </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s1"> due to SyntaxError&#39;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">None</span></div>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not parse </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="si">}</span><span class="s2"> due to SyntaxError&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="PythonParser.docstring"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.parsers.html#projectreport.analyzer.parsers.python.PythonParser.docstring">[docs]</a>    <span class="nd">@cached_property</span>
+    <span class="nd">@cached_property</span>
     <span class="k">def</span> <span class="nf">docstring</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parsed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">None</span>
-        <span class="k">return</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parsed</span><span class="p">)</span></div></div>
+        <span class="k">return</span> <span class="n">ast</span><span class="o">.</span><span class="n">get_docstring</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parsed</span><span class="p">)</span>
+
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">module</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ModuleType</span><span class="p">:</span>
+        <span class="n">spec</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">spec_from_file_location</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">file_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">module_from_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span>
+        <span class="n">spec</span><span class="o">.</span><span class="n">loader</span><span class="o">.</span><span class="n">exec_module</span><span class="p">(</span><span class="n">module</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+        <span class="k">return</span> <span class="n">module</span>
+
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">version</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Version</span><span class="p">]:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">version</span><span class="p">,</span> <span class="n">details</span> <span class="o">=</span> <span class="n">get_module_version</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="p">,</span>
+                <span class="n">rootmodule_strategies</span><span class="o">=</span><span class="p">(</span>
+                    <span class="n">get_version_using_pkgresources</span><span class="p">,</span>
+                    <span class="n">get_builtin_module_version</span><span class="p">,</span>
+                    <span class="n">get_version_using_importlib_metadata</span><span class="p">,</span>
+                    <span class="n">get_unzipped_wheel_or_egg_version</span><span class="p">,</span>
+                    <span class="c1"># get_version_using_setuptools_scm,  # was returning invalid results</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="n">ModuleVersionNotFound</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">Version</span><span class="o">.</span><span class="n">from_str</span><span class="p">(</span><span class="n">version</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
@@ -196,7 +228,7 @@
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2021, Nick DeRobertis
+        &copy; Copyright 2022, Nick DeRobertis
 
     </p>
   </div>

@@ -36,3 +36,11 @@ projectreport.logger module
    :undoc-members:
    :show-inheritance:
 
+projectreport.version module
+----------------------------
+
+.. automodule:: projectreport.version
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

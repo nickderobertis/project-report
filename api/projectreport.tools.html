@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>projectreport.tools package &mdash; project-report 0.5.0 documentation</title>
+  <title>projectreport.tools package &mdash; project-report 0.6.0 documentation</title>
   
 
   
@@ -68,7 +68,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.6.0
               </div>
             
           
@@ -110,6 +110,7 @@
 <li class="toctree-l3"><a class="reference internal" href="projectreport.html#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="projectreport.html#module-projectreport.config">projectreport.config module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="projectreport.html#module-projectreport.logger">projectreport.logger module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="projectreport.html#module-projectreport.version">projectreport.version module</a></li>
 </ul>
 </li>
 </ul>
@@ -192,10 +193,10 @@
 <span id="projectreport-tools-expand-glob-module"></span><h2>projectreport.tools.expand_glob module<a class="headerlink" href="#module-projectreport.tools.expand_glob" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
 <dt id="projectreport.tools.expand_glob.all_possible_paths">
-<code class="sig-prename descclassname">projectreport.tools.expand_glob.</code><code class="sig-name descname">all_possible_paths</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">paths</span></em>, <em class="sig-param"><span class="n">base_path</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/tools/expand_glob.html#all_possible_paths"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.tools.expand_glob.all_possible_paths" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">projectreport.tools.expand_glob.</span></code><code class="sig-name descname"><span class="pre">all_possible_paths</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/tools/expand_glob.html#all_possible_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.tools.expand_glob.all_possible_paths" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -205,13 +206,13 @@
 <span id="projectreport-tools-monkey-patch-github-module"></span><h2>projectreport.tools.monkey_patch_github module<a class="headerlink" href="#module-projectreport.tools.monkey_patch_github" title="Permalink to this headline">¶</a></h2>
 <dl class="py exception">
 <dt id="projectreport.tools.monkey_patch_github.NoMorePagesAllowedException">
-<em class="property">exception </em><code class="sig-prename descclassname">projectreport.tools.monkey_patch_github.</code><code class="sig-name descname">NoMorePagesAllowedException</code><a class="reference internal" href="../_modules/projectreport/tools/monkey_patch_github.html#NoMorePagesAllowedException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.tools.monkey_patch_github.NoMorePagesAllowedException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<em class="property"><span class="pre">exception</span> </em><code class="sig-prename descclassname"><span class="pre">projectreport.tools.monkey_patch_github.</span></code><code class="sig-name descname"><span class="pre">NoMorePagesAllowedException</span></code><a class="reference internal" href="../_modules/projectreport/tools/monkey_patch_github.html#NoMorePagesAllowedException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.tools.monkey_patch_github.NoMorePagesAllowedException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
 </dd></dl>
 
 <dl class="py function">
 <dt id="projectreport.tools.monkey_patch_github.monkey_patch_github_obj_for_throttling">
-<code class="sig-prename descclassname">projectreport.tools.monkey_patch_github.</code><code class="sig-name descname">monkey_patch_github_obj_for_throttling</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gh_obj</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/tools/monkey_patch_github.html#monkey_patch_github_obj_for_throttling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#projectreport.tools.monkey_patch_github.monkey_patch_github_obj_for_throttling" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">projectreport.tools.monkey_patch_github.</span></code><code class="sig-name descname"><span class="pre">monkey_patch_github_obj_for_throttling</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gh_obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/tools/monkey_patch_github.html#monkey_patch_github_obj_for_throttling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.tools.monkey_patch_github.monkey_patch_github_obj_for_throttling" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -236,7 +237,7 @@
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2021, Nick DeRobertis
+        &copy; Copyright 2022, Nick DeRobertis
 
     </p>
   </div>

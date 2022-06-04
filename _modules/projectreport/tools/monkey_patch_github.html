@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>projectreport.tools.monkey_patch_github &mdash; project-report 0.5.0 documentation</title>
+  <title>projectreport.tools.monkey_patch_github &mdash; project-report 0.6.0 documentation</title>
   
 
   
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.5.0
+                0.6.0
               </div>
             
           
@@ -268,9 +268,14 @@
     <span class="p">]</span>
     <span class="n">all_resets</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="n">limit_attrs</span><span class="p">:</span>
-        <span class="n">rate</span><span class="p">:</span> <span class="n">Rate</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">limit</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">rate</span><span class="p">:</span> <span class="n">Rate</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">limit</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+            <span class="k">continue</span>
         <span class="n">reset</span> <span class="o">=</span> <span class="n">rate</span><span class="o">.</span><span class="n">reset</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tzinfo</span><span class="o">=</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
         <span class="n">all_resets</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">reset</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">all_resets</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;no reset time in rate limit object: </span><span class="si">{</span><span class="n">limit</span><span class="si">}</span><span class="s1"> with data </span><span class="si">{</span><span class="n">limit</span><span class="o">.</span><span class="n">raw_data</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="n">last_reset</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">all_resets</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">last_reset</span>
@@ -300,7 +305,7 @@
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2021, Nick DeRobertis
+        &copy; Copyright 2022, Nick DeRobertis
 
     </p>
   </div>
