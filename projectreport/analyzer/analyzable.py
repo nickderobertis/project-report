@@ -31,11 +31,11 @@ class Analyzable:
         return self.parser.version
 
     @cached_property
-    def data(self) -> Dict[str, Union[str, int, dict]]:
+    def data(self) -> Dict[str, Union[str, int, dict, None]]:
         if self.analysis is None:
             raise ValueError('cannot get data from Analyzable if no analysis is attached')
 
-        data: Dict[str, Union[str, int, dict]] = {}
+        data: Dict[str, Union[str, int, dict, None]] = {}
         data.update(self.analysis.data)
         data.update(dict(
             docstring=self.docstring,
