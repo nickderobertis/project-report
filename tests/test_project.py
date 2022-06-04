@@ -54,7 +54,7 @@ def test_python_project():
 def test_javascript_project():
     project = get_js_project()
 
-    assert project.file_names == ["index.js", "package.json"]
+    assert sorted(project.file_names) == ["index.js", "package.json"]
     assert project.file_paths == [
         os.path.abspath(os.path.join(JS_PROJECT_PATH, "index.js")),
     ]
