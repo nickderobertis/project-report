@@ -1,5 +1,5 @@
 from projectreport.analyzer.parsers.javascript import PackageJSONParser
-from projectreport.analyzer.parsers.python import PythonParser
+from projectreport.analyzer.parsers.python.init import PythonParser
 
 PARSER_EXTENSIONS = {"py": PythonParser}
 

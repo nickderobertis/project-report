@@ -6,7 +6,11 @@ import pytest
 import pytz
 
 from projectreport import Project
-from tests.config import GITHUB_REPO_URL, JS_PROJECT_PATH, PYTHON_PROJECT_PATH
+from tests.config import (
+    GITHUB_REPO_URL,
+    JS_PROJECT_PATH,
+    PYTHON_DUNDER_VERSION_PROJECT_PATH,
+)
 from tests.dirutils import create_temp_path
 
 
@@ -21,7 +25,7 @@ def github_project() -> Project:
 
 
 def get_python_project() -> Project:
-    project_path = PYTHON_PROJECT_PATH
+    project_path = PYTHON_DUNDER_VERSION_PROJECT_PATH
     included_types = ("py",)
     project = Project(project_path, included_types=included_types)
     return project

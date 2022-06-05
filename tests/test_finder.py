@@ -5,7 +5,8 @@ from projectreport.finder.python import PythonPackageFinder
 from tests.config import (
     JS_PROJECT_PATH,
     PROJECT_DIR,
-    PYTHON_PROJECT_PATH,
+    PYTHON_DUNDER_VERSION_PROJECT_PATH,
+    PYTHON_PROJECT_PATHS,
     TEST_FILES_BASE_PATH,
 )
 
@@ -14,7 +15,7 @@ def test_find_python_package():
     finder = PythonPackageFinder()
     search_paths = [TEST_FILES_BASE_PATH]
     project_paths = finder.find_all(search_paths)
-    assert project_paths == [str(PYTHON_PROJECT_PATH)]
+    assert sorted(project_paths) == PYTHON_PROJECT_PATHS
 
 
 def test_find_javascript_package():
@@ -41,4 +42,6 @@ def test_combined_finder():
     )
     search_paths = [TEST_FILES_BASE_PATH]
     project_paths = finder.find_all(search_paths)
-    assert sorted(project_paths) == [str(JS_PROJECT_PATH), str(PYTHON_PROJECT_PATH)]
+    assert sorted(project_paths) == sorted(
+        [str(JS_PROJECT_PATH), *PYTHON_PROJECT_PATHS]
+    )

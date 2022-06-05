@@ -3,23 +3,23 @@
     "num_commits": null,
     "created": null,
     "updated": null,
+    "lines": 2,
+    "full_lines": 5,
+    "urls": null,
+    "docstring": "An example Python package for testing purposes",
+    "version": "0.0.1",
+    "name": "dunder_version"
+  },
+  {
+    "num_commits": null,
+    "created": null,
+    "updated": null,
     "lines": 1,
     "full_lines": 1,
     "urls": null,
     "docstring": "An example JavaScript package",
     "version": "1.0.0",
     "name": "js_example"
-  },
-  {
-    "num_commits": null,
-    "created": null,
-    "updated": null,
-    "lines": 2,
-    "full_lines": 5,
-    "urls": null,
-    "docstring": "An example Python package for testing purposes",
-    "version": "0.0.1",
-    "name": "underscore_version"
   },
   {
     "num_commits": 1,

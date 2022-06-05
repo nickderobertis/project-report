@@ -10,8 +10,8 @@ from projectreport.version import Version
 from tests.config import (
     JS_PROJECT_NAME,
     JS_PROJECT_PATH,
-    PYTHON_PROJECT_NAME,
-    PYTHON_PROJECT_PATH,
+    PYTHON_DUNDER_VERSION_PROJECT_NAME,
+    PYTHON_DUNDER_VERSION_PROJECT_PATH,
 )
 from tests.fixtures.project import (
     get_js_project,
@@ -26,12 +26,12 @@ def test_python_project():
 
     assert project.file_names == ["__init__.py"]
     assert project.file_paths == [
-        os.path.abspath(os.path.join(PYTHON_PROJECT_PATH, "__init__.py"))
+        os.path.abspath(os.path.join(PYTHON_DUNDER_VERSION_PROJECT_PATH, "__init__.py"))
     ]
     assert project.docstring == "An example Python package for testing purposes"
     assert project.version == Version.from_str("0.0.1")
-    assert project.name == PYTHON_PROJECT_NAME
-    assert project.path == os.path.abspath(PYTHON_PROJECT_PATH)
+    assert project.name == PYTHON_DUNDER_VERSION_PROJECT_NAME
+    assert project.path == os.path.abspath(PYTHON_DUNDER_VERSION_PROJECT_PATH)
     assert project.repo is None
     assert not project.is_empty
     assert project.folders == []
@@ -49,7 +49,7 @@ def test_python_project():
         "urls": None,
         "docstring": "An example Python package for testing purposes",
         "version": "0.0.1",
-        "name": PYTHON_PROJECT_NAME,
+        "name": PYTHON_DUNDER_VERSION_PROJECT_NAME,
     }
 
 
