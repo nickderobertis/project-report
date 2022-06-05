@@ -59,13 +59,6 @@ def git_project() -> Project:
         yield project
 
 
-def get_github_project() -> Project:
-    project_path = PROJECT_DIR
-    included_types = None
-    project = Project(project_path, included_types=included_types)
-    return project
-
-
 def get_project_report(add_projects: Optional[Sequence[Project]] = None) -> Report:
     py_project = get_python_project()
 

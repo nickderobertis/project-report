@@ -12,11 +12,11 @@ from tests.base import (
     JS_PROJECT_PATH,
     PYTHON_PROJECT_NAME,
     PYTHON_PROJECT_PATH,
-    get_github_project,
     get_js_project,
     get_python_project,
     git_project,
 )
+from tests.fixtures.project import github_project
 
 
 def test_python_project():
@@ -100,15 +100,15 @@ def test_git_project(git_project: Project):
     assert (data["updated"] - datetime.datetime.now(pytz.utc)).total_seconds() < 180
 
 
-def test_github_project():
-    project = get_github_project()
+def test_github_project(github_project: Project):
+    project = github_project
 
     assert isinstance(project.repo, Repo)
-    assert project.name == "project-report"
+    assert project.name == "github-project-example"
     analysis: FolderAnalysis = project.analysis
-    assert analysis.lines["code"] > 0
-    assert analysis.lines["documentation"] > 0
-    assert analysis.lines["empty"] > 0
-    assert analysis.lines["string"] > 0
+    assert analysis.lines["code"] == 18
+    assert analysis.lines["documentation"] == 0
+    assert analysis.lines["empty"] == 4
+    assert analysis.lines["string"] == 0
     data = project.data
-    assert data["urls"] == ["https://github.com/nickderobertis/project-report"]
+    assert data["urls"] == ["https://github.com/nickderobertis/github-project-example"]
