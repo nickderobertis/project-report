@@ -41,4 +41,4 @@ def test_combined_finder():
     )
     search_paths = [TEST_FILES_BASE_PATH]
     project_paths = finder.find_all(search_paths)
-    assert project_paths == [str(PYTHON_PROJECT_PATH), str(JS_PROJECT_PATH)]
+    assert sorted(project_paths) == [str(JS_PROJECT_PATH), str(PYTHON_PROJECT_PATH)]
