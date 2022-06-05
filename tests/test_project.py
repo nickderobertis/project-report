@@ -49,7 +49,7 @@ def test_python_project():
         "urls": None,
         "docstring": "An example Python package for testing purposes",
         "version": "0.0.1",
-        "name": "python_example",
+        "name": PYTHON_PROJECT_NAME,
     }
 
 
