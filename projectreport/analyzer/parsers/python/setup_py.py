@@ -7,7 +7,7 @@ from projectreport.analyzer.parsers.python.base import PythonParser
 from projectreport.version import Version
 
 
-class PythonSetupParser(PythonParser):
+class PythonSetupPyParser(PythonParser):
     @cached_property
     def docstring(self) -> Optional[str]:
         if self.parsed is None:

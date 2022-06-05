@@ -12,12 +12,15 @@ from tests.config import (
     JS_PROJECT_PATH,
     PYTHON_DUNDER_VERSION_PROJECT_NAME,
     PYTHON_DUNDER_VERSION_PROJECT_PATH,
+    PYTHON_SETUP_CFG_VERSION_PROJECT_NAME,
+    PYTHON_SETUP_CFG_VERSION_PROJECT_PATH,
     PYTHON_SETUP_PY_VERSION_PROJECT_NAME,
     PYTHON_SETUP_PY_VERSION_PROJECT_PATH,
 )
 from tests.fixtures.project import (
     get_js_project,
     get_python_dunder_version_project,
+    get_python_setup_cfg_version_project,
     get_python_setup_py_version_project,
     git_project,
     github_project,
@@ -92,6 +95,47 @@ def test_python_setup_py_version_project():
         "docstring": "[from __init__.py] An example Python package for testing purposes (version from setup.py)",
         "version": "0.0.1",
         "name": PYTHON_SETUP_PY_VERSION_PROJECT_NAME,
+    }
+
+
+def test_python_setup_cfg_version_project():
+    project = get_python_setup_cfg_version_project()
+
+    assert project.file_names == ["__init__.py", "setup.cfg"]
+    assert project.file_paths == [
+        os.path.abspath(
+            os.path.join(PYTHON_SETUP_CFG_VERSION_PROJECT_PATH, "__init__.py")
+        ),
+        os.path.abspath(
+            os.path.join(PYTHON_SETUP_CFG_VERSION_PROJECT_PATH, "setup.cfg")
+        ),
+    ]
+    assert (
+        project.docstring
+        == "[from __init__.py] An example Python package for testing purposes (version from setup.cfg)"
+    )
+    assert project.version == Version.from_str("1.0.0")
+    assert project.name == PYTHON_SETUP_CFG_VERSION_PROJECT_NAME
+    assert project.path == os.path.abspath(PYTHON_SETUP_CFG_VERSION_PROJECT_PATH)
+    assert project.repo is None
+    assert not project.is_empty
+    assert project.folders == []
+
+    analysis: FolderAnalysis = project.analysis
+    assert analysis.lines == {"code": 3, "documentation": 3, "empty": 0, "string": 0}
+    assert len(project.modules) == 2
+    assert project.modules[0].name == "__init__"
+    assert project.modules[1].name == "setup"
+    assert project.data == {
+        "num_commits": None,
+        "created": None,
+        "updated": None,
+        "lines": 3,
+        "full_lines": 6,
+        "urls": None,
+        "docstring": "[from __init__.py] An example Python package for testing purposes (version from setup.cfg)",
+        "version": "1.0.0",
+        "name": PYTHON_SETUP_CFG_VERSION_PROJECT_NAME,
     }
 
 
