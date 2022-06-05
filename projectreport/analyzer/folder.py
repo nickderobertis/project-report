@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import TYPE_CHECKING, List, Optional, Sequence, Union
 
+from projectreport.analyzer.parsers.github import GithubParser
 from projectreport.logger import logger
 
 if TYPE_CHECKING:
@@ -125,6 +126,10 @@ class Folder(Analyzable):
             if file in self.file_names:
                 full_path = os.path.join(self.path, file)
                 return PARSER_DOC_FILES[file](full_path)
+        # Did not find any file to parse for docstring/version, try github
+        github_url = GithubParser.find_github_url(self.analysis.data.get("urls") or [])
+        if github_url:
+            return GithubParser(github_url)
         return None
 
     @cached_property

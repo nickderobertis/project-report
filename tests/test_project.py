@@ -107,6 +107,11 @@ def test_github_project(github_project: Project):
 
     assert isinstance(project.repo, Repo)
     assert project.name == "github-project-example"
+    assert project.docstring == "Example Github Project for project-report tests"
+    assert project.version == Version.from_str("1.0.0")
+    assert not project.repo is None
+    assert not project.is_empty
+    assert project.folders == []
     analysis: FolderAnalysis = project.analysis
     assert analysis.lines["code"] == 18
     assert analysis.lines["documentation"] == 0
