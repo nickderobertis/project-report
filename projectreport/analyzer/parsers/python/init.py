@@ -1,24 +1,13 @@
 import ast
-import importlib.util
-import warnings
-from types import ModuleType
 from typing import Optional
 
 from cached_property import cached_property
 
-from projectreport.analyzer.parsers.base import Parser
+from projectreport.analyzer.parsers.python.base import PythonParser
 from projectreport.version import Version
 
 
-class PythonParser(Parser):
-    @cached_property
-    def parsed(self):
-        try:
-            return ast.parse(self.contents)
-        except SyntaxError:
-            warnings.warn(f"Could not parse {self.path} due to SyntaxError")
-            return None
-
+class PythonInitParser(PythonParser):
     @cached_property
     def docstring(self) -> Optional[str]:
         if self.parsed is None:
