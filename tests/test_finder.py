@@ -2,7 +2,7 @@ from projectreport import JavaScriptPackageFinder
 from projectreport.finder.combine import CombinedFinder
 from projectreport.finder.git import GitFinder
 from projectreport.finder.python import PythonPackageFinder
-from tests.base import (
+from tests.config import (
     JS_PROJECT_PATH,
     PROJECT_DIR,
     PYTHON_PROJECT_PATH,

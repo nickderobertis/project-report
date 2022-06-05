@@ -7,16 +7,18 @@ from git import Repo
 from projectreport import Project
 from projectreport.analyzer.analysis import FolderAnalysis
 from projectreport.version import Version
-from tests.base import (
+from tests.config import (
     JS_PROJECT_NAME,
     JS_PROJECT_PATH,
     PYTHON_PROJECT_NAME,
     PYTHON_PROJECT_PATH,
+)
+from tests.fixtures.project import (
     get_js_project,
     get_python_project,
     git_project,
+    github_project,
 )
-from tests.fixtures.project import github_project
 
 
 def test_python_project():

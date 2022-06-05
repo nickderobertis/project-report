@@ -4,7 +4,9 @@ from copy import deepcopy
 
 import pytz
 
-from tests.base import REPORTS_FOLDER, get_js_project, get_project_report, git_project
+from tests.config import REPORTS_FOLDER
+from tests.fixtures.project import get_js_project, git_project
+from tests.fixtures.report import get_project_report
 
 GENERATE_REPORTS = False
 
