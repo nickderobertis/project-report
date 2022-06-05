@@ -21,7 +21,7 @@
         "repo_name": "project-report",
         "repo_username": "nickderobertis",
         "short_description": "Find software projects, analyze them, and output a report.",
-        "main_branch_name": "main",
+        "main_branch_name": "master",
         "package_author": "Nick DeRobertis",
         "author_email": "whoopnip@gmail.com",
         "google_analytics_id": "UA-162159439-1",

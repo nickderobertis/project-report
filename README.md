@@ -1,6 +1,6 @@
 
 
-[![](https://codecov.io/gh/nickderobertis/project-report/branch/main/graph/badge.svg)](https://codecov.io/gh/nickderobertis/project-report)
+[![](https://codecov.io/gh/nickderobertis/project-report/branch/master/graph/badge.svg)](https://codecov.io/gh/nickderobertis/project-report)
 [![PyPI](https://img.shields.io/pypi/v/project-report)](https://pypi.org/project/project-report/)
 ![PyPI - License](https://img.shields.io/pypi/l/project-report)
 [![Documentation](https://img.shields.io/badge/documentation-pass-green)](https://nickderobertis.github.io/project-report/)
