@@ -10,6 +10,7 @@ import pytz
 
 from projectreport.analyzer.project import Project
 from projectreport.report.report import Report
+from tests.dirutils import create_temp_path
 
 TESTS_DIR = Path(__file__).parent
 PROJECT_DIR = TESTS_DIR.parent
@@ -39,8 +40,8 @@ def get_js_project() -> Project:
 
 @pytest.fixture(scope="session")
 def git_project() -> Project:
-    with TemporaryDirectory() as base_dir:
-        d = Path(base_dir) / "gitrepo"
+    with create_temp_path() as base_dir:
+        d = base_dir / "gitrepo"
         r = git.Repo.init(d)
         # This function just creates an empty file ...
         (d / "tempfile").write_text("woo")
