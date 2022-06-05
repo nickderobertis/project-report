@@ -1,89 +1,68 @@
-# pypi-sphinx-quickstart
+
+
+[![](https://codecov.io/gh/nickderobertis/project-report/branch/main/graph/badge.svg)](https://codecov.io/gh/nickderobertis/project-report)
+[![PyPI](https://img.shields.io/pypi/v/project-report)](https://pypi.org/project/project-report/)
+![PyPI - License](https://img.shields.io/pypi/l/project-report)
+[![Documentation](https://img.shields.io/badge/documentation-pass-green)](https://nickderobertis.github.io/project-report/)
+![Tests Run on Ubuntu Python Versions](https://img.shields.io/badge/Tests%20Ubuntu%2FPython-3.8%20%7C%203.9%20%7C%203.10-blue)
+![Tests Run on Macos Python Versions](https://img.shields.io/badge/Tests%20Macos%2FPython-3.8%20%7C%203.9%20%7C%203.10-blue)
+![Tests Run on Windows Python Versions](https://img.shields.io/badge/Tests%20Windows%2FPython-3.8%20%7C%203.9%20%7C%203.10-blue)
+[![Github Repo](https://img.shields.io/badge/repo-github-informational)](https://github.com/nickderobertis/project-report/)
+
+
+#  project-report
 
 ## Overview
 
-This repo is a template to use for starting a new Python package
-which is hosted on PyPi and uses Sphinx for documentation
-hosted on Github pages.
+Find software projects, analyze them, and output a report.
 
 ## Getting Started
 
-Click the "Use this template" button at the top of the repo page, then 
-fill out the name and description your new repo. Once you have the repo,
-make the following edits.
+Install `project-report`:
 
-### Github Pages Setup
-
-Go to repo settings, Github Pages section. For the Source dropdown, 
-select "master branch /docs folder". The settings page should reload,
-and in the Github Pages section it should show the URL of your 
-documentation. You should be able to see the documentation at the URL
-after a few seconds, but it will still be the example documentation.
-
-### `conf.py`
-
-Edit `conf.py` in the main repo directory. This contains the main 
-settings for the PyPi package. Fill out each setting with the 
-details about your package.
-
-### Adding Project Source
-
-Delete the folder `py_qs_example`, and add your own package
-with the name you set in `conf.PACKAGE_NAME`. 
-
-### Adding Global Requirements to Build
-
-If you do not already have `pipenv` installed, you will need to run:
 ```
-pip install pipenv
-```
-Then regardless of whether you already had `pipenv` installed, you will
-need to navigate to the repo folder and run:
-```
-pipenv install
+pip install project-report
 ```
 
-### Setting up Documentation
+A simple example:
 
-Edit `docsrc/Makefile` to change `SPHINXPROJ` to set it to the name
-you set in `conf.PACKAGE_NAME`.
+```python
+import projectreport
 
-Edit `docsrc/source/index.rst` to remove the example included files. Replace
-with your own if you wish or entirely delete the My Module and 
-My Package sections if don't wish to use the autosummary directive.
-
-Edit `docsrc/source/tutorial.rst` to put your own tutorial, or remove it
-and remove it from the `toctree` directive in `docsrc/source/index.rst`.
-
-You may further modify Sphinx configuration in `docsrc/source/conf.py`
-if you wish.
-
-### Building Documentation
-
-Navigate into the `docsrc` folder and run:
-```
-pipenv run make github
+# Do something with projectreport
 ```
 
-This should generate documentation HTML in the `docs` folder.
+See a
+[more in-depth tutorial here.](
+https://nickderobertis.github.io/project-report/tutorial.html
+)
 
-### Uploading to PyPi
+## Development Status
 
-Navigate to the repo base folder and run:
-```
-pipenv run python upload.py
-```
+This project is currently in early-stage development. There may be
+breaking changes often. While the major version is 0, minor version
+upgrades will often have breaking changes.
 
-## Regular Usage
+## Developing
 
-Once everything is set up, just commit your changes, then follow the
-instructions in [Building Documentation](#building-documentation) and
-[Uploading to PyPi](#uploading-to-pypi).
+First ensure that you have `pipx` installed, if not, install it with `pip install pipx`.
 
+Then clone the repo and run `npm install` and `pipenv sync`. Run `pipenv shell`
+to use the virtual environment. Make your changes and then run `nox` to run formatting,
+linting, and tests.
+
+Develop documentation by running `nox -s docs` to start up a dev server.
+
+To run tests only, run `nox -s test`. You can pass additional arguments to pytest
+by adding them after `--`, e.g. `nox -s test -- -k test_something`.
+
+## Author
+
+Created by Nick DeRobertis. MIT License.
 
 ## Links
 
-See the example 
-[generated documentation here.](
-https://whoopnip.github.io/pypi-sphinx-quickstart/
+See the
+[documentation here.](
+https://nickderobertis.github.io/project-report/
 )
