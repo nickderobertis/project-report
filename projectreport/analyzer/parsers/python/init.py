@@ -26,5 +26,5 @@ class PythonInitParser(PythonParser):
                     return Version.from_str(node.value.s)
                 # Extract version from __version__ = 1.2
                 elif isinstance(node.value, ast.Num):
-                    return Version.from_str(node.value.n)
+                    return Version.from_str(str(node.value.n))
         return None

@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, List, Optional, Sequence, Union
 
 from projectreport.analyzer.parsers.github import GithubParser
+from projectreport.analyzer.parsers.multi import MultiFileParser
 from projectreport.logger import logger
 
 if TYPE_CHECKING:
@@ -122,10 +123,9 @@ class Folder(Analyzable):
 
     @cached_property
     def parser(self) -> Optional["Parser"]:
-        for file, parser in PARSER_DOC_FILES.items():
-            if file in self.file_names:
-                full_path = os.path.join(self.path, file)
-                return PARSER_DOC_FILES[file](full_path)
+        multi_parser = MultiFileParser(self.path, self.file_names)
+        if multi_parser.has_any_match:
+            return multi_parser
         # Did not find any file to parse for docstring/version, try github
         github_url = GithubParser.find_github_url(self.analysis.data.get("urls") or [])
         if github_url:
