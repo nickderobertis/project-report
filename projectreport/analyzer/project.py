@@ -1,5 +1,6 @@
 import os
-from typing import Optional, Sequence
+from pathlib import Path
+from typing import Optional, Sequence, Union
 
 import git
 from cached_property import cached_property
@@ -15,7 +16,7 @@ class Project(Folder):
 
     def __init__(
         self,
-        path: str,
+        path: Union[str, Path],
         excluded_types: Optional[Sequence[str]] = None,
         included_types: Optional[Sequence[str]] = None,
         ignore_paths: Optional[Sequence[str]] = DEFAULT_IGNORE_PATHS,

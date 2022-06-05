@@ -3,7 +3,7 @@ from projectreport.finder.base import Finder
 
 class GitFinder(Finder):
     """
-    Finder which automatically looks for projects with git repositories.
+    Finder that automatically looks for projects with git repositories.
     """
 
     def __init__(self, recursive: bool = True):

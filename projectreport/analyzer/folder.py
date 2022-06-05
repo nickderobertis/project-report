@@ -1,4 +1,5 @@
-from typing import TYPE_CHECKING, List, Optional, Sequence
+from pathlib import Path
+from typing import TYPE_CHECKING, List, Optional, Sequence, Union
 
 if TYPE_CHECKING:
     from projectreport.analyzer.project import Project
@@ -19,7 +20,7 @@ from projectreport.tools.expand_glob import all_possible_paths
 class Folder(Analyzable):
     def __init__(
         self,
-        path: str,
+        path: Union[str, Path],
         project: Optional["Project"] = None,
         excluded_types: Optional[Sequence[str]] = None,
         included_types: Optional[Sequence[str]] = None,

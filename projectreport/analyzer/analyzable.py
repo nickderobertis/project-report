@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING, Dict, Optional, Union
 
+from projectreport.data import AnalysisData
 from projectreport.version import Version
 
 if TYPE_CHECKING:
@@ -32,13 +33,13 @@ class Analyzable:
         return self.parser.version
 
     @cached_property
-    def data(self) -> Dict[str, Union[str, int, dict, None]]:
+    def data(self) -> AnalysisData:
         if self.analysis is None:
             raise ValueError(
                 "cannot get data from Analyzable if no analysis is attached"
             )
 
-        data: Dict[str, Union[str, int, dict, None]] = {}
+        data: AnalysisData = {}
         data.update(self.analysis.data)
         data.update(
             dict(
