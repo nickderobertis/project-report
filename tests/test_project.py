@@ -62,8 +62,8 @@ def test_python_dunder_version_project():
 def test_python_setup_py_version_project():
     project = get_python_setup_py_version_project()
 
-    assert project.file_names == ["__init__.py", "setup.py"]
-    assert project.file_paths == [
+    assert sorted(project.file_names) == ["__init__.py", "setup.py"]
+    assert sorted(project.file_paths) == [
         os.path.abspath(
             os.path.join(PYTHON_SETUP_PY_VERSION_PROJECT_PATH, "__init__.py")
         ),
@@ -101,8 +101,8 @@ def test_python_setup_py_version_project():
 def test_python_setup_cfg_version_project():
     project = get_python_setup_cfg_version_project()
 
-    assert project.file_names == ["__init__.py", "setup.cfg"]
-    assert project.file_paths == [
+    assert sorted(project.file_names) == ["__init__.py", "setup.cfg"]
+    assert sorted(project.file_paths) == [
         os.path.abspath(
             os.path.join(PYTHON_SETUP_CFG_VERSION_PROJECT_PATH, "__init__.py")
         ),
