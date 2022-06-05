@@ -12,6 +12,7 @@ from projectreport.analyzer.project import Project
 from projectreport.report.report import Report
 
 TESTS_DIR = Path(__file__).parent
+PROJECT_DIR = TESTS_DIR.parent
 TEST_FILES_BASE_PATH = TESTS_DIR / "input_data"
 PYTHON_PROJECT_NAME = "python_example"
 PYTHON_PROJECT_PATH = TEST_FILES_BASE_PATH / PYTHON_PROJECT_NAME
@@ -59,7 +60,7 @@ def git_project() -> Project:
 
 
 def get_github_project() -> Project:
-    project_path = "."
+    project_path = PROJECT_DIR
     included_types = None
     project = Project(project_path, included_types=included_types)
     return project

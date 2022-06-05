@@ -2,7 +2,12 @@ from projectreport import JavaScriptPackageFinder
 from projectreport.finder.combine import CombinedFinder
 from projectreport.finder.git import GitFinder
 from projectreport.finder.python import PythonPackageFinder
-from tests.base import JS_PROJECT_PATH, PYTHON_PROJECT_PATH, TEST_FILES_BASE_PATH
+from tests.base import (
+    JS_PROJECT_PATH,
+    PROJECT_DIR,
+    PYTHON_PROJECT_PATH,
+    TEST_FILES_BASE_PATH,
+)
 
 
 def test_find_python_package():
@@ -21,9 +26,9 @@ def test_find_javascript_package():
 
 def test_find_git_package():
     finder = GitFinder()
-    search_paths = ["."]
+    search_paths = [PROJECT_DIR]
     project_paths = finder.find_all(search_paths)
-    assert project_paths == ["."]
+    assert project_paths == [PROJECT_DIR]
 
 
 def test_combined_finder():
