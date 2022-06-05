@@ -1,6 +1,8 @@
 from pathlib import Path
 from typing import TYPE_CHECKING, List, Optional, Sequence, Union
 
+from projectreport.logger import logger
+
 if TYPE_CHECKING:
     from projectreport.analyzer.project import Project
     from projectreport.analyzer.parsers.base import Parser
@@ -110,8 +112,10 @@ class Folder(Analyzable):
     def analysis(self) -> "FolderAnalysis":
         analysis = FolderAnalysis(self)
         for folder in self.folders:
+            logger.debug(f"Analyzing folder {folder.name}")
             analysis.add_subfolder_analysis(folder.analysis)
         for module in self.modules:
+            logger.debug(f"Analyzing module {module.name}")
             analysis.add_module_analysis(module.analysis)
         return analysis
 
