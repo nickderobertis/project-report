@@ -38,6 +38,8 @@ class PythonSetupCfgParser(Parser):
 
         # Return the version value from the metadata section, if it exists
         version_str = _get_string_from_config(self.parsed, "metadata", "version")
+        if version_str is None:
+            return None
         return Version.from_str(version_str)
 
 

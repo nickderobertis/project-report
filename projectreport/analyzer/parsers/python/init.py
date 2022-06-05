@@ -20,7 +20,7 @@ class PythonInitParser(PythonParser):
             return None
         # Walk ast to look for __version__ variable. If it is defined, extract the version from it
         for node in ast.walk(self.parsed):
-            if isinstance(node, ast.Assign) and node.targets[0].id == "__version__":
+            if isinstance(node, ast.Assign) and node.targets[0].id == "__version__":  # type: ignore
                 # Extract version from __version__ = "1.2.3"
                 if isinstance(node.value, ast.Str):
                     return Version.from_str(node.value.s)
