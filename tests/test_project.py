@@ -37,15 +37,15 @@ def test_python_project():
     assert project.folders == []
 
     analysis: FolderAnalysis = project.analysis
-    assert analysis.lines == {"code": 1, "documentation": 3, "empty": 0, "string": 0}
+    assert analysis.lines == {"code": 2, "documentation": 3, "empty": 0, "string": 0}
     assert len(project.modules) == 1
     assert project.modules[0].name == "__init__"
     assert project.data == {
         "num_commits": None,
         "created": None,
         "updated": None,
-        "lines": 1,
-        "full_lines": 4,
+        "lines": 2,
+        "full_lines": 5,
         "urls": None,
         "docstring": "An example Python package for testing purposes",
         "version": "0.0.1",

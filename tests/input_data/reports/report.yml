@@ -9,8 +9,8 @@
   version: 1.0.0
 - created: null
   docstring: An example Python package for testing purposes
-  full_lines: 4
-  lines: 1
+  full_lines: 5
+  lines: 2
   name: python_example
   num_commits: null
   updated: null

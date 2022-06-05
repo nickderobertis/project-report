@@ -5,11 +5,6 @@ from types import ModuleType
 from typing import Optional
 
 from cached_property import cached_property
-from getversion import get_module_version
-from getversion.main import ModuleVersionNotFound, get_version_using_pkgresources
-from getversion.plugin_builtins import get_builtin_module_version
-from getversion.plugin_eggs_and_wheels import get_unzipped_wheel_or_egg_version
-from getversion.plugin_importlib_metadata import get_version_using_importlib_metadata
 
 from projectreport.analyzer.parsers.base import Parser
 from projectreport.version import Version
@@ -31,25 +26,16 @@ class PythonParser(Parser):
         return ast.get_docstring(self.parsed)
 
     @cached_property
-    def module(self) -> ModuleType:
-        spec = importlib.util.spec_from_file_location(self.file_name, self.path)
-        module = importlib.util.module_from_spec(spec)  # type: ignore
-        spec.loader.exec_module(module)  # type: ignore
-        return module
-
-    @cached_property
     def version(self) -> Optional[Version]:
-        try:
-            version, details = get_module_version(
-                self.module,
-                rootmodule_strategies=(
-                    get_version_using_pkgresources,
-                    get_builtin_module_version,
-                    get_version_using_importlib_metadata,
-                    get_unzipped_wheel_or_egg_version,
-                    # get_version_using_setuptools_scm,  # was returning invalid results
-                ),
-            )
-        except ModuleVersionNotFound:
+        if self.parsed is None:
             return None
-        return Version.from_str(version)
+        # Walk ast to look for __version__ variable. If it is defined, extract the version from it
+        for node in ast.walk(self.parsed):
+            if isinstance(node, ast.Assign) and node.targets[0].id == "__version__":
+                # Extract version from __version__ = "1.2.3"
+                if isinstance(node.value, ast.Str):
+                    return Version.from_str(node.value.s)
+                # Extract version from __version__ = 1.2
+                elif isinstance(node.value, ast.Num):
+                    return Version.from_str(node.value.n)
+        return None

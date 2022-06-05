@@ -61,10 +61,9 @@ PACKAGE_INSTALL_REQUIRES = [
     "cached_property",
     "gitpython",
     "pyexlatex",
-    'PyYAML',
-    'PyGithub',
-    'semver',
-    'getversion',
+    "PyYAML",
+    "PyGithub",
+    "semver",
 ]
 
 # Add any third party packages you use in requirements for optional features of your package here
