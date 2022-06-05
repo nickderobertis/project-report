@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING, List, Optional, Sequence, Union
 
 from projectreport.analyzer.parsers.github import GithubParser
-from projectreport.analyzer.parsers.multi import MultiFileParser
+from projectreport.analyzer.parsers.multi.file import MultiFileParser
 from projectreport.logger import logger
 
 if TYPE_CHECKING:

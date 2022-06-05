@@ -1,5 +1,4 @@
 import os
-from pathlib import Path
 from typing import Dict, Optional, Sequence
 
 from cached_property import cached_property
