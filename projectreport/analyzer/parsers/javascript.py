@@ -1,7 +1,9 @@
-from typing import Optional, Dict, Any
-import warnings
 import json
+import warnings
+from typing import Any, Dict, Optional
+
 from cached_property import cached_property
+
 from projectreport.analyzer.parsers.base import Parser
 from projectreport.version import Version
 

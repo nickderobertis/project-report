@@ -8,9 +8,9 @@ from typing import (
     List,
     Optional,
     Sequence,
+    Set,
     Tuple,
     Union,
-    Set,
 )
 
 from projectreport.searcher.rotating_list import RotatingList

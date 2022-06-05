@@ -1,61 +1,65 @@
 import datetime
 import os
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from typing import Optional, Sequence
 
-import pytest
-from tempfile import TemporaryDirectory
 import git
+import pytest
 import pytz
 
 from projectreport.analyzer.project import Project
 from projectreport.report.report import Report
 
 TESTS_DIR = Path(__file__).parent
-TEST_FILES_BASE_PATH = TESTS_DIR / 'input_data'
-PYTHON_PROJECT_NAME = 'python_example'
+TEST_FILES_BASE_PATH = TESTS_DIR / "input_data"
+PYTHON_PROJECT_NAME = "python_example"
 PYTHON_PROJECT_PATH = TEST_FILES_BASE_PATH / PYTHON_PROJECT_NAME
-JS_PROJECT_NAME = 'js_example'
+JS_PROJECT_NAME = "js_example"
 JS_PROJECT_PATH = TEST_FILES_BASE_PATH / JS_PROJECT_NAME
-GIT_PROJECT_NAME = 'git_example'
-REPORTS_NAME = 'reports'
+GIT_PROJECT_NAME = "git_example"
+REPORTS_NAME = "reports"
 REPORTS_FOLDER = TEST_FILES_BASE_PATH / REPORTS_NAME
 
 
 def get_python_project() -> Project:
     project_path = PYTHON_PROJECT_PATH
-    included_types = ('py',)
+    included_types = ("py",)
     project = Project(project_path, included_types=included_types)
     return project
 
 
 def get_js_project() -> Project:
     project_path = JS_PROJECT_PATH
-    included_types = ('js',)
+    included_types = ("js",)
     project = Project(project_path, included_types=included_types)
     return project
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def git_project() -> Project:
     with TemporaryDirectory() as base_dir:
-        d = Path(base_dir) / 'gitrepo'
+        d = Path(base_dir) / "gitrepo"
         r = git.Repo.init(d)
         # This function just creates an empty file ...
-        (d / 'tempfile').write_text('woo')
-        r.index.add(['tempfile'])
+        (d / "tempfile").write_text("woo")
+        r.index.add(["tempfile"])
         r.index.commit("initial commit")
         included_types = None
         project = Project(d, included_types=included_types)
-        eastern = pytz.timezone('US/Eastern')
-        project.data['created'] = datetime.datetime(2020, 2, 1, 12, 0, 0, 0, tzinfo=eastern)
-        project.data['updated'] = datetime.datetime(2020, 2, 1, 12, 1, 0, 0, tzinfo=eastern)
+        eastern = pytz.timezone("US/Eastern")
+        project.data["created"] = datetime.datetime(
+            2020, 2, 1, 12, 0, 0, 0, tzinfo=eastern
+        )
+        project.data["updated"] = datetime.datetime(
+            2020, 2, 1, 12, 1, 0, 0, tzinfo=eastern
+        )
         assert project.path == str(d)
         yield project
 
 
 def get_github_project() -> Project:
-    project_path = '.'
+    project_path = "."
     included_types = None
     project = Project(project_path, included_types=included_types)
     return project
@@ -73,6 +77,7 @@ def get_project_report(add_projects: Optional[Sequence[Project]] = None) -> Repo
 
     report = Report(projects)
     return report
+
 
 # TODO [#5]: include an example git repo for testing
 #

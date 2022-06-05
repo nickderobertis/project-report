@@ -1,5 +1,6 @@
-from typing import Sequence
 import os
+from typing import Sequence
+
 from projectreport.finder.base import Finder
 
 

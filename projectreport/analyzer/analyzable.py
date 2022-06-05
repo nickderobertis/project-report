@@ -1,4 +1,4 @@
-from typing import Optional, Dict, Union, TYPE_CHECKING
+from typing import TYPE_CHECKING, Dict, Optional, Union
 
 from projectreport.version import Version
 
@@ -6,15 +6,16 @@ if TYPE_CHECKING:
     from projectreport.analyzer.project import Project
     from projectreport.analyzer.analysis import Analysis
     from projectreport.analyzer.parsers.base import Parser
+
 from cached_property import cached_property
 
 
 class Analyzable:
-    parser: Optional['Parser'] = None
-    analysis: Optional['Analysis'] = None
+    parser: Optional["Parser"] = None
+    analysis: Optional["Analysis"] = None
     name: Optional[str] = None
 
-    def __init__(self, path: str, project: Optional['Project'] = None):
+    def __init__(self, path: str, project: Optional["Project"] = None):
         self.path = path
         self.project = project
 
@@ -33,18 +34,18 @@ class Analyzable:
     @cached_property
     def data(self) -> Dict[str, Union[str, int, dict, None]]:
         if self.analysis is None:
-            raise ValueError('cannot get data from Analyzable if no analysis is attached')
+            raise ValueError(
+                "cannot get data from Analyzable if no analysis is attached"
+            )
 
         data: Dict[str, Union[str, int, dict, None]] = {}
         data.update(self.analysis.data)
-        data.update(dict(
-            docstring=self.docstring,
-            version=str(self.version) if self.version is not None else None,
-        ))
+        data.update(
+            dict(
+                docstring=self.docstring,
+                version=str(self.version) if self.version is not None else None,
+            )
+        )
         if self.name is not None:
             data.update(dict(name=self.name))
         return data
-
-
-
-

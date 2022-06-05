@@ -153,15 +153,21 @@ def add_major_minor_patch_changed_to_df(df: pd.DataFrame):
         df[f"Max {col}"] = df[f"Max {col}"].shift()
         df[f"{col} Diff"] = df[col] - df[f"Max {col}"]
     df["Major Changed"] = False
-    df.loc[(~pd.isnull(df["Major Diff"])) & (df["Major Diff"] != 0), "Major Changed"] = True
+    df.loc[
+        (~pd.isnull(df["Major Diff"])) & (df["Major Diff"] != 0), "Major Changed"
+    ] = True
     df["Minor Changed"] = False
     df.loc[
-        (~pd.isnull(df["Minor Diff"])) & (df["Minor Diff"] != 0) & (~df["Major Changed"]),
+        (~pd.isnull(df["Minor Diff"]))
+        & (df["Minor Diff"] != 0)
+        & (~df["Major Changed"]),
         "Minor Changed",
     ] = True
     df["Patch Changed"] = False
     df.loc[
-        (~pd.isnull(df["Patch Diff"])) & (df["Patch Diff"]
-        != 0) & (~df["Minor Changed"]) & (~df["Major Changed"]),
+        (~pd.isnull(df["Patch Diff"]))
+        & (df["Patch Diff"] != 0)
+        & (~df["Minor Changed"])
+        & (~df["Major Changed"]),
         "Patch Changed",
     ] = True

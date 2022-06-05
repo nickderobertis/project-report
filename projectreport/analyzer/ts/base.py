@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List, Dict, Union, Callable, Any, Sequence
+from typing import Any, Callable, Dict, List, Sequence, Union
 
 from github.Repository import Repository
 

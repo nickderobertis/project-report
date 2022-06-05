@@ -1,10 +1,10 @@
-from cached_property import cached_property
 import yaml
+from cached_property import cached_property
+
 from projectreport.report.json import to_json
 
 
 class BaseReport:
-
     def __str__(self):
         return self.yaml
 

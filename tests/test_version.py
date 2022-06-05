@@ -48,8 +48,8 @@ def test_compare_versions():
     assert version2 > version1
     assert version2 >= version1
     assert version1 == version3
-    assert version1 == semver.VersionInfo.parse('1.0.0')
-    assert version1 == '1.0.0'
+    assert version1 == semver.VersionInfo.parse("1.0.0")
+    assert version1 == "1.0.0"
     assert not version1 == not_semver
     assert not version2 == not_semver
     assert not version3 == not_semver
