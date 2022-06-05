@@ -83,8 +83,9 @@ def test_python_setup_py_version_project():
     analysis: FolderAnalysis = project.analysis
     assert analysis.lines == {"code": 9, "documentation": 3, "empty": 2, "string": 0}
     assert len(project.modules) == 2
-    assert project.modules[0].name == "__init__"
-    assert project.modules[1].name == "setup"
+    module_names = [module.name for module in project.modules]
+    assert "__init__" in module_names
+    assert "setup" in module_names
     assert project.data == {
         "num_commits": None,
         "created": None,
