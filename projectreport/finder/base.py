@@ -1,8 +1,8 @@
-from typing import Optional, Sequence, List
 import os
+from typing import List, Optional, Sequence
 
-from projectreport.tools.expand_glob import all_possible_paths
 from projectreport.config import DEFAULT_IGNORE_PATHS
+from projectreport.tools.expand_glob import all_possible_paths
 
 
 class Finder:
@@ -10,16 +10,22 @@ class Finder:
     Class for finding projects by required folders or files, or looking for certain file extensions.
     """
 
-    def __init__(self, recursive: bool = True,
-                 required_folders: Optional[Sequence[str]] = None, required_files: Optional[Sequence[str]] = None,
-                 file_extensions: Optional[Sequence[str]] = None):
+    def __init__(
+        self,
+        recursive: bool = True,
+        required_folders: Optional[Sequence[str]] = None,
+        required_files: Optional[Sequence[str]] = None,
+        file_extensions: Optional[Sequence[str]] = None,
+    ):
         self.recursive = recursive
         self.required_folders = required_folders
         self.required_files = required_files
         self.file_extensions = file_extensions
         self.project_paths: List[str] = []
 
-    def find(self, path: str, ignore_paths: Optional[Sequence[str]] = DEFAULT_IGNORE_PATHS):
+    def find(
+        self, path: str, ignore_paths: Optional[Sequence[str]] = DEFAULT_IGNORE_PATHS
+    ):
         if ignore_paths:
             all_ignore_paths = all_possible_paths(ignore_paths, path)
         else:
@@ -45,7 +51,11 @@ class Finder:
 
         return self.project_paths
 
-    def find_all(self, paths: Sequence[str], ignore_paths: Optional[Sequence[str]] = DEFAULT_IGNORE_PATHS):
+    def find_all(
+        self,
+        paths: Sequence[str],
+        ignore_paths: Optional[Sequence[str]] = DEFAULT_IGNORE_PATHS,
+    ):
         [self.find(path, ignore_paths=ignore_paths) for path in paths]
         return self.project_paths
 
@@ -60,7 +70,7 @@ class Finder:
                 if req_file not in files:
                     return False
         if self.file_extensions:
-            extensions = {os.path.splitext(file)[1].strip('.') for file in files}
+            extensions = {os.path.splitext(file)[1].strip(".") for file in files}
             has_extension = False
             for file_ext in self.file_extensions:
                 if file_ext in extensions:
@@ -72,4 +82,4 @@ class Finder:
 
     def _validate(self):
         if not any([self.required_folders, self.required_files, self.file_extensions]):
-            raise ValueError('must provide some conditions')
+            raise ValueError("must provide some conditions")

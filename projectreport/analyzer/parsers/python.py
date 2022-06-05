@@ -1,11 +1,12 @@
+import ast
 import importlib.util
+import warnings
 from types import ModuleType
 from typing import Optional
-import ast
-import warnings
+
 from cached_property import cached_property
 from getversion import get_module_version
-from getversion.main import get_version_using_pkgresources, ModuleVersionNotFound
+from getversion.main import ModuleVersionNotFound, get_version_using_pkgresources
 from getversion.plugin_builtins import get_builtin_module_version
 from getversion.plugin_eggs_and_wheels import get_unzipped_wheel_or_egg_version
 from getversion.plugin_importlib_metadata import get_version_using_importlib_metadata
@@ -32,7 +33,7 @@ class PythonParser(Parser):
     @cached_property
     def module(self) -> ModuleType:
         spec = importlib.util.spec_from_file_location(self.file_name, self.path)
-        module = importlib.util.module_from_spec(spec)
+        module = importlib.util.module_from_spec(spec)  # type: ignore
         spec.loader.exec_module(module)  # type: ignore
         return module
 

@@ -8,14 +8,14 @@ from projectreport import Project
 from projectreport.analyzer.analysis import FolderAnalysis
 from projectreport.version import Version
 from tests.base import (
-    PYTHON_PROJECT_PATH,
-    PYTHON_PROJECT_NAME,
-    get_python_project,
-    get_github_project,
-    git_project,
-    get_js_project,
-    JS_PROJECT_PATH,
     JS_PROJECT_NAME,
+    JS_PROJECT_PATH,
+    PYTHON_PROJECT_NAME,
+    PYTHON_PROJECT_PATH,
+    get_github_project,
+    get_js_project,
+    get_python_project,
+    git_project,
 )
 
 

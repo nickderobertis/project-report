@@ -1,9 +1,11 @@
-from typing import List, Sequence, Optional
-import os
 import glob
+import os
+from typing import List, Optional, Sequence
 
 
-def all_possible_paths(paths: Sequence[str], base_path: Optional[str] = None) -> List[str]:
+def all_possible_paths(
+    paths: Sequence[str], base_path: Optional[str] = None
+) -> List[str]:
     all_paths = []
     for path in paths:
         # If got a relative path and a base path was passed

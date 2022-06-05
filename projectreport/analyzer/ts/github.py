@@ -1,30 +1,30 @@
 import warnings
 from copy import deepcopy
 from datetime import datetime, timedelta
-from typing import Dict, Callable, Union, List, Optional
+from typing import Callable, Dict, List, Optional, Union
 
 import dateutil
-from dateutil import parser as dateparser
 import pandas as pd
+from dateutil import parser as dateparser
+from github.Commit import Commit
+from github.CommitStats import CommitStats
 from github.GitAuthor import GitAuthor
 from github.GitCommit import GitCommit
 from github.GitRelease import GitRelease
+from github.Issue import Issue
 from github.NamedUser import NamedUser
 from github.Repository import Repository
-from github.Commit import Commit
-from github.CommitStats import CommitStats
-from github.Issue import Issue
 from github.Stargazer import Stargazer
 
 from projectreport.analyzer.ts.base import TimeSeriesAnalysis
 from projectreport.analyzer.ts.types import DictList
 from projectreport.tools.monkey_patch_github import (
-    monkey_patch_github_obj_for_throttling,
     NoMorePagesAllowedException,
+    monkey_patch_github_obj_for_throttling,
 )
 from projectreport.version import (
-    add_major_minor_patch_to_df,
     add_major_minor_patch_changed_to_df,
+    add_major_minor_patch_to_df,
 )
 
 
@@ -258,7 +258,7 @@ def release_counts_from_release_events(
     end = event_df[date_var].max()
     add_major_minor_patch_to_df(event_df)
 
-    semver_df = event_df.loc[event_df['Version'].apply(lambda ver: ver.is_semver)]
+    semver_df = event_df.loc[event_df["Version"].apply(lambda ver: ver.is_semver)]
     if not semver_df.empty:
         add_major_minor_patch_changed_to_df(semver_df)
 

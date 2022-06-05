@@ -32,6 +32,9 @@ PyYAML = "*"
 freezegun = "*"
 semver = "*"
 getversion = "*"
+types-requests = "*"
+types-python-dateutil = "*"
+types-pyyaml = "*"
 
 [requires]
 python_version = "3.6"

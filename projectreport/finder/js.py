@@ -7,5 +7,4 @@ class JavaScriptPackageFinder(Finder):
     """
 
     def __init__(self, recursive: bool = True):
-        super().__init__(recursive=recursive, required_files=('package.json',))
-
+        super().__init__(recursive=recursive, required_files=("package.json",))
