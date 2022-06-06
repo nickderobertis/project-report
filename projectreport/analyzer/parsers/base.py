@@ -1,7 +1,14 @@
+import abc
+from typing import ClassVar
+
 from cached_property import cached_property
 
+from projectreport.analyzer.parsers.data_types import ParserDataType
 
-class Parser:
+
+class Parser(abc.ABC):
+    data_type: ClassVar[ParserDataType]
+
     def __init__(self, path: str):
         self.path = path
 

@@ -1,4 +1,5 @@
 import ast
+from pathlib import Path
 from typing import Optional
 
 from cached_property import cached_property
@@ -28,3 +29,7 @@ class PythonInitParser(PythonParser):
                 elif isinstance(node.value, ast.Num):
                     return Version.from_str(str(node.value.n))
         return None
+
+    @classmethod
+    def matches_path(cls, path: str) -> bool:
+        return Path(path).name == "__init__.py"

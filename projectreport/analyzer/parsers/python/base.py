@@ -3,10 +3,10 @@ import warnings
 
 from cached_property import cached_property
 
-from projectreport.analyzer.parsers.file import FileParser
+from projectreport.analyzer.parsers.file import SingleFileParser
 
 
-class PythonParser(FileParser):
+class PythonParser(SingleFileParser):
     @cached_property
     def parsed(self):
         try:

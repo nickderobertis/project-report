@@ -1,14 +1,15 @@
 import json
 import warnings
+from pathlib import Path
 from typing import Any, Dict, Optional
 
 from cached_property import cached_property
 
-from projectreport.analyzer.parsers.file import FileParser
+from projectreport.analyzer.parsers.file import SingleFileParser
 from projectreport.version import Version
 
 
-class PackageJSONParser(FileParser):
+class PackageJSONParser(SingleFileParser):
     @cached_property
     def parsed(self) -> Optional[Dict[str, Any]]:
         try:
@@ -28,3 +29,7 @@ class PackageJSONParser(FileParser):
         if self.parsed is None:
             return None
         return Version.from_str(self.parsed.get("version"))
+
+    @classmethod
+    def matches_path(cls, path: str) -> bool:
+        return Path(path).name == "package.json"

@@ -1,5 +1,6 @@
 import ast
 from configparser import ConfigParser, ParsingError
+from pathlib import Path
 from typing import Optional
 
 from cached_property import cached_property
@@ -41,6 +42,10 @@ class PythonSetupCfgParser(Parser):
         if version_str is None:
             return None
         return Version.from_str(version_str)
+
+    @classmethod
+    def matches_path(cls, path: str) -> bool:
+        return Path(path).name == "setup.cfg"
 
 
 def _get_string_from_config(

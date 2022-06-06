@@ -4,12 +4,12 @@ from typing import Dict, Optional, Sequence
 from cached_property import cached_property
 
 from projectreport.analyzer.parsers.base import Parser
+from projectreport.analyzer.parsers.folder import FolderParser
 from projectreport.analyzer.parsers.index import PARSER_DOC_FILES
-from projectreport.analyzer.parsers.multi.base import MultiParser
 from projectreport.version import Version
 
 
-class MultiFileParser(MultiParser):
+class MultiFileParser(FolderParser):
     def __init__(
         self,
         path: str,
@@ -22,15 +22,7 @@ class MultiFileParser(MultiParser):
         :param file_parsers: Defaults to PARSER_DOC_FILES.
         """
         self.file_parsers = file_parsers or PARSER_DOC_FILES
-        self.file_names = file_names
-        super().__init__(path)
-
-    @cached_property
-    def has_any_match(self) -> bool:
-        for file, parser in self.file_parsers.items():
-            if file in self.file_names:
-                return True
-        return False
+        super().__init__(path, file_names)
 
     @cached_property
     def docstring(self) -> Optional[str]:
@@ -39,6 +31,13 @@ class MultiFileParser(MultiParser):
     @cached_property
     def version(self) -> Optional[Version]:
         return self._get_attr_from_first_parser_to_return_non_none("version")
+
+    @classmethod
+    def matches_path(cls, path: str, file_names: Sequence[str]) -> bool:
+        for file, parser in PARSER_DOC_FILES.items():
+            if file in file_names:
+                return True
+        return False
 
     def _get_attr_from_first_parser_to_return_non_none(self, attr: str):
         for file, parser in self.file_parsers.items():

@@ -5,6 +5,8 @@ from cached_property import cached_property
 from github import Github
 
 from projectreport.analyzer.parsers.base import Parser
+from projectreport.analyzer.parsers.data_types import ParserDataType
+from projectreport.analyzer.parsers.url import URLParser
 from projectreport.version import Version
 
 gh = Github()
@@ -16,7 +18,7 @@ class GithubData(TypedDict):
     version: Optional[str]
 
 
-class GithubParser(Parser):
+class GithubParser(URLParser):
     def __init__(self, path: str):
         self.repo_key = _github_url_to_owner_and_name(path)
         self.github_repo = gh.get_repo(self.repo_key)
@@ -67,6 +69,10 @@ class GithubParser(Parser):
         if version_str is None:
             return None
         return Version.from_str(version_str)
+
+    @classmethod
+    def matches_path(cls, path: str) -> bool:
+        return "github.com" in path
 
 
 def _github_url_to_owner_and_name(url: str) -> str:

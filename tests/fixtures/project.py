@@ -17,13 +17,19 @@ from tests.dirutils import create_temp_path
 
 
 @pytest.fixture(scope="session")
-def github_project() -> Project:
+def github_project_folder() -> Project:
     with create_temp_path() as temp_folder:
         project_path = temp_folder / "github-project-example"
         git.Repo.clone_from(GITHUB_REPO_URL, project_path)
-        included_types = None
-        project = Project(project_path, included_types=included_types)
-        yield project
+        yield project_path
+
+
+@pytest.fixture(scope="session")
+def github_project(github_project_folder: Path) -> Project:
+    project_path = github_project_folder
+    included_types = None
+    project = Project(project_path, included_types=included_types)
+    yield project
 
 
 def get_python_dunder_version_project() -> Project:

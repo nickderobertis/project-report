@@ -24,6 +24,7 @@ from tests.fixtures.project import (
     get_python_setup_py_version_project,
     git_project,
     github_project,
+    github_project_folder,
 )
 
 
