@@ -1,3 +1,4 @@
+from os import getenv
 from typing import Any, Dict, Optional, Sequence, Tuple, TypedDict
 
 import github.GithubException
@@ -12,7 +13,9 @@ from projectreport.tools.monkey_patch_github import (
 )
 from projectreport.version import Version
 
-gh = Github()
+access_token = getenv("GITHUB_TOKEN")
+
+gh = Github(access_token)
 monkey_patch_github_obj_for_throttling(gh)
 
 
