@@ -33,7 +33,7 @@ class MainMultiParser(Parser):
         path: str,
         file_names: Sequence[str],
         urls: Optional[Sequence[str]] = None,
-        parsers: Optional[List[Parser]] = None,
+        parsers: Optional[List[Type[StandaloneParser]]] = None,
     ):
         """
         :param path: This should be the path of a folder, rather than a path to a file
