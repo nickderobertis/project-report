@@ -5,10 +5,11 @@ from cached_property import cached_property
 
 from projectreport.analyzer.parsers.base import Parser
 from projectreport.analyzer.parsers.index import PARSER_DOC_FILES
+from projectreport.analyzer.parsers.multi.base import MultiParser
 from projectreport.version import Version
 
 
-class MultiFileParser(Parser):
+class MultiFileParser(MultiParser):
     def __init__(
         self,
         path: str,
@@ -48,15 +49,3 @@ class MultiFileParser(Parser):
                 if value is not None:
                     return value
         return None
-
-    @cached_property
-    def parsed(self):
-        raise NotImplementedError
-
-    @cached_property
-    def contents(self) -> str:
-        raise NotImplementedError
-
-    @cached_property
-    def file_name(self) -> str:
-        raise NotImplementedError
