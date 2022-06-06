@@ -7,6 +7,9 @@ from github import Github
 from projectreport.analyzer.parsers.base import Parser
 from projectreport.analyzer.parsers.data_types import ParserDataType
 from projectreport.analyzer.parsers.url import URLParser
+from projectreport.tools.monkey_patch_github import (
+    monkey_patch_github_obj_for_throttling,
+)
 from projectreport.version import Version
 
 gh = Github()
@@ -22,6 +25,7 @@ class GithubParser(URLParser):
     def __init__(self, path: str):
         self.repo_key = _github_url_to_owner_and_name(path)
         self.github_repo = gh.get_repo(self.repo_key)
+        monkey_patch_github_obj_for_throttling(self.github_repo)
         super().__init__(path)
 
     @staticmethod
