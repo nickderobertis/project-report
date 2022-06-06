@@ -4,11 +4,11 @@ from typing import Any, Dict, Optional
 
 from cached_property import cached_property
 
-from projectreport.analyzer.parsers.base import Parser
+from projectreport.analyzer.parsers.file import FileParser
 from projectreport.version import Version
 
 
-class PackageJSONParser(Parser):
+class PackageJSONParser(FileParser):
     @cached_property
     def parsed(self) -> Optional[Dict[str, Any]]:
         try:
