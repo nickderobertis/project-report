@@ -13,6 +13,7 @@ from projectreport.tools.monkey_patch_github import (
 from projectreport.version import Version
 
 gh = Github()
+monkey_patch_github_obj_for_throttling(gh)
 
 
 class GithubData(TypedDict):
