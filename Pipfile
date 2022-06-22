@@ -8,7 +8,7 @@ verify_ssl = true
 [packages]
 sphinx = "*"
 sphinx-autobuild = "*"
-sphinx-autodoc-typehints = "*"
+sphinx-autodoc-typehints = "==1.15.3"
 sphinxcontrib-fulltoc = "*"
 sphinx-paramlinks = "*"
 sphinx-gallery = "*"
