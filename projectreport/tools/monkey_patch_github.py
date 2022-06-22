@@ -52,8 +52,11 @@ def monkey_patch_github_obj_for_throttling(gh_obj: Union[Github, GithubObject]):
                 **kwargs,
             )
         except (RequestException, GithubException) as e:
-            if "pagination is limited for this resource" in str(e).casefold():
+            error_text = str(e).casefold()
+            if "pagination is limited for this resource" in error_text:
                 raise NoMorePagesAllowedException
+            if "404" in error_text and "not found" in error_text:
+                raise ResourceNotFoundException
             collected_exceptions.append(e)
             _wait_for_read_timeout(e)
             return request_json_and_check_patched_for_throttling(
@@ -135,4 +138,8 @@ def _get_requester(gh_obj: Union[Github, GithubObject]) -> Requester:
 
 
 class NoMorePagesAllowedException(Exception):
+    pass
+
+
+class ResourceNotFoundException(Exception):
     pass

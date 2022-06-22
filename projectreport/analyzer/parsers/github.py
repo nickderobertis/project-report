@@ -9,6 +9,7 @@ from projectreport.analyzer.parsers.base import Parser
 from projectreport.analyzer.parsers.data_types import ParserDataType
 from projectreport.analyzer.parsers.url import URLParser
 from projectreport.tools.monkey_patch_github import (
+    ResourceNotFoundException,
     monkey_patch_github_obj_for_throttling,
 )
 from projectreport.version import Version
@@ -56,7 +57,7 @@ class GithubParser(URLParser):
         )
         try:
             release = self.github_repo.get_latest_release()
-        except github.UnknownObjectException:
+        except (github.UnknownObjectException, ResourceNotFoundException):
             pass
         else:
             if release is not None:
