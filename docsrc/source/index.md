@@ -1,31 +1,56 @@
-% project-report documentation master file, created by
-%   copier-pypi-sphinx-flexlate.
-%   You can adapt this file completely to your liking, but it should at least
-%   contain the root `toctree` directive.
+% pypi-sphinx-quickstart documentation master file, created by
+% pypi-sphinx-quickstart.
+% You can adapt this file completely to your liking, but it should at least
+% contain the root `toctree` directive.
 
 # Welcome to Project Report documentation!
 
-```{include} ../../README.md
-```
-
-For more information on getting started, take a look at the tutorial and examples.
-
-## Tutorial and Examples
+To get started, look here.
 
 ```{toctree}
-
 tutorial
-auto_examples/index
 ```
 
-## API Documentation
+## An overview
+
+### Finder
 
 ```{eval-rst}
-.. toctree:: api/modules
-   :maxdepth: 3
+.. autosummary::
+
+      projectreport.finder.base.Finder
+      projectreport.finder.git.GitFinder
+      projectreport.finder.python.PythonPackageFinder
+      projectreport.finder.combine.CombinedFinder
 ```
 
-## Indices
+### Project
+
+```{eval-rst}
+.. autosummary::
+
+      projectreport.analyzer.project.Project
+```
+
+### Report
+
+```{eval-rst}
+.. autosummary::
+
+      projectreport.report.report.Report
+```
+
+### API Documentation
+
+A full list of modules
+
+```{toctree}
+:maxdepth: 3
+
+api/modules
+```
+
+## Indices and tables
 
 - {ref}`genindex`
 - {ref}`modindex`
