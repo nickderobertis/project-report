@@ -1,0 +1,27 @@
+projectreport.analyzer.parsers.multi package
+============================================
+
+.. automodule:: projectreport.analyzer.parsers.multi
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+projectreport.analyzer.parsers.multi.file module
+------------------------------------------------
+
+.. automodule:: projectreport.analyzer.parsers.multi.file
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.analyzer.parsers.multi.main module
+------------------------------------------------
+
+.. automodule:: projectreport.analyzer.parsers.multi.main
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

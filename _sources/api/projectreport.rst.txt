@@ -28,10 +28,26 @@ projectreport.config module
    :undoc-members:
    :show-inheritance:
 
+projectreport.data module
+-------------------------
+
+.. automodule:: projectreport.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 projectreport.logger module
 ---------------------------
 
 .. automodule:: projectreport.logger
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.parser\_types module
+----------------------------------
+
+.. automodule:: projectreport.parser_types
    :members:
    :undoc-members:
    :show-inheritance:

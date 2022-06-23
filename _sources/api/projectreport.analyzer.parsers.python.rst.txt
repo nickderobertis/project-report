@@ -1,0 +1,43 @@
+projectreport.analyzer.parsers.python package
+=============================================
+
+.. automodule:: projectreport.analyzer.parsers.python
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+projectreport.analyzer.parsers.python.base module
+-------------------------------------------------
+
+.. automodule:: projectreport.analyzer.parsers.python.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.analyzer.parsers.python.init module
+-------------------------------------------------
+
+.. automodule:: projectreport.analyzer.parsers.python.init
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.analyzer.parsers.python.setup\_cfg module
+-------------------------------------------------------
+
+.. automodule:: projectreport.analyzer.parsers.python.setup_cfg
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.analyzer.parsers.python.setup\_py module
+------------------------------------------------------
+
+.. automodule:: projectreport.analyzer.parsers.python.setup_py
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

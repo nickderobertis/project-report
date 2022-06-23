@@ -1,5 +1,5 @@
 Getting started with project-report
-************************************
+**************************************
 
 Install
 ========
@@ -11,7 +11,10 @@ Install via::
 Usage
 =========
 
+Some highlighted functionality.
+
 This is a simple example::
 
     import projectreport
+
 

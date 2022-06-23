@@ -6,6 +6,14 @@ projectreport.analyzer.parsers package
    :undoc-members:
    :show-inheritance:
 
+Subpackages
+-----------
+
+.. toctree::
+
+   projectreport.analyzer.parsers.multi
+   projectreport.analyzer.parsers.python
+
 Submodules
 ----------
 
@@ -13,6 +21,38 @@ projectreport.analyzer.parsers.base module
 ------------------------------------------
 
 .. automodule:: projectreport.analyzer.parsers.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.analyzer.parsers.data\_types module
+-------------------------------------------------
+
+.. automodule:: projectreport.analyzer.parsers.data_types
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.analyzer.parsers.file module
+------------------------------------------
+
+.. automodule:: projectreport.analyzer.parsers.file
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.analyzer.parsers.folder module
+--------------------------------------------
+
+.. automodule:: projectreport.analyzer.parsers.folder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.analyzer.parsers.github module
+--------------------------------------------
+
+.. automodule:: projectreport.analyzer.parsers.github
    :members:
    :undoc-members:
    :show-inheritance:
@@ -33,10 +73,10 @@ projectreport.analyzer.parsers.javascript module
    :undoc-members:
    :show-inheritance:
 
-projectreport.analyzer.parsers.python module
---------------------------------------------
+projectreport.analyzer.parsers.url module
+-----------------------------------------
 
-.. automodule:: projectreport.analyzer.parsers.python
+.. automodule:: projectreport.analyzer.parsers.url
    :members:
    :undoc-members:
    :show-inheritance:
