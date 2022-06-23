@@ -58,7 +58,7 @@
 </script>
   
   
-    <title>projectreport.tools.monkey_patch_github &#8212; project-report 1.0.0a7 documentation</title>
+    <title>projectreport.tools.monkey_patch_github &#8212; project-report 1.0.0a8 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
@@ -100,7 +100,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../../../index.html" title="project-report 1.0.0a7 documentation"
+        <a href="../../../index.html" title="project-report 1.0.0a8 documentation"
            class="md-header-nav__button md-logo">
           
             <i class="md-icon">&#xe869</i>
@@ -186,7 +186,7 @@
   <nav class="md-tabs" data-md-component="tabs">
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
-          <li class="md-tabs__item"><a href="../../../index.html" class="md-tabs__link">project-report 1.0.0a7 documentation</a></li>
+          <li class="md-tabs__item"><a href="../../../index.html" class="md-tabs__link">project-report 1.0.0a8 documentation</a></li>
           <li class="md-tabs__item"><a href="../../index.html" class="md-tabs__link">Module code</a></li>
       </ul>
     </div>
@@ -199,13 +199,13 @@
               <div class="md-sidebar__inner">
                 <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="../../../index.html" title="project-report 1.0.0a7 documentation" class="md-nav__button md-logo">
+    <a href="../../../index.html" title="project-report 1.0.0a8 documentation" class="md-nav__button md-logo">
       
         <i class="md-icon">&#xe869</i>
       
     </a>
     <a href="../../../index.html"
-       title="project-report 1.0.0a7 documentation">project-report</a>
+       title="project-report 1.0.0a8 documentation">project-report</a>
   </label>
     <div class="md-nav__source">
       <a href="https://github.com/nickderobertis/project-report" title="Go to repository" class="md-source" data-md-source="github">
@@ -273,6 +273,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">github</span> <span class="kn">import</span> <span class="n">Github</span><span class="p">,</span> <span class="n">GithubException</span><span class="p">,</span> <span class="n">RateLimitExceededException</span>
+<span class="kn">from</span> <span class="nn">github.GithubException</span> <span class="kn">import</span> <span class="n">BadCredentialsException</span>
 <span class="kn">from</span> <span class="nn">github.GithubObject</span> <span class="kn">import</span> <span class="n">GithubObject</span>
 <span class="kn">from</span> <span class="nn">github.Rate</span> <span class="kn">import</span> <span class="n">Rate</span>
 <span class="kn">from</span> <span class="nn">github.RateLimit</span> <span class="kn">import</span> <span class="n">RateLimit</span>
@@ -321,6 +322,9 @@
                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="k">except</span> <span class="p">(</span><span class="n">RequestException</span><span class="p">,</span> <span class="n">GithubException</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">BadCredentialsException</span><span class="p">):</span>
+                <span class="c1"># Bad credentials, retrying won't help, just raise</span>
+                <span class="k">raise</span> <span class="n">e</span>
             <span class="n">error_text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
             <span class="k">if</span> <span class="s2">"pagination is limited for this resource"</span> <span class="ow">in</span> <span class="n">error_text</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="n">NoMorePagesAllowedException</span>

@@ -1,9 +1,9 @@
-PyGithub
-semver
-cached_property
-pydantic
-project-report
-pyexlatex
 gitpython
-PyYAML
+cached_property
 pygount
+PyYAML
+project-report
+semver
+PyGithub
+pydantic
+pyexlatex
