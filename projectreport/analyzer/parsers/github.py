@@ -31,7 +31,7 @@ class GithubData(TypedDict):
 class GithubParser(URLParser):
     def __init__(self, path: str):
         self.repo_key = _github_url_to_owner_and_name(path)
-        self.github_repo = gh.get_repo(self.repo_key)
+        self.github_repo = get_repo(self.repo_key)
         monkey_patch_github_obj_for_throttling(self.github_repo)
         super().__init__(path)
 
