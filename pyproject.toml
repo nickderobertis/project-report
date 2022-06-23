@@ -3,3 +3,6 @@ include = 'projectreport.*\.pyi?$|tests.*\.pyi?$'
 
 [tool.isort]
 profile = "black"
+
+[tool.pytest.ini_options]
+timeout = 60
