@@ -1,4 +1,5 @@
 import ast
+import configparser
 from configparser import ConfigParser, ParsingError
 from pathlib import Path
 from typing import Optional
@@ -54,7 +55,12 @@ def _get_string_from_config(
     # Try to get the value from the config
     try:
         str_with_quotes = config.get(section, option)
-    except (KeyError, AttributeError):
+    except (
+        KeyError,
+        AttributeError,
+        configparser.NoOptionError,
+        configparser.NoSectionError,
+    ):
         return None
     else:
         # Remove the quotes from the string, but only if they exist
