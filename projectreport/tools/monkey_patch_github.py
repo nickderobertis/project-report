@@ -4,6 +4,7 @@ from datetime import datetime, timedelta, timezone
 from typing import List, Optional, Union
 
 from github import Github, GithubException, RateLimitExceededException
+from github.GithubException import BadCredentialsException
 from github.GithubObject import GithubObject
 from github.Rate import Rate
 from github.RateLimit import RateLimit
@@ -52,6 +53,9 @@ def monkey_patch_github_obj_for_throttling(gh_obj: Union[Github, GithubObject]):
                 **kwargs,
             )
         except (RequestException, GithubException) as e:
+            if isinstance(e, BadCredentialsException):
+                # Bad credentials, retrying won't help, just raise
+                raise e
             error_text = str(e).casefold()
             if "pagination is limited for this resource" in error_text:
                 raise NoMorePagesAllowedException
