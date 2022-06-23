@@ -28,16 +28,15 @@ class LoggingConfig(BaseSettings):
         raise ValueError(f"invalid log level {level}")
 
 
+def create_logger() -> logging.Logger:
+    logger = logging.getLogger("project-report")
+    logger.setLevel(LOGGING_CONFIG.level.value)
+    logger.addHandler(RichHandler(rich_tracebacks=True))
+    return logger
+
+
 LOGGING_CONFIG = LoggingConfig()
-
-logging.basicConfig(
-    level=LOGGING_CONFIG.level.value,
-    format="%(message)s",
-    datefmt="[%X]",
-    handlers=[RichHandler(rich_tracebacks=True)],
-)
-
-logger = logging.getLogger("project-report")
+logger = create_logger()
 
 if __name__ == "__main__":
     logger.info("info level")
