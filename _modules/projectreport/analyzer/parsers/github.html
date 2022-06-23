@@ -58,7 +58,7 @@
 </script>
   
   
-    <title>projectreport.analyzer.parsers.github &#8212; project-report 1.0.0a8 documentation</title>
+    <title>projectreport.analyzer.parsers.github &#8212; project-report 1.0.0a9 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
@@ -100,7 +100,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../../../../index.html" title="project-report 1.0.0a8 documentation"
+        <a href="../../../../index.html" title="project-report 1.0.0a9 documentation"
            class="md-header-nav__button md-logo">
           
             <i class="md-icon">&#xe869</i>
@@ -186,7 +186,7 @@
   <nav class="md-tabs" data-md-component="tabs">
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
-          <li class="md-tabs__item"><a href="../../../../index.html" class="md-tabs__link">project-report 1.0.0a8 documentation</a></li>
+          <li class="md-tabs__item"><a href="../../../../index.html" class="md-tabs__link">project-report 1.0.0a9 documentation</a></li>
           <li class="md-tabs__item"><a href="../../../index.html" class="md-tabs__link">Module code</a></li>
       </ul>
     </div>
@@ -199,13 +199,13 @@
               <div class="md-sidebar__inner">
                 <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="../../../../index.html" title="project-report 1.0.0a8 documentation" class="md-nav__button md-logo">
+    <a href="../../../../index.html" title="project-report 1.0.0a9 documentation" class="md-nav__button md-logo">
       
         <i class="md-icon">&#xe869</i>
       
     </a>
     <a href="../../../../index.html"
-       title="project-report 1.0.0a8 documentation">project-report</a>
+       title="project-report 1.0.0a9 documentation">project-report</a>
   </label>
     <div class="md-nav__source">
       <a href="https://github.com/nickderobertis/project-report" title="Go to repository" class="md-source" data-md-source="github">
@@ -273,10 +273,12 @@
 <span class="kn">import</span> <span class="nn">github.GithubException</span>
 <span class="kn">from</span> <span class="nn">cached_property</span> <span class="kn">import</span> <span class="n">cached_property</span>
 <span class="kn">from</span> <span class="nn">github</span> <span class="kn">import</span> <span class="n">Github</span>
+<span class="kn">from</span> <span class="nn">github.Repository</span> <span class="kn">import</span> <span class="n">Repository</span>
 
 <span class="kn">from</span> <span class="nn">projectreport.analyzer.parsers.base</span> <span class="kn">import</span> <span class="n">Parser</span>
 <span class="kn">from</span> <span class="nn">projectreport.analyzer.parsers.data_types</span> <span class="kn">import</span> <span class="n">ParserDataType</span>
 <span class="kn">from</span> <span class="nn">projectreport.analyzer.parsers.url</span> <span class="kn">import</span> <span class="n">URLParser</span>
+<span class="kn">from</span> <span class="nn">projectreport.logger</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">projectreport.tools.monkey_patch_github</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">ResourceNotFoundException</span><span class="p">,</span>
     <span class="n">monkey_patch_github_obj_for_throttling</span><span class="p">,</span>
@@ -298,7 +300,7 @@
 <div class="viewcode-block" id="GithubParser"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.parsers.html#projectreport.analyzer.parsers.github.GithubParser">[docs]</a><span class="k">class</span> <span class="nc">GithubParser</span><span class="p">(</span><span class="n">URLParser</span><span class="p">):</span>
 <div class="viewcode-block" id="GithubParser.__init__"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.parsers.html#projectreport.analyzer.parsers.github.GithubParser.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">repo_key</span> <span class="o">=</span> <span class="n">_github_url_to_owner_and_name</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">github_repo</span> <span class="o">=</span> <span class="n">gh</span><span class="o">.</span><span class="n">get_repo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">github_repo</span> <span class="o">=</span> <span class="n">get_repo</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">repo_key</span><span class="p">)</span>
         <span class="n">monkey_patch_github_obj_for_throttling</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">github_repo</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
 
@@ -351,6 +353,11 @@
 <div class="viewcode-block" id="GithubParser.matches_path"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.parsers.html#projectreport.analyzer.parsers.github.GithubParser.matches_path">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">matches_path</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">"github.com"</span> <span class="ow">in</span> <span class="n">path</span></div></div>
+
+
+<div class="viewcode-block" id="get_repo"><a class="viewcode-back" href="../../../../api/projectreport.analyzer.parsers.html#projectreport.analyzer.parsers.github.get_repo">[docs]</a><span class="k">def</span> <span class="nf">get_repo</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Repository</span><span class="p">:</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Requesting details for repository </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">gh</span><span class="o">.</span><span class="n">get_repo</span><span class="p">(</span><span class="n">name</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">_github_url_to_owner_and_name</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
