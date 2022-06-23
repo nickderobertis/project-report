@@ -4,10 +4,12 @@ from typing import Any, Dict, Optional, Sequence, Tuple, TypedDict
 import github.GithubException
 from cached_property import cached_property
 from github import Github
+from github.Repository import Repository
 
 from projectreport.analyzer.parsers.base import Parser
 from projectreport.analyzer.parsers.data_types import ParserDataType
 from projectreport.analyzer.parsers.url import URLParser
+from projectreport.logger import logger
 from projectreport.tools.monkey_patch_github import (
     ResourceNotFoundException,
     monkey_patch_github_obj_for_throttling,
@@ -82,6 +84,11 @@ class GithubParser(URLParser):
     @classmethod
     def matches_path(cls, path: str) -> bool:
         return "github.com" in path
+
+
+def get_repo(name: str) -> Repository:
+    logger.info(f"Requesting details for repository {name}")
+    return gh.get_repo(name)
 
 
 def _github_url_to_owner_and_name(url: str) -> str:
