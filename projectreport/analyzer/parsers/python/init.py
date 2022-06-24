@@ -3,6 +3,7 @@ from pathlib import Path
 from typing import Optional
 
 from cached_property import cached_property
+from typing_extensions import TypeGuard
 
 from projectreport.analyzer.parsers.python.base import PythonParser
 from projectreport.version import Version
@@ -21,7 +22,7 @@ class PythonInitParser(PythonParser):
             return None
         # Walk ast to look for __version__ variable. If it is defined, extract the version from it
         for node in ast.walk(self.parsed):
-            if isinstance(node, ast.Assign) and node.targets[0].id == "__version__":  # type: ignore
+            if _is_version_node(node):
                 # Extract version from __version__ = "1.2.3"
                 if isinstance(node.value, ast.Str):
                     return Version.from_str(node.value.s)
@@ -33,3 +34,12 @@ class PythonInitParser(PythonParser):
     @classmethod
     def matches_path(cls, path: str) -> bool:
         return Path(path).name == "__init__.py"
+
+
+def _is_version_node(node: ast.AST) -> TypeGuard[ast.Assign]:
+    return (
+        isinstance(node, ast.Assign)
+        and node.targets
+        and hasattr(node.targets[0], "id")
+        and node.targets[0].id == "__version__"  # type: ignore
+    )
