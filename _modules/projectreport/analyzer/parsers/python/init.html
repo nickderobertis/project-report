@@ -58,7 +58,7 @@
 </script>
   
   
-    <title>projectreport.analyzer.parsers.python.init &#8212; project-report 1.0.0a9 documentation</title>
+    <title>projectreport.analyzer.parsers.python.init &#8212; project-report 1.0.0a10 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css" />
@@ -100,7 +100,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../../../../../index.html" title="project-report 1.0.0a9 documentation"
+        <a href="../../../../../index.html" title="project-report 1.0.0a10 documentation"
            class="md-header-nav__button md-logo">
           
             <i class="md-icon">&#xe869</i>
@@ -186,7 +186,7 @@
   <nav class="md-tabs" data-md-component="tabs">
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
-          <li class="md-tabs__item"><a href="../../../../../index.html" class="md-tabs__link">project-report 1.0.0a9 documentation</a></li>
+          <li class="md-tabs__item"><a href="../../../../../index.html" class="md-tabs__link">project-report 1.0.0a10 documentation</a></li>
           <li class="md-tabs__item"><a href="../../../../index.html" class="md-tabs__link">Module code</a></li>
       </ul>
     </div>
@@ -199,13 +199,13 @@
               <div class="md-sidebar__inner">
                 <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="../../../../../index.html" title="project-report 1.0.0a9 documentation" class="md-nav__button md-logo">
+    <a href="../../../../../index.html" title="project-report 1.0.0a10 documentation" class="md-nav__button md-logo">
       
         <i class="md-icon">&#xe869</i>
       
     </a>
     <a href="../../../../../index.html"
-       title="project-report 1.0.0a9 documentation">project-report</a>
+       title="project-report 1.0.0a10 documentation">project-report</a>
   </label>
     <div class="md-nav__source">
       <a href="https://github.com/nickderobertis/project-report" title="Go to repository" class="md-source" data-md-source="github">
@@ -272,6 +272,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">cached_property</span> <span class="kn">import</span> <span class="n">cached_property</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">TypeGuard</span>
 
 <span class="kn">from</span> <span class="nn">projectreport.analyzer.parsers.python.base</span> <span class="kn">import</span> <span class="n">PythonParser</span>
 <span class="kn">from</span> <span class="nn">projectreport.version</span> <span class="kn">import</span> <span class="n">Version</span>
@@ -290,7 +291,7 @@
             <span class="k">return</span> <span class="kc">None</span>
         <span class="c1"># Walk ast to look for __version__ variable. If it is defined, extract the version from it</span>
         <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">ast</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parsed</span><span class="p">):</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">Assign</span><span class="p">)</span> <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">targets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="s2">"__version__"</span><span class="p">:</span>  <span class="c1"># type: ignore</span>
+            <span class="k">if</span> <span class="n">_is_version_node</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
                 <span class="c1"># Extract version from __version__ = "1.2.3"</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">Str</span><span class="p">):</span>
                     <span class="k">return</span> <span class="n">Version</span><span class="o">.</span><span class="n">from_str</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">value</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>
@@ -302,6 +303,15 @@
 <div class="viewcode-block" id="PythonInitParser.matches_path"><a class="viewcode-back" href="../../../../../api/projectreport.analyzer.parsers.python.html#projectreport.analyzer.parsers.python.init.PythonInitParser.matches_path">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">matches_path</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">"__init__.py"</span></div></div>
+
+
+<span class="k">def</span> <span class="nf">_is_version_node</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">ast</span><span class="o">.</span><span class="n">AST</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">TypeGuard</span><span class="p">[</span><span class="n">ast</span><span class="o">.</span><span class="n">Assign</span><span class="p">]:</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">ast</span><span class="o">.</span><span class="n">Assign</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">targets</span>
+        <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">targets</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"id"</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="n">node</span><span class="o">.</span><span class="n">targets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span> <span class="o">==</span> <span class="s2">"__version__"</span>  <span class="c1"># type: ignore</span>
+    <span class="p">)</span>
 </pre></div>
 
           </article>
