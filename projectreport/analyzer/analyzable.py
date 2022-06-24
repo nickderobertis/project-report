@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING, Dict, Optional, Union
 
 from projectreport.data import AnalysisData
+from projectreport.logger import logger
 from projectreport.version import Version
 
 if TYPE_CHECKING:
@@ -38,6 +39,7 @@ class Analyzable:
             raise ValueError(
                 "cannot get data from Analyzable if no analysis is attached"
             )
+        logger.debug(f"Getting data for {self.path}")
 
         data: AnalysisData = {}
         data.update(self.analysis.data)
