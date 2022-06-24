@@ -28,7 +28,10 @@ class PackageJSONParser(SingleFileParser):
     def version(self) -> Optional[Version]:
         if self.parsed is None:
             return None
-        return Version.from_str(self.parsed.get("version"))
+        version_str = self.parsed.get("version")
+        if version_str is None:
+            return None
+        return Version.from_str(version_str)
 
     @classmethod
     def matches_path(cls, path: str) -> bool:
