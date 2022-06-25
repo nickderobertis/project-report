@@ -52,19 +52,21 @@ class GithubParser(URLParser):
 
     @cached_property
     def parsed(self) -> GithubData:
-        data = GithubData(
+        return GithubData(
             name=self.github_repo.name,
             description=self.github_repo.description,
-            version=None,
+            version=self._get_version_str_from_repo(),
         )
+
+    def _get_version_str_from_repo(self) -> Optional[str]:
         try:
             release = self.github_repo.get_latest_release()
         except (github.UnknownObjectException, ResourceNotFoundException):
-            pass
+            return None
         else:
             if release is not None:
-                data["version"] = release.tag_name
-        return data
+                return release.tag_name
+        return None
 
     @cached_property
     def docstring(self) -> Optional[str]:
