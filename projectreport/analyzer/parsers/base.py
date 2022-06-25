@@ -1,5 +1,5 @@
 import abc
-from typing import ClassVar
+from typing import ClassVar, List, Optional
 
 from cached_property import cached_property
 
@@ -13,9 +13,13 @@ class Parser(abc.ABC):
         self.path = path
 
     @cached_property
-    def docstring(self):
+    def docstring(self) -> Optional[str]:
         raise NotImplementedError
 
     @cached_property
-    def version(self):
+    def version(self) -> Optional[str]:
+        raise NotImplementedError
+
+    @cached_property
+    def topics(self) -> Optional[List[str]]:
         raise NotImplementedError

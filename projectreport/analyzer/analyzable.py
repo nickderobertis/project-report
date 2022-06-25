@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Dict, Optional, Union
+from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
 from projectreport.data import AnalysisData
 from projectreport.logger import logger
@@ -34,6 +34,12 @@ class Analyzable:
         return self.parser.version
 
     @cached_property
+    def topics(self) -> Optional[List[str]]:
+        if self.parser is None:
+            return None
+        return self.parser.topics
+
+    @cached_property
     def data(self) -> AnalysisData:
         if self.analysis is None:
             raise ValueError(
@@ -47,6 +53,7 @@ class Analyzable:
             dict(
                 docstring=self.docstring,
                 version=str(self.version) if self.version is not None else None,
+                topics=self.topics,
             )
         )
         if self.name is not None:

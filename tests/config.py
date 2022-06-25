@@ -29,6 +29,7 @@ PYTHON_PROJECT_PATHS: Final[List[str]] = sorted(
 
 JS_PROJECT_NAME = "js_example"
 JS_PROJECT_PATH = TEST_FILES_BASE_PATH / JS_PROJECT_NAME
+PACKAGE_JSON_PATH = JS_PROJECT_PATH / "package.json"
 
 GIT_PROJECT_NAME = "git_example"
 

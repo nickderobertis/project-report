@@ -63,6 +63,10 @@ class MainMultiParser(Parser):
     def version(self) -> Optional[Version]:
         return self._get_attr_from_first_parser_to_return_non_none("version")
 
+    @cached_property
+    def topics(self) -> Optional[Sequence[str]]:
+        return self._get_attr_from_first_parser_to_return_non_none("topics")
+
     def _get_attr_from_first_parser_to_return_non_none(self, attr: str):
         for parser in self.parsers:
             if _parser_matches_path(parser, self.path, self.file_names, self.urls):

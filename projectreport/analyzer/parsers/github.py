@@ -1,5 +1,5 @@
 from os import getenv
-from typing import Any, Dict, Optional, Sequence, Tuple, TypedDict
+from typing import Any, Dict, List, Optional, Sequence, Tuple, TypedDict
 
 import github.GithubException
 from cached_property import cached_property
@@ -26,6 +26,7 @@ class GithubData(TypedDict):
     name: str
     description: Optional[str]
     version: Optional[str]
+    topics: Optional[List[str]]
 
 
 class GithubParser(URLParser):
@@ -56,6 +57,7 @@ class GithubParser(URLParser):
             name=self.github_repo.name,
             description=self.github_repo.description,
             version=self._get_version_str_from_repo(),
+            topics=self.github_repo.get_topics(),
         )
 
     def _get_version_str_from_repo(self) -> Optional[str]:
@@ -70,18 +72,18 @@ class GithubParser(URLParser):
 
     @cached_property
     def docstring(self) -> Optional[str]:
-        if self.parsed is None:
-            return None
         return self.parsed.get("description")
 
     @cached_property
     def version(self) -> Optional[Version]:
-        if self.parsed is None:
-            return None
         version_str = self.parsed.get("version")
         if version_str is None:
             return None
         return Version.from_str(version_str)
+
+    @cached_property
+    def topics(self) -> Optional[List[str]]:
+        return self.parsed.get("topics")
 
     @classmethod
     def matches_path(cls, path: str) -> bool:

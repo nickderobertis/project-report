@@ -19,6 +19,7 @@ class SubProjectLatex(TextAreaMixin, ItemBase):
         )
         contents = [
             pl.Bold(data["name"]) if data["name"] else None,
+            f"(v{data['version']})" if data["version"] else None,
             pl.TextColor(f"{data['lines']} LOC", color=green)
             if data["lines"]
             else None,
@@ -30,6 +31,9 @@ class SubProjectLatex(TextAreaMixin, ItemBase):
             line_break,
             data["docstring"],
         ]
+        if data["topics"]:
+            contents.append(line_break)
+            contents.append("Topics: " + ", ".join(data["topics"]))
         contents = [content for content in contents if content is not None]
         if not contents[-1] == line_break:
             contents.append(line_break)

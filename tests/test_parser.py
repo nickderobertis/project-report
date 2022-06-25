@@ -1,6 +1,7 @@
 from pathlib import Path
 
 from projectreport.analyzer.parsers.github import GithubParser
+from projectreport.analyzer.parsers.javascript import PackageJSONParser
 from projectreport.analyzer.parsers.multi.file import MultiFileParser
 from projectreport.analyzer.parsers.multi.main import MainMultiParser
 from projectreport.analyzer.parsers.python.init import PythonInitParser
@@ -9,6 +10,7 @@ from projectreport.analyzer.parsers.python.setup_py import PythonSetupPyParser
 from projectreport.version import Version
 from tests.config import (
     GITHUB_REPO_URL,
+    PACKAGE_JSON_PATH,
     PYTHON_DUNDER_VERSION_PROJECT_PATH,
     PYTHON_SETUP_CFG_VERSION_PROJECT_PATH,
     PYTHON_SETUP_PY_VERSION_PROJECT_PATH,
@@ -22,6 +24,7 @@ def test_init_py_parser():
     parser = PythonInitParser(input_file)
     assert parser.docstring == "An example Python package for testing purposes"
     assert parser.version == Version.from_str("0.0.1")
+    assert parser.topics is None
 
 
 def test_setup_py_parser():
@@ -33,6 +36,12 @@ def test_setup_py_parser():
         == "[from setup.py] An example Python package for testing purposes (version from setup.py)"
     )
     assert parser.version == Version.from_str("0.0.1")
+    assert sorted(parser.topics) == [
+        "Application Frameworks",
+        "Libraries",
+        "Software Development",
+        "Testing",
+    ]
 
 
 def test_setup_cfg_parser():
@@ -44,6 +53,22 @@ def test_setup_cfg_parser():
         == "[from setup.cfg] An example Python package for testing purposes (version from setup.cfg)"
     )
     assert parser.version == Version.from_str("1.0.0")
+    assert sorted(parser.topics) == [
+        "Libraries",
+        "Python Modules",
+        "Software Development",
+        "Testing",
+        "Utilities",
+    ]
+
+
+def test_package_json_parser():
+    input_file = PACKAGE_JSON_PATH
+    assert PackageJSONParser.matches_path(input_file)
+    parser = PackageJSONParser(input_file)
+    assert parser.docstring == "An example JavaScript package"
+    assert parser.version == Version.from_str("1.0.0")
+    assert parser.topics == ["kwd1", "kwd2"]
 
 
 def test_github_parser():
@@ -52,6 +77,7 @@ def test_github_parser():
     parser = GithubParser(url)
     assert parser.docstring == "Example Github Project for project-report tests"
     assert parser.version == Version.from_str("1.0.0")
+    assert parser.topics == ["sample-topic1", "sample-topic2"]
 
 
 def test_multi_file_parser():
@@ -64,6 +90,13 @@ def test_multi_file_parser():
         == "[from __init__.py] An example Python package for testing purposes (version from setup.cfg)"
     )
     assert parser.version == Version.from_str("1.0.0")
+    assert sorted(parser.topics) == [
+        "Libraries",
+        "Python Modules",
+        "Software Development",
+        "Testing",
+        "Utilities",
+    ]
 
 
 # TODO: additional tests for main multi parser
@@ -79,6 +112,13 @@ def test_main_multi_parser_on_folder():
         == "[from __init__.py] An example Python package for testing purposes (version from setup.cfg)"
     )
     assert parser.version == Version.from_str("1.0.0")
+    assert sorted(parser.topics) == [
+        "Libraries",
+        "Python Modules",
+        "Software Development",
+        "Testing",
+        "Utilities",
+    ]
 
 
 def test_main_multi_parser_on_urls(temp_folder: Path):

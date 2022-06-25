@@ -37,6 +37,7 @@ def test_python_dunder_version_project():
     ]
     assert project.docstring == "An example Python package for testing purposes"
     assert project.version == Version.from_str("0.0.1")
+    assert project.topics is None
     assert project.name == PYTHON_DUNDER_VERSION_PROJECT_NAME
     assert project.path == os.path.abspath(PYTHON_DUNDER_VERSION_PROJECT_PATH)
     assert project.repo is None
@@ -47,17 +48,16 @@ def test_python_dunder_version_project():
     assert analysis.lines == {"code": 2, "documentation": 3, "empty": 0, "string": 0}
     assert len(project.modules) == 1
     assert project.modules[0].name == "__init__"
-    assert project.data == {
-        "num_commits": None,
-        "created": None,
-        "updated": None,
-        "lines": 2,
-        "full_lines": 5,
-        "urls": None,
-        "docstring": "An example Python package for testing purposes",
-        "version": "0.0.1",
-        "name": PYTHON_DUNDER_VERSION_PROJECT_NAME,
-    }
+    assert project.data["num_commits"] == None
+    assert project.data["created"] == None
+    assert project.data["updated"] == None
+    assert project.data["lines"] == 2
+    assert project.data["full_lines"] == 5
+    assert project.data["urls"] == None
+    assert project.data["docstring"] == "An example Python package for testing purposes"
+    assert project.data["version"] == "0.0.1"
+    assert project.data["name"] == PYTHON_DUNDER_VERSION_PROJECT_NAME
+    assert project.data["topics"] == None
 
 
 def test_python_setup_py_version_project():
@@ -75,6 +75,12 @@ def test_python_setup_py_version_project():
         == "[from __init__.py] An example Python package for testing purposes (version from setup.py)"
     )
     assert project.version == Version.from_str("0.0.1")
+    assert sorted(project.topics) == [
+        "Application Frameworks",
+        "Libraries",
+        "Software Development",
+        "Testing",
+    ]
     assert project.name == PYTHON_SETUP_PY_VERSION_PROJECT_NAME
     assert project.path == os.path.abspath(PYTHON_SETUP_PY_VERSION_PROJECT_PATH)
     assert project.repo is None
@@ -82,22 +88,29 @@ def test_python_setup_py_version_project():
     assert project.folders == []
 
     analysis: FolderAnalysis = project.analysis
-    assert analysis.lines == {"code": 9, "documentation": 3, "empty": 2, "string": 0}
+    assert analysis.lines == {"code": 10, "documentation": 3, "empty": 3, "string": 6}
     assert len(project.modules) == 2
     module_names = [module.name for module in project.modules]
     assert "__init__" in module_names
     assert "setup" in module_names
-    assert project.data == {
-        "num_commits": None,
-        "created": None,
-        "updated": None,
-        "lines": 9,
-        "full_lines": 14,
-        "urls": None,
-        "docstring": "[from __init__.py] An example Python package for testing purposes (version from setup.py)",
-        "version": "0.0.1",
-        "name": PYTHON_SETUP_PY_VERSION_PROJECT_NAME,
-    }
+    assert project.data["num_commits"] == None
+    assert project.data["created"] == None
+    assert project.data["updated"] == None
+    assert project.data["lines"] == 10
+    assert project.data["full_lines"] == 22
+    assert project.data["urls"] == None
+    assert (
+        project.data["docstring"]
+        == "[from __init__.py] An example Python package for testing purposes (version from setup.py)"
+    )
+    assert project.data["version"] == "0.0.1"
+    assert project.data["name"] == PYTHON_SETUP_PY_VERSION_PROJECT_NAME
+    assert sorted(project.data["topics"]) == [
+        "Application Frameworks",
+        "Libraries",
+        "Software Development",
+        "Testing",
+    ]
 
 
 def test_python_setup_cfg_version_project():
@@ -117,6 +130,13 @@ def test_python_setup_cfg_version_project():
         == "[from __init__.py] An example Python package for testing purposes (version from setup.cfg)"
     )
     assert project.version == Version.from_str("1.0.0")
+    assert sorted(project.topics) == [
+        "Libraries",
+        "Python Modules",
+        "Software Development",
+        "Testing",
+        "Utilities",
+    ]
     assert project.name == PYTHON_SETUP_CFG_VERSION_PROJECT_NAME
     assert project.path == os.path.abspath(PYTHON_SETUP_CFG_VERSION_PROJECT_PATH)
     assert project.repo is None
@@ -124,22 +144,30 @@ def test_python_setup_cfg_version_project():
     assert project.folders == []
 
     analysis: FolderAnalysis = project.analysis
-    assert analysis.lines == {"code": 3, "documentation": 3, "empty": 0, "string": 0}
+    assert analysis.lines == {"code": 16, "documentation": 3, "empty": 0, "string": 0}
     assert len(project.modules) == 2
     module_names = [module.name for module in project.modules]
     assert "__init__" in module_names
     assert "setup" in module_names
-    assert project.data == {
-        "num_commits": None,
-        "created": None,
-        "updated": None,
-        "lines": 3,
-        "full_lines": 6,
-        "urls": None,
-        "docstring": "[from __init__.py] An example Python package for testing purposes (version from setup.cfg)",
-        "version": "1.0.0",
-        "name": PYTHON_SETUP_CFG_VERSION_PROJECT_NAME,
-    }
+    assert project.data["num_commits"] == None
+    assert project.data["created"] == None
+    assert project.data["updated"] == None
+    assert project.data["lines"] == 16
+    assert project.data["full_lines"] == 19
+    assert project.data["urls"] == None
+    assert (
+        project.data["docstring"]
+        == "[from __init__.py] An example Python package for testing purposes (version from setup.cfg)"
+    )
+    assert project.data["version"] == "1.0.0"
+    assert project.data["name"] == PYTHON_SETUP_CFG_VERSION_PROJECT_NAME
+    assert sorted(project.data["topics"]) == [
+        "Libraries",
+        "Python Modules",
+        "Software Development",
+        "Testing",
+        "Utilities",
+    ]
 
 
 def test_javascript_project():
@@ -151,6 +179,7 @@ def test_javascript_project():
     ]
     assert project.docstring == "An example JavaScript package"
     assert project.version == Version.from_str("1.0.0")
+    assert project.topics == ["kwd1", "kwd2"]
     assert project.name == JS_PROJECT_NAME
     assert project.path == os.path.abspath(JS_PROJECT_PATH)
     assert project.repo is None
@@ -171,6 +200,7 @@ def test_javascript_project():
         "docstring": "An example JavaScript package",
         "version": "1.0.0",
         "name": "js_example",
+        "topics": ["kwd1", "kwd2"],
     }
 
 
@@ -198,6 +228,7 @@ def test_github_project(github_project: Project):
     assert project.name == "github-project-example"
     assert project.docstring == "Example Github Project for project-report tests"
     assert project.version == Version.from_str("1.0.0")
+    assert project.topics == ["sample-topic1", "sample-topic2"]
     assert not project.repo is None
     assert not project.is_empty
     assert project.folders == []
@@ -208,3 +239,4 @@ def test_github_project(github_project: Project):
     assert analysis.lines["string"] == 0
     data = project.data
     assert data["urls"] == ["https://github.com/nickderobertis/github-project-example"]
+    assert data["topics"] == ["sample-topic1", "sample-topic2"]

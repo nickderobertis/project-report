@@ -1,7 +1,7 @@
 import json
 import warnings
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 from cached_property import cached_property
 
@@ -32,6 +32,12 @@ class PackageJSONParser(SingleFileParser):
         if version_str is None:
             return None
         return Version.from_str(version_str)
+
+    @cached_property
+    def topics(self) -> Optional[List[str]]:
+        if self.parsed is None:
+            return None
+        return self.parsed.get("keywords")
 
     @classmethod
     def matches_path(cls, path: str) -> bool:

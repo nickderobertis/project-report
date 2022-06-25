@@ -1,6 +1,6 @@
 import ast
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional
 
 from cached_property import cached_property
 from typing_extensions import TypeGuard
@@ -29,6 +29,11 @@ class PythonInitParser(PythonParser):
                 # Extract version from __version__ = 1.2
                 elif isinstance(node.value, ast.Num):
                     return Version.from_str(str(node.value.n))
+        return None
+
+    @cached_property
+    def topics(self) -> Optional[List[str]]:
+        # Topics are not specified in __init__.py
         return None
 
     @classmethod
