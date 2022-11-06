@@ -6,6 +6,7 @@ from git import Repo
 
 from projectreport import Project
 from projectreport.analyzer.analysis import FolderAnalysis
+from projectreport.license.model import LicenseType
 from projectreport.version import Version
 from tests.config import (
     JS_PROJECT_NAME,
@@ -31,7 +32,7 @@ from tests.fixtures.project import (
 def test_python_dunder_version_project():
     project = get_python_dunder_version_project()
 
-    assert project.file_names == ["__init__.py"]
+    assert project.file_names == ["__init__.py", "LICENSE.md"]
     assert project.file_paths == [
         os.path.abspath(os.path.join(PYTHON_DUNDER_VERSION_PROJECT_PATH, "__init__.py"))
     ]
@@ -59,11 +60,14 @@ def test_python_dunder_version_project():
     assert project.data["name"] == PYTHON_DUNDER_VERSION_PROJECT_NAME
     assert project.data["topics"] == None
 
+    assert project.license is not None
+    assert project.license.type == LicenseType.MIT
+
 
 def test_python_setup_py_version_project():
     project = get_python_setup_py_version_project()
 
-    assert sorted(project.file_names) == ["__init__.py", "setup.py"]
+    assert sorted(project.file_names) == ["COPYING", "__init__.py", "setup.py"]
     assert sorted(project.file_paths) == [
         os.path.abspath(
             os.path.join(PYTHON_SETUP_PY_VERSION_PROJECT_PATH, "__init__.py")
@@ -112,11 +116,14 @@ def test_python_setup_py_version_project():
         "Testing",
     ]
 
+    assert project.license is not None
+    assert project.license.type == LicenseType.GPL
+
 
 def test_python_setup_cfg_version_project():
     project = get_python_setup_cfg_version_project()
 
-    assert sorted(project.file_names) == ["__init__.py", "setup.cfg"]
+    assert sorted(project.file_names) == ["__init__.py", "license.txt", "setup.cfg"]
     assert sorted(project.file_paths) == [
         os.path.abspath(
             os.path.join(PYTHON_SETUP_CFG_VERSION_PROJECT_PATH, "__init__.py")
@@ -169,6 +176,9 @@ def test_python_setup_cfg_version_project():
         "Utilities",
     ]
 
+    assert project.license is not None
+    assert project.license.type == LicenseType.APACHE
+
 
 def test_javascript_project():
     project = get_js_project()
@@ -202,6 +212,8 @@ def test_javascript_project():
         "name": "js_example",
         "topics": ["kwd1", "kwd2"],
     }
+
+    assert project.license is None
 
 
 def test_git_project(git_project: Project):
