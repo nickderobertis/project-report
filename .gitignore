@@ -68,6 +68,7 @@ _examples
 .vscode
 .nox
 node_modules
+.env
 
 # Scratch files
 Scratch
