@@ -7,9 +7,6 @@ from cached_property import cached_property
 
 from projectreport.analyzer.folder import Folder
 from projectreport.config import DEFAULT_IGNORE_PATHS
-from projectreport.license.finder import find_license_file
-from projectreport.license.model import License
-from projectreport.license.parser import license_text_to_license
 
 
 class Project(Folder):

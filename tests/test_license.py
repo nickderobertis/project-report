@@ -1,6 +1,6 @@
 from projectreport.license.finder import find_license_file
 from projectreport.license.model import LicenseType
-from projectreport.license.parser import license_text_to_license
+from projectreport.license.parsing import license_text_to_license
 from tests.config import APACHE_LICENSE_PATH, GPL_LICENSE_PATH, MIT_LICENSE_PATH
 
 

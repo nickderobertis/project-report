@@ -41,7 +41,7 @@ class MultiFileParser(FolderParser):
         for file, parser in PARSER_DOC_FILES.items():
             if file in file_names:
                 return True
-        return False
+        return super().matches_path(path, file_names)
 
     def _get_attr_from_first_parser_to_return_non_none(self, attr: str):
         for file, parser in self.file_parsers.items():

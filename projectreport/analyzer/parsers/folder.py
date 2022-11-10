@@ -8,7 +8,7 @@ from projectreport.analyzer.parsers.base import Parser
 from projectreport.analyzer.parsers.data_types import ParserDataType
 from projectreport.license.finder import find_license_file
 from projectreport.license.model import License
-from projectreport.license.parser import license_text_to_license
+from projectreport.license.parsing import license_text_to_license
 
 
 class FolderParser(Parser, abc.ABC):
@@ -30,7 +30,7 @@ class FolderParser(Parser, abc.ABC):
 
     @classmethod
     def matches_path(cls, path: str, file_names: Sequence[str]) -> bool:
-        raise NotImplementedError
+        return find_license_file(Path(path)) is not None
 
     @cached_property
     def license(self) -> Optional[License]:
