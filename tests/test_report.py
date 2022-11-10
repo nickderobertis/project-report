@@ -8,7 +8,7 @@ from tests.config import REPORTS_FOLDER
 from tests.fixtures.project import get_js_project, git_project
 from tests.fixtures.report import get_project_report
 
-GENERATE_REPORTS = True
+GENERATE_REPORTS = False
 
 
 def test_report(git_project):

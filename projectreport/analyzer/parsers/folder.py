@@ -1,11 +1,14 @@
 import abc
 from pathlib import Path
-from typing import Sequence
+from typing import Optional, Sequence
 
 from cached_property import cached_property
 
 from projectreport.analyzer.parsers.base import Parser
 from projectreport.analyzer.parsers.data_types import ParserDataType
+from projectreport.license.finder import find_license_file
+from projectreport.license.model import License
+from projectreport.license.parser import license_text_to_license
 
 
 class FolderParser(Parser, abc.ABC):
@@ -28,3 +31,11 @@ class FolderParser(Parser, abc.ABC):
     @classmethod
     def matches_path(cls, path: str, file_names: Sequence[str]) -> bool:
         raise NotImplementedError
+
+    @cached_property
+    def license(self) -> Optional[License]:
+        license_file = find_license_file(Path(self.path))
+        if license_file is None:
+            return None
+        license_text = license_file.read_text()
+        return license_text_to_license(license_text)

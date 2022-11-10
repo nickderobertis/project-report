@@ -38,11 +38,3 @@ class Project(Folder):
             return git.Repo(self.path)
         except git.InvalidGitRepositoryError:
             return None
-
-    @cached_property
-    def license(self) -> Optional[License]:
-        license_file = find_license_file(Path(self.path))
-        if license_file is None:
-            return None
-        license_text = license_file.read_text()
-        return license_text_to_license(license_text)

@@ -9,6 +9,7 @@ from projectreport.analyzer.parsers.folder import FolderParser
 from projectreport.analyzer.parsers.github import GithubParser
 from projectreport.analyzer.parsers.multi.file import MultiFileParser
 from projectreport.analyzer.parsers.url import URLParser
+from projectreport.license.model import License
 from projectreport.logger import logger
 from projectreport.parser_types import StandaloneParser
 from projectreport.version import Version
@@ -66,6 +67,10 @@ class MainMultiParser(Parser):
     @cached_property
     def topics(self) -> Optional[Sequence[str]]:
         return self._get_attr_from_first_parser_to_return_non_none("topics")
+
+    @cached_property
+    def license(self) -> Optional[License]:
+        return self._get_attr_from_first_parser_to_return_non_none("license")
 
     def _get_attr_from_first_parser_to_return_non_none(self, attr: str):
         for parser in self.parsers:

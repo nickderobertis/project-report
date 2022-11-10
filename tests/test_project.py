@@ -59,6 +59,7 @@ def test_python_dunder_version_project():
     assert project.data["version"] == "0.0.1"
     assert project.data["name"] == PYTHON_DUNDER_VERSION_PROJECT_NAME
     assert project.data["topics"] == None
+    assert project.data["license"] == "MIT"
 
     assert project.license is not None
     assert project.license.type == LicenseType.MIT
@@ -115,6 +116,7 @@ def test_python_setup_py_version_project():
         "Software Development",
         "Testing",
     ]
+    assert project.data["license"] == "GPL"
 
     assert project.license is not None
     assert project.license.type == LicenseType.GPL
@@ -175,6 +177,7 @@ def test_python_setup_cfg_version_project():
         "Testing",
         "Utilities",
     ]
+    assert project.data["license"] == "APACHE"
 
     assert project.license is not None
     assert project.license.type == LicenseType.APACHE
@@ -211,6 +214,7 @@ def test_javascript_project():
         "version": "1.0.0",
         "name": "js_example",
         "topics": ["kwd1", "kwd2"],
+        "license": None,
     }
 
     assert project.license is None

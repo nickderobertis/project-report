@@ -9,6 +9,7 @@ from github.Repository import Repository
 from projectreport.analyzer.parsers.base import Parser
 from projectreport.analyzer.parsers.data_types import ParserDataType
 from projectreport.analyzer.parsers.url import URLParser
+from projectreport.license.model import License
 from projectreport.logger import logger
 from projectreport.tools.monkey_patch_github import (
     ResourceNotFoundException,
@@ -59,6 +60,11 @@ class GithubParser(URLParser):
             version=self._get_version_str_from_repo(),
             topics=self.github_repo.get_topics(),
         )
+
+    @cached_property
+    def license(self) -> Optional[License]:
+        # TODO: Implement getting license from Github
+        return None
 
     def _get_version_str_from_repo(self) -> Optional[str]:
         try:

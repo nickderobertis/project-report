@@ -1,6 +1,7 @@
 - created: null
   docstring: An example Python package for testing purposes
   full_lines: 5
+  license: MIT
   lines: 2
   name: dunder_version
   num_commits: null
@@ -11,6 +12,7 @@
 - created: null
   docstring: An example JavaScript package
   full_lines: 1
+  license: null
   lines: 1
   name: js_example
   num_commits: null
@@ -23,6 +25,7 @@
 - created: 2020-02-01 12:00:00-04:56
   docstring: null
   full_lines: 0
+  license: null
   lines: 0
   name: gitrepo
   num_commits: 1
@@ -33,6 +36,7 @@
 - created: 2020-02-01 12:00:00-04:56
   docstring: null
   full_lines: 0
+  license: null
   lines: 0
   name: zgitrepo
   num_commits: 1
@@ -43,6 +47,7 @@
 - created: 2020-02-01 13:00:00-04:56
   docstring: null
   full_lines: 0
+  license: null
   lines: 0
   name: agitrepo
   num_commits: 1

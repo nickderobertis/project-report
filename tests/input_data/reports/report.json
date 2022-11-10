@@ -9,6 +9,7 @@
     "docstring": "An example Python package for testing purposes",
     "version": "0.0.1",
     "topics": null,
+    "license": "MIT",
     "name": "dunder_version"
   },
   {
@@ -24,6 +25,7 @@
       "kwd1",
       "kwd2"
     ],
+    "license": null,
     "name": "js_example"
   },
   {
@@ -36,6 +38,7 @@
     "docstring": null,
     "version": null,
     "topics": null,
+    "license": null,
     "name": "gitrepo"
   },
   {
@@ -48,6 +51,7 @@
     "docstring": null,
     "version": null,
     "topics": null,
+    "license": null,
     "name": "zgitrepo"
   },
   {
@@ -60,6 +64,7 @@
     "docstring": null,
     "version": null,
     "topics": null,
+    "license": null,
     "name": "agitrepo"
   }
 ]

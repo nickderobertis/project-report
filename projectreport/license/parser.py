@@ -19,9 +19,10 @@ def _license_text_to_license_type(license_text: str) -> Optional[LicenseType]:
 
     TODO: This is very much a hack that will not work with license variations
     """
-    first_line = get_first_non_empty_line_of_text(license_text).casefold()
-    if first_line is None:
+    first_line_raw = get_first_non_empty_line_of_text(license_text)
+    if first_line_raw is None:
         return None
+    first_line = first_line_raw.casefold()
 
     if "mit" in first_line:
         return LicenseType.MIT
