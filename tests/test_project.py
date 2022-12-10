@@ -32,7 +32,7 @@ from tests.fixtures.project import (
 def test_python_dunder_version_project():
     project = get_python_dunder_version_project()
 
-    assert project.file_names == ["__init__.py", "LICENSE.md"]
+    assert sorted(project.file_names) == ["LICENSE.md", "__init__.py"]
     assert project.file_paths == [
         os.path.abspath(os.path.join(PYTHON_DUNDER_VERSION_PROJECT_PATH, "__init__.py"))
     ]
