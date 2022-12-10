@@ -59,7 +59,7 @@
 </script>
   
   
-    <title>projectreport.analyzer.parsers.python package &#8212; project-report 1.0.0a11 documentation</title>
+    <title>projectreport.analyzer.parsers.python package &#8212; project-report 1.0.0a12 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -103,7 +103,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../index.html" title="project-report 1.0.0a11 documentation"
+        <a href="../index.html" title="project-report 1.0.0a12 documentation"
            class="md-header-nav__button md-logo">
           
             <i class="md-icon">&#xe869</i>
@@ -189,7 +189,7 @@
   <nav class="md-tabs" data-md-component="tabs">
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
-          <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">project-report 1.0.0a11 documentation</a></li>
+          <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">project-report 1.0.0a12 documentation</a></li>
           <li class="md-tabs__item"><a href="modules.html" class="md-tabs__link">projectreport</a></li>
           <li class="md-tabs__item"><a href="projectreport.html" class="md-tabs__link">projectreport package</a></li>
           <li class="md-tabs__item"><a href="projectreport.analyzer.html" class="md-tabs__link">projectreport.analyzer package</a></li>
@@ -205,13 +205,13 @@
               <div class="md-sidebar__inner">
                 <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="../index.html" title="project-report 1.0.0a11 documentation" class="md-nav__button md-logo">
+    <a href="../index.html" title="project-report 1.0.0a12 documentation" class="md-nav__button md-logo">
       
         <i class="md-icon">&#xe869</i>
       
     </a>
     <a href="../index.html"
-       title="project-report 1.0.0a11 documentation">project-report</a>
+       title="project-report 1.0.0a12 documentation">project-report</a>
   </label>
     <div class="md-nav__source">
       <a href="https://github.com/nickderobertis/project-report" title="Go to repository" class="md-source" data-md-source="github">
@@ -322,6 +322,8 @@
         </li>
         <li class="md-nav__item"><a href="#module-projectreport.analyzer.parsers.python.base" class="md-nav__link">projectreport.analyzer.parsers.python.base module</a>
         </li>
+        <li class="md-nav__item"><a href="#module-projectreport.analyzer.parsers.python.classifier_topics" class="md-nav__link">projectreport.analyzer.parsers.python.classifier_topics module</a>
+        </li>
         <li class="md-nav__item"><a href="#module-projectreport.analyzer.parsers.python.init" class="md-nav__link">projectreport.analyzer.parsers.python.init module</a>
         </li>
         <li class="md-nav__item"><a href="#module-projectreport.analyzer.parsers.python.setup_cfg" class="md-nav__link">projectreport.analyzer.parsers.python.setup_cfg module</a>
@@ -361,6 +363,31 @@
 <dd></dd></dl>
 </dd></dl>
 </section>
+<section id="module-projectreport.analyzer.parsers.python.classifier_topics">
+<span id="projectreport-analyzer-parsers-python-classifier-topics-module"></span><h2 id="module-projectreport.analyzer.parsers.python.classifier_topics">projectreport.analyzer.parsers.python.classifier_topics module<a class="headerlink" href="#module-projectreport.analyzer.parsers.python.classifier_topics" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="projectreport.analyzer.parsers.python.classifier_topics.get_topics_from_classifiers">
+<span class="sig-prename descclassname"><span class="pre">projectreport.analyzer.parsers.python.classifier_topics.</span></span><span class="sig-name descname"><span class="pre">get_topics_from_classifiers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classifiers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/parsers/python/classifier_topics.html#get_topics_from_classifiers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.analyzer.parsers.python.classifier_topics.get_topics_from_classifiers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses classifiers of the format Topic :: Internet :: WWW/HTTP :: WSGI :: Application
+into e.g. [“Internet”, “WWW/HTTP”, “WSGI”, “Application”]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="projectreport.analyzer.parsers.python.classifier_topics.get_topics_from_classifiers_str">
+<span class="sig-prename descclassname"><span class="pre">projectreport.analyzer.parsers.python.classifier_topics.</span></span><span class="sig-name descname"><span class="pre">get_topics_from_classifiers_str</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">classifiers</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/parsers/python/classifier_topics.html#get_topics_from_classifiers_str"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.analyzer.parsers.python.classifier_topics.get_topics_from_classifiers_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parses classifiers of the format Topic :: Internet :: WWW/HTTP :: WSGI :: Application
+into e.g. [“Internet”, “WWW/HTTP”, “WSGI”, “Application”]</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+</section>
 <section id="module-projectreport.analyzer.parsers.python.init">
 <span id="projectreport-analyzer-parsers-python-init-module"></span><h2 id="module-projectreport.analyzer.parsers.python.init">projectreport.analyzer.parsers.python.init module<a class="headerlink" href="#module-projectreport.analyzer.parsers.python.init" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
@@ -372,7 +399,7 @@
 <span class="sig-name descname"><span class="pre">docstring</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#projectreport.analyzer.parsers.python.init.PythonInitParser.docstring" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -381,7 +408,16 @@
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">matches_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/parsers/python/init.html#PythonInitParser.matches_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.analyzer.parsers.python.init.PythonInitParser.matches_path" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="projectreport.analyzer.parsers.python.init.PythonInitParser.topics">
+<span class="sig-name descname"><span class="pre">topics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#projectreport.analyzer.parsers.python.init.PythonInitParser.topics" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -390,7 +426,7 @@
 <span class="sig-name descname"><span class="pre">version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#projectreport.analyzer.parsers.python.init.PythonInitParser.version" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="projectreport.html#projectreport.version.Version" title="projectreport.version.Version"><code class="xref py py-class docutils literal notranslate"><span class="pre">Version</span></code></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="projectreport.html#projectreport.version.Version" title="projectreport.version.Version"><code class="xref py py-class docutils literal notranslate"><span class="pre">Version</span></code></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -404,14 +440,14 @@
 <dd><p>Bases: <a class="reference internal" href="projectreport.analyzer.parsers.html#projectreport.analyzer.parsers.base.Parser" title="projectreport.analyzer.parsers.base.Parser"><code class="xref py py-class docutils literal notranslate"><span class="pre">Parser</span></code></a></p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="projectreport.analyzer.parsers.python.setup_cfg.PythonSetupCfgParser.data_type">
-<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.10)"><span class="pre">ClassVar</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="projectreport.analyzer.parsers.html#projectreport.analyzer.parsers.data_types.ParserDataType" title="projectreport.analyzer.parsers.data_types.ParserDataType"><span class="pre">ParserDataType</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#projectreport.analyzer.parsers.python.setup_cfg.PythonSetupCfgParser.data_type" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">data_type</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.ClassVar" title="(in Python v3.11)"><span class="pre">ClassVar</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="projectreport.analyzer.parsers.html#projectreport.analyzer.parsers.data_types.ParserDataType" title="projectreport.analyzer.parsers.data_types.ParserDataType"><span class="pre">ParserDataType</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#projectreport.analyzer.parsers.python.setup_cfg.PythonSetupCfgParser.data_type" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="projectreport.analyzer.parsers.python.setup_cfg.PythonSetupCfgParser.docstring">
 <span class="sig-name descname"><span class="pre">docstring</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#projectreport.analyzer.parsers.python.setup_cfg.PythonSetupCfgParser.docstring" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -420,7 +456,7 @@
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">matches_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/parsers/python/setup_cfg.html#PythonSetupCfgParser.matches_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.analyzer.parsers.python.setup_cfg.PythonSetupCfgParser.matches_path" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -429,7 +465,16 @@
 <span class="sig-name descname"><span class="pre">parsed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#projectreport.analyzer.parsers.python.setup_cfg.PythonSetupCfgParser.parsed" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/configparser.html#configparser.ConfigParser" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConfigParser</span></code></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/configparser.html#configparser.ConfigParser" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConfigParser</span></code></a>]</p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="projectreport.analyzer.parsers.python.setup_cfg.PythonSetupCfgParser.topics">
+<span class="sig-name descname"><span class="pre">topics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#projectreport.analyzer.parsers.python.setup_cfg.PythonSetupCfgParser.topics" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -438,7 +483,7 @@
 <span class="sig-name descname"><span class="pre">version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#projectreport.analyzer.parsers.python.setup_cfg.PythonSetupCfgParser.version" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="projectreport.html#projectreport.version.Version" title="projectreport.version.Version"><code class="xref py py-class docutils literal notranslate"><span class="pre">Version</span></code></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="projectreport.html#projectreport.version.Version" title="projectreport.version.Version"><code class="xref py py-class docutils literal notranslate"><span class="pre">Version</span></code></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -455,7 +500,7 @@
 <span class="sig-name descname"><span class="pre">docstring</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#projectreport.analyzer.parsers.python.setup_py.PythonSetupPyParser.docstring" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -464,7 +509,16 @@
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">matches_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/analyzer/parsers/python/setup_py.html#PythonSetupPyParser.matches_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.analyzer.parsers.python.setup_py.PythonSetupPyParser.matches_path" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="projectreport.analyzer.parsers.python.setup_py.PythonSetupPyParser.topics">
+<span class="sig-name descname"><span class="pre">topics</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#projectreport.analyzer.parsers.python.setup_py.PythonSetupPyParser.topics" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -473,7 +527,7 @@
 <span class="sig-name descname"><span class="pre">version</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#projectreport.analyzer.parsers.python.setup_py.PythonSetupPyParser.version" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="projectreport.html#projectreport.version.Version" title="projectreport.version.Version"><code class="xref py py-class docutils literal notranslate"><span class="pre">Version</span></code></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="projectreport.html#projectreport.version.Version" title="projectreport.version.Version"><code class="xref py py-class docutils literal notranslate"><span class="pre">Version</span></code></a>]</p>
 </dd>
 </dl>
 </dd></dl>

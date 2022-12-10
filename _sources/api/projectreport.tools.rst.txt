@@ -25,3 +25,11 @@ projectreport.tools.monkey\_patch\_github module
    :undoc-members:
    :show-inheritance:
 
+projectreport.tools.text module
+-------------------------------
+
+.. automodule:: projectreport.tools.text
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

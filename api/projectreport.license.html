@@ -59,7 +59,7 @@
 </script>
   
   
-    <title>projectreport.tools package &#8212; project-report 1.0.0a12 documentation</title>
+    <title>projectreport.license package &#8212; project-report 1.0.0a12 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
@@ -75,10 +75,11 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <link rel="canonical" href="https://nickderobertis.github.io/project-report/api/projectreport.tools.html" />
+    <link rel="canonical" href="https://nickderobertis.github.io/project-report/api/projectreport.license.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="projectreport.searcher package" href="projectreport.searcher.html" />
+    <link rel="next" title="projectreport.report package" href="projectreport.report.html" />
+    <link rel="prev" title="projectreport.finder package" href="projectreport.finder.html" />
   
    
 
@@ -97,7 +98,7 @@
   <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer">
   <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search">
   <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
-  <a href="#api/projectreport.tools" tabindex="1" class="md-skip"> Skip to content </a>
+  <a href="#api/projectreport.license" tabindex="1" class="md-skip"> Skip to content </a>
   <header class="md-header" data-md-component="header">
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
@@ -115,7 +116,7 @@
       <div class="md-flex__cell md-flex__cell--stretch">
         <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
           <span class="md-header-nav__topic">project-report</span>
-          <span class="md-header-nav__topic"> projectreport.tools package </span>
+          <span class="md-header-nav__topic"> projectreport.license package </span>
         </div>
       </div>
       <div class="md-flex__cell md-flex__cell--shrink">
@@ -313,20 +314,20 @@
 <nav class="md-nav md-nav--secondary">
     <label class="md-nav__title" for="__toc">Contents</label>
   <ul class="md-nav__list" data-md-scrollfix="">
-        <li class="md-nav__item"><a href="#api-projectreport-tools--page-root" class="md-nav__link">projectreport.tools package</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#api-projectreport-license--page-root" class="md-nav__link">projectreport.license package</a><nav class="md-nav">
               <ul class="md-nav__list">
         <li class="md-nav__item"><a href="#submodules" class="md-nav__link">Submodules</a>
         </li>
-        <li class="md-nav__item"><a href="#module-projectreport.tools.expand_glob" class="md-nav__link">projectreport.tools.expand_glob module</a>
+        <li class="md-nav__item"><a href="#module-projectreport.license.finder" class="md-nav__link">projectreport.license.finder module</a>
         </li>
-        <li class="md-nav__item"><a href="#module-projectreport.tools.monkey_patch_github" class="md-nav__link">projectreport.tools.monkey_patch_github module</a>
+        <li class="md-nav__item"><a href="#module-projectreport.license.model" class="md-nav__link">projectreport.license.model module</a>
         </li>
-        <li class="md-nav__item"><a href="#module-projectreport.tools.text" class="md-nav__link">projectreport.tools.text module</a>
+        <li class="md-nav__item"><a href="#module-projectreport.license.parsing" class="md-nav__link">projectreport.license.parsing module</a>
         </li></ul>
             </nav>
         </li>
     
-<li class="md-nav__item"><a class="md-nav__extra_link" href="../_sources/api/projectreport.tools.rst.txt">Show Source</a> </li>
+<li class="md-nav__item"><a class="md-nav__extra_link" href="../_sources/api/projectreport.license.rst.txt">Show Source</a> </li>
 
 <li id="searchbox" class="md-nav__item"></li>
 
@@ -339,48 +340,85 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  <section id="module-projectreport.tools">
-<span id="projectreport-tools-package"></span><h1 id="api-projectreport-tools--page-root">projectreport.tools package<a class="headerlink" href="#api-projectreport-tools--page-root" title="Permalink to this heading">¶</a></h1>
+  <section id="module-projectreport.license">
+<span id="projectreport-license-package"></span><h1 id="api-projectreport-license--page-root">projectreport.license package<a class="headerlink" href="#api-projectreport-license--page-root" title="Permalink to this heading">¶</a></h1>
 <section id="submodules">
 <h2 id="submodules">Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
 </section>
-<section id="module-projectreport.tools.expand_glob">
-<span id="projectreport-tools-expand-glob-module"></span><h2 id="module-projectreport.tools.expand_glob">projectreport.tools.expand_glob module<a class="headerlink" href="#module-projectreport.tools.expand_glob" title="Permalink to this heading">¶</a></h2>
+<section id="module-projectreport.license.finder">
+<span id="projectreport-license-finder-module"></span><h2 id="module-projectreport.license.finder">projectreport.license.finder module<a class="headerlink" href="#module-projectreport.license.finder" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="projectreport.tools.expand_glob.all_possible_paths">
-<span class="sig-prename descclassname"><span class="pre">projectreport.tools.expand_glob.</span></span><span class="sig-name descname"><span class="pre">all_possible_paths</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">paths</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">base_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/tools/expand_glob.html#all_possible_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.tools.expand_glob.all_possible_paths" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+<dt class="sig sig-object py" id="projectreport.license.finder.find_license_file">
+<span class="sig-prename descclassname"><span class="pre">projectreport.license.finder.</span></span><span class="sig-name descname"><span class="pre">find_license_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/license/finder.html#find_license_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.license.finder.find_license_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find a license file in a folder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="target" id="projectreport.license.finder.find_license_file.params.folder"></span><strong>folder</strong><a class="paramlink headerlink reference internal" href="#projectreport.license.finder.find_license_file.params.folder">¶</a> (<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a>) – The folder to search in.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code></a>]</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The path to the license file, or None if no license file was found.</p>
 </dd>
 </dl>
 </dd></dl>
 </section>
-<section id="module-projectreport.tools.monkey_patch_github">
-<span id="projectreport-tools-monkey-patch-github-module"></span><h2 id="module-projectreport.tools.monkey_patch_github">projectreport.tools.monkey_patch_github module<a class="headerlink" href="#module-projectreport.tools.monkey_patch_github" title="Permalink to this heading">¶</a></h2>
-<dl class="py exception">
-<dt class="sig sig-object py" id="projectreport.tools.monkey_patch_github.NoMorePagesAllowedException">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">projectreport.tools.monkey_patch_github.</span></span><span class="sig-name descname"><span class="pre">NoMorePagesAllowedException</span></span><a class="reference internal" href="../_modules/projectreport/tools/monkey_patch_github.html#NoMorePagesAllowedException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.tools.monkey_patch_github.NoMorePagesAllowedException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
-</dd></dl>
-<dl class="py exception">
-<dt class="sig sig-object py" id="projectreport.tools.monkey_patch_github.ResourceNotFoundException">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">projectreport.tools.monkey_patch_github.</span></span><span class="sig-name descname"><span class="pre">ResourceNotFoundException</span></span><a class="reference internal" href="../_modules/projectreport/tools/monkey_patch_github.html#ResourceNotFoundException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.tools.monkey_patch_github.ResourceNotFoundException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
-</dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="projectreport.tools.monkey_patch_github.monkey_patch_github_obj_for_throttling">
-<span class="sig-prename descclassname"><span class="pre">projectreport.tools.monkey_patch_github.</span></span><span class="sig-name descname"><span class="pre">monkey_patch_github_obj_for_throttling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gh_obj</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/tools/monkey_patch_github.html#monkey_patch_github_obj_for_throttling"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.tools.monkey_patch_github.monkey_patch_github_obj_for_throttling" title="Permalink to this definition">¶</a></dt>
+<section id="module-projectreport.license.model">
+<span id="projectreport-license-model-module"></span><h2 id="module-projectreport.license.model">projectreport.license.model module<a class="headerlink" href="#module-projectreport.license.model" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="projectreport.license.model.License">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">projectreport.license.model.</span></span><span class="sig-name descname"><span class="pre">License</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">license_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/license/model.html#License"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.license.model.License" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="projectreport.license.model.License.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">license_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/license/model.html#License.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.license.model.License.__init__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+</dd></dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="projectreport.license.model.LicenseType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">projectreport.license.model.</span></span><span class="sig-name descname"><span class="pre">LicenseType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/license/model.html#LicenseType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.license.model.LicenseType" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></a></p>
+<p>An enumeration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="projectreport.license.model.LicenseType.AGPL">
+<span class="sig-name descname"><span class="pre">AGPL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'AGPL'</span></em><a class="headerlink" href="#projectreport.license.model.LicenseType.AGPL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="projectreport.license.model.LicenseType.APACHE">
+<span class="sig-name descname"><span class="pre">APACHE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'APACHE'</span></em><a class="headerlink" href="#projectreport.license.model.LicenseType.APACHE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="projectreport.license.model.LicenseType.BSD">
+<span class="sig-name descname"><span class="pre">BSD</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'BSD'</span></em><a class="headerlink" href="#projectreport.license.model.LicenseType.BSD" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="projectreport.license.model.LicenseType.GPL">
+<span class="sig-name descname"><span class="pre">GPL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'GPL'</span></em><a class="headerlink" href="#projectreport.license.model.LicenseType.GPL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="projectreport.license.model.LicenseType.LGPL">
+<span class="sig-name descname"><span class="pre">LGPL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'LGPL'</span></em><a class="headerlink" href="#projectreport.license.model.LicenseType.LGPL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="projectreport.license.model.LicenseType.MIT">
+<span class="sig-name descname"><span class="pre">MIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MIT'</span></em><a class="headerlink" href="#projectreport.license.model.LicenseType.MIT" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="projectreport.license.model.LicenseType.MPL">
+<span class="sig-name descname"><span class="pre">MPL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MPL'</span></em><a class="headerlink" href="#projectreport.license.model.LicenseType.MPL" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+</dd></dl>
 </section>
-<section id="module-projectreport.tools.text">
-<span id="projectreport-tools-text-module"></span><h2 id="module-projectreport.tools.text">projectreport.tools.text module<a class="headerlink" href="#module-projectreport.tools.text" title="Permalink to this heading">¶</a></h2>
+<section id="module-projectreport.license.parsing">
+<span id="projectreport-license-parsing-module"></span><h2 id="module-projectreport.license.parsing">projectreport.license.parsing module<a class="headerlink" href="#module-projectreport.license.parsing" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="projectreport.tools.text.get_first_non_empty_line_of_text">
-<span class="sig-prename descclassname"><span class="pre">projectreport.tools.text.</span></span><span class="sig-name descname"><span class="pre">get_first_non_empty_line_of_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/tools/text.html#get_first_non_empty_line_of_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.tools.text.get_first_non_empty_line_of_text" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="projectreport.license.parsing.license_text_to_license">
+<span class="sig-prename descclassname"><span class="pre">projectreport.license.parsing.</span></span><span class="sig-name descname"><span class="pre">license_text_to_license</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">license_text</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/projectreport/license/parsing.html#license_text_to_license"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#projectreport.license.parsing.license_text_to_license" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a license text to a License object.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference internal" href="#projectreport.license.model.License" title="projectreport.license.model.License"><code class="xref py py-class docutils literal notranslate"><span class="pre">License</span></code></a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -397,7 +435,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
           
-            <a href="projectreport.searcher.html" title="projectreport.searcher package"
+            <a href="projectreport.finder.html" title="projectreport.finder package"
                class="md-flex md-footer-nav__link md-footer-nav__link--prev"
                rel="prev">
               <div class="md-flex__cell md-flex__cell--shrink">
@@ -406,10 +444,21 @@
               <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
                 <span class="md-flex__ellipsis">
                   <span
-                      class="md-footer-nav__direction"> Previous </span> projectreport.searcher package </span>
+                      class="md-footer-nav__direction"> Previous </span> projectreport.finder package </span>
               </div>
             </a>
           
+          
+            <a href="projectreport.report.html" title="projectreport.report package"
+               class="md-flex md-footer-nav__link md-footer-nav__link--next"
+               rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title"><span
+                class="md-flex__ellipsis"> <span
+                class="md-footer-nav__direction"> Next </span> projectreport.report package </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink"><i
+                class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
           
         </a>
         

@@ -58,7 +58,7 @@
 </script>
   
   
-    <title>projectreport.analyzer.parsers.python.setup_cfg &#8212; project-report 1.0.0a11 documentation</title>
+    <title>projectreport.analyzer.parsers.python.setup_cfg &#8212; project-report 1.0.0a12 documentation</title>
     <link rel="stylesheet" type="text/css" href="../../../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/material.css" />
     <link rel="stylesheet" type="text/css" href="../../../../../_static/copybutton.css" />
@@ -100,7 +100,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../../../../../index.html" title="project-report 1.0.0a11 documentation"
+        <a href="../../../../../index.html" title="project-report 1.0.0a12 documentation"
            class="md-header-nav__button md-logo">
           
             <i class="md-icon">&#xe869</i>
@@ -186,7 +186,7 @@
   <nav class="md-tabs" data-md-component="tabs">
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
-          <li class="md-tabs__item"><a href="../../../../../index.html" class="md-tabs__link">project-report 1.0.0a11 documentation</a></li>
+          <li class="md-tabs__item"><a href="../../../../../index.html" class="md-tabs__link">project-report 1.0.0a12 documentation</a></li>
           <li class="md-tabs__item"><a href="../../../../index.html" class="md-tabs__link">Module code</a></li>
       </ul>
     </div>
@@ -199,13 +199,13 @@
               <div class="md-sidebar__inner">
                 <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="../../../../../index.html" title="project-report 1.0.0a11 documentation" class="md-nav__button md-logo">
+    <a href="../../../../../index.html" title="project-report 1.0.0a12 documentation" class="md-nav__button md-logo">
       
         <i class="md-icon">&#xe869</i>
       
     </a>
     <a href="../../../../../index.html"
-       title="project-report 1.0.0a11 documentation">project-report</a>
+       title="project-report 1.0.0a12 documentation">project-report</a>
   </label>
     <div class="md-nav__source">
       <a href="https://github.com/nickderobertis/project-report" title="Go to repository" class="md-source" data-md-source="github">
@@ -271,12 +271,16 @@
 <span class="kn">import</span> <span class="nn">configparser</span>
 <span class="kn">from</span> <span class="nn">configparser</span> <span class="kn">import</span> <span class="n">ConfigParser</span><span class="p">,</span> <span class="n">ParsingError</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">cached_property</span> <span class="kn">import</span> <span class="n">cached_property</span>
 
 <span class="kn">from</span> <span class="nn">projectreport.analyzer.parsers.base</span> <span class="kn">import</span> <span class="n">Parser</span>
 <span class="kn">from</span> <span class="nn">projectreport.analyzer.parsers.python.base</span> <span class="kn">import</span> <span class="n">PythonParser</span>
+<span class="kn">from</span> <span class="nn">projectreport.analyzer.parsers.python.classifier_topics</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">get_topics_from_classifiers</span><span class="p">,</span>
+    <span class="n">get_topics_from_classifiers_str</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">projectreport.version</span> <span class="kn">import</span> <span class="n">Version</span>
 
 <span class="c1"># NOTE: This does not use the PythonParser as a base class because this is not a Python file</span>
@@ -313,17 +317,26 @@
             <span class="k">return</span> <span class="kc">None</span>
         <span class="k">return</span> <span class="n">Version</span><span class="o">.</span><span class="n">from_str</span><span class="p">(</span><span class="n">version_str</span><span class="p">)</span>
 
+    <span class="nd">@cached_property</span>
+    <span class="k">def</span> <span class="nf">topics</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parsed</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+
+        <span class="n">classifiers</span> <span class="o">=</span> <span class="n">_get_from_config</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parsed</span><span class="p">,</span> <span class="s2">"metadata"</span><span class="p">,</span> <span class="s2">"classifiers"</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">classifiers</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="n">topics</span> <span class="o">=</span> <span class="n">get_topics_from_classifiers_str</span><span class="p">(</span><span class="n">classifiers</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">topics</span>
+
 <div class="viewcode-block" id="PythonSetupCfgParser.matches_path"><a class="viewcode-back" href="../../../../../api/projectreport.analyzer.parsers.python.html#projectreport.analyzer.parsers.python.setup_cfg.PythonSetupCfgParser.matches_path">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">matches_path</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">"setup.cfg"</span></div></div>
 
 
-<span class="k">def</span> <span class="nf">_get_string_from_config</span><span class="p">(</span>
-    <span class="n">config</span><span class="p">:</span> <span class="n">ConfigParser</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">option</span><span class="p">:</span> <span class="nb">str</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">_get_from_config</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="n">ConfigParser</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">option</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
     <span class="c1"># Try to get the value from the config</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">str_with_quotes</span> <span class="o">=</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">)</span>
     <span class="k">except</span> <span class="p">(</span>
         <span class="ne">KeyError</span><span class="p">,</span>
         <span class="ne">AttributeError</span><span class="p">,</span>
@@ -331,14 +344,23 @@
         <span class="n">configparser</span><span class="o">.</span><span class="n">NoSectionError</span><span class="p">,</span>
     <span class="p">):</span>
         <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="k">def</span> <span class="nf">_get_string_from_config</span><span class="p">(</span>
+    <span class="n">config</span><span class="p">:</span> <span class="n">ConfigParser</span><span class="p">,</span> <span class="n">section</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">option</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="c1"># Try to get the value from the config</span>
+    <span class="n">str_with_quotes</span> <span class="o">=</span> <span class="n">_get_from_config</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">section</span><span class="p">,</span> <span class="n">option</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">str_with_quotes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+    <span class="c1"># Remove the quotes from the string, but only if they exist</span>
+    <span class="k">if</span> <span class="n">str_with_quotes</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'"'</span><span class="p">)</span> <span class="ow">and</span> <span class="n">str_with_quotes</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'"'</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">str_with_quotes</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">str_with_quotes</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"'"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">str_with_quotes</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"'"</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">str_with_quotes</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># Remove the quotes from the string, but only if they exist</span>
-        <span class="k">if</span> <span class="n">str_with_quotes</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">'"'</span><span class="p">)</span> <span class="ow">and</span> <span class="n">str_with_quotes</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'"'</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">str_with_quotes</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="n">str_with_quotes</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"'"</span><span class="p">)</span> <span class="ow">and</span> <span class="n">str_with_quotes</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"'"</span><span class="p">):</span>
-            <span class="k">return</span> <span class="n">str_with_quotes</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">str_with_quotes</span>
+        <span class="k">return</span> <span class="n">str_with_quotes</span>
 </pre></div>
 
           </article>

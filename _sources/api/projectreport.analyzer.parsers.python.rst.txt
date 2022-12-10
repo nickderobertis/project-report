@@ -17,6 +17,14 @@ projectreport.analyzer.parsers.python.base module
    :undoc-members:
    :show-inheritance:
 
+projectreport.analyzer.parsers.python.classifier\_topics module
+---------------------------------------------------------------
+
+.. automodule:: projectreport.analyzer.parsers.python.classifier_topics
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 projectreport.analyzer.parsers.python.init module
 -------------------------------------------------
 

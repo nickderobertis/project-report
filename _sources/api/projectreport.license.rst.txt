@@ -1,0 +1,35 @@
+projectreport.license package
+=============================
+
+.. automodule:: projectreport.license
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+projectreport.license.finder module
+-----------------------------------
+
+.. automodule:: projectreport.license.finder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.license.model module
+----------------------------------
+
+.. automodule:: projectreport.license.model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+projectreport.license.parsing module
+------------------------------------
+
+.. automodule:: projectreport.license.parsing
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
