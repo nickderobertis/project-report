@@ -27,6 +27,7 @@ from tests.fixtures.project import (
     github_project,
     github_project_folder,
 )
+from tests.github_stub import patch_github
 
 
 def test_python_dunder_version_project():
@@ -237,14 +238,15 @@ def test_git_project(git_project: Project):
     assert (data["updated"] - datetime.datetime.now(pytz.utc)).total_seconds() < 180
 
 
+@patch_github()
 def test_github_project(github_project: Project):
     project = github_project
 
     assert isinstance(project.repo, Repo)
     assert project.name == "github-project-example"
-    assert project.docstring == "Example Github Project for project-report tests"
+    assert project.docstring == "Github repo stub description"
     assert project.version == Version.from_str("1.0.0")
-    assert project.topics == ["sample-topic1", "sample-topic2"]
+    assert project.topics == ["stub-topic1", "stub-topic2"]
     assert not project.repo is None
     assert not project.is_empty
     assert project.folders == []
@@ -255,4 +257,4 @@ def test_github_project(github_project: Project):
     assert analysis.lines["string"] == 0
     data = project.data
     assert data["urls"] == ["https://github.com/nickderobertis/github-project-example"]
-    assert data["topics"] == ["sample-topic1", "sample-topic2"]
+    assert data["topics"] == ["stub-topic1", "stub-topic2"]

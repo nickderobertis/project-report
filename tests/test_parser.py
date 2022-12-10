@@ -16,6 +16,7 @@ from tests.config import (
     PYTHON_SETUP_PY_VERSION_PROJECT_PATH,
 )
 from tests.fixtures.temp_dir import temp_folder
+from tests.github_stub import patch_github
 
 
 def test_init_py_parser():
@@ -71,13 +72,14 @@ def test_package_json_parser():
     assert parser.topics == ["kwd1", "kwd2"]
 
 
+@patch_github()
 def test_github_parser():
     url = GITHUB_REPO_URL
     assert GithubParser.matches_path(url)
     parser = GithubParser(url)
-    assert parser.docstring == "Example Github Project for project-report tests"
+    assert parser.docstring == "Github repo stub description"
     assert parser.version == Version.from_str("1.0.0")
-    assert parser.topics == ["sample-topic1", "sample-topic2"]
+    assert parser.topics == ["stub-topic1", "stub-topic2"]
 
 
 def test_multi_file_parser():
@@ -121,11 +123,13 @@ def test_main_multi_parser_on_folder():
     ]
 
 
+@patch_github()
 def test_main_multi_parser_on_urls(temp_folder: Path):
     input_folder = str(temp_folder)
     input_files = []
     urls = [GITHUB_REPO_URL]
     assert MainMultiParser.matches_path(input_folder, input_files, urls)
     parser = MainMultiParser(input_folder, input_files, urls)
-    assert parser.docstring == "Example Github Project for project-report tests"
+    assert parser.docstring == "Github repo stub description"
     assert parser.version == Version.from_str("1.0.0")
+    assert parser.topics == ["stub-topic1", "stub-topic2"]
